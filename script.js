@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentSteps = document.querySelectorAll('.content-step');
   const contentScroller = document.getElementById('content-scroller');
   const tabButtons = document.querySelectorAll('.tab-btn');
+  const boardOverlay = document.getElementById('board-overlay');
 
   // Initialize Tab clicks
   tabButtons.forEach(btn => {
@@ -182,6 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLevelKey = levelKey;
     moveIndex = 0;
     selectedSquare = null;
+    
+    // Hide startup overlay
+    if (boardOverlay) {
+      boardOverlay.classList.add('hidden');
+    }
     
     // UI states
     levelButtons.forEach(btn => {

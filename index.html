@@ -181,31 +181,42 @@
         <div class="chessboard-container-centered">
           <div class="chessboard-border">
             <div class="chess-board" id="chess-board"></div>
+            <div class="board-overlay" id="board-overlay">
+              <div class="overlay-card">
+                <h3>Select a Level</h3>
+                <p>Choose difficulty below to unlock the board</p>
+              </div>
+            </div>
           </div>
         </div>
         
         <!-- Horizontal Control Panel (Bottom) -->
         <div class="chess-control-panel">
           
-          <!-- Game State / Thinking Indicator -->
-          <div class="control-status" id="game-status-badge">
-            <span class="status-pulse-light"></span>
-            <span id="status-text">Choose Level</span>
-          </div>
-
-          <!-- Tactics Difficulty Selection (Horizontal pills) -->
-          <div class="control-levels">
-            <button class="level-pill-horizontal" data-level="easy">Easy</button>
-            <button class="level-pill-horizontal" data-level="medium">Medium</button>
-            <button class="level-pill-horizontal" data-level="goated">Goated</button>
-          </div>
-
-          <!-- Reset / Info Actions -->
-          <div class="control-actions">
-            <div class="level-badge" id="active-level-indicator">
-              Lvl: <span>None</span>
+          <!-- Row 1: Segmented Levels Selector -->
+          <div class="panel-row-1">
+            <div class="control-levels">
+              <button class="level-pill-horizontal" data-level="easy">Easy</button>
+              <button class="level-pill-horizontal" data-level="medium">Medium</button>
+              <button class="level-pill-horizontal" data-level="goated">Goated</button>
             </div>
-            <button class="reset-action-btn" id="reset-game-btn" disabled>Reset</button>
+          </div>
+
+          <!-- Row 2: Status & Actions -->
+          <div class="panel-row-2">
+            <!-- Game State / Thinking Indicator -->
+            <div class="control-status" id="game-status-badge">
+              <span class="status-pulse-light"></span>
+              <span id="status-text">Choose Level</span>
+            </div>
+
+            <!-- Reset / Info Actions -->
+            <div class="control-actions">
+              <div class="level-badge" id="active-level-indicator">
+                Lvl: <span>None</span>
+              </div>
+              <button class="reset-action-btn" id="reset-game-btn" disabled>Reset</button>
+            </div>
           </div>
 
         </div>
