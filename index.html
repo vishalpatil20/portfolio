@@ -33,6 +33,24 @@
     </div>
   </div>
 
+  <!-- Victory Modal with Chess.com link -->
+  <div class="entry-modal-overlay hidden" id="victory-modal">
+    <div class="entry-modal-card">
+      <div class="modal-badge victory">VICTORY</div>
+      <h2>MATCH SECURED</h2>
+      <p>OUTSTANDING TACTICAL PLAY! YOU HAVE CHECKMATED THE ENGINE AND UNLOCKED THE PORTFOLIO.</p>
+      <p style="margin-top: -10px; margin-bottom: 20px; font-size: 0.72rem; color: var(--ash-brown);">IF YOU LOVED THIS EXPERIENCE, SEND ME A CHALLENGE TO A LIVE GAME ON CHESS.COM!</p>
+      <div class="modal-actions" style="flex-direction: column; gap: 8px;">
+        <a href="https://www.chess.com/member/vishalpatil20" target="_blank" class="btn-modal btn-play" style="text-decoration: none; display: block; line-height: 20px; width: 100%; text-align: center;">
+          CHESS.COM CHALLENGE
+        </a>
+        <button class="btn-modal btn-direct" id="btn-victory-close" style="width: 100%;">
+          EXPLORE PORTFOLIO
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="dashboard-wrapper">
     
     <!-- LEFT CONTAINER: Portfolio Card -->
@@ -186,9 +204,8 @@
           <!-- Row 1: Segmented Levels Selector -->
           <div class="panel-row-1">
             <div class="control-levels">
-              <button class="level-pill-horizontal" data-level="easy">Easy</button>
-              <button class="level-pill-horizontal" data-level="medium">Medium</button>
-              <button class="level-pill-horizontal" data-level="goated">Goated</button>
+              <button class="level-pill-horizontal" data-level="easy">Go Easy</button>
+              <button class="level-pill-horizontal" data-level="difficult">Difficult</button>
             </div>
           </div>
 

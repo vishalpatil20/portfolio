@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Puzzle Positions Data
   const PUZZLES = {
     easy: {
-      name: "Easy",
+      name: "Go Easy",
       description: "Scholar's Mate Combination",
       userColor: "white",
       setup: [
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           userMove: { from: "d1", to: "h5" },
           aiResponse: { from: "a7", to: "a6" },
-          text: "Queen moves to h5, threatening the weak f7 pawn.",
+          text: "Queen moves to h5, developing with threats on f7.",
           stepUnlock: 2
         },
         {
@@ -48,47 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       ]
     },
-    medium: {
-      name: "Medium",
-      description: "Philidor's Legacy (Smothered Mate)",
-      userColor: "white",
-      setup: [
-        // White pieces
-        { sq: "h1", type: "k", color: "white" },
-        { sq: "c4", type: "q", color: "white" },
-        { sq: "g5", type: "n", color: "white" },
-        { sq: "f2", type: "p", color: "white" },
-        { sq: "g2", type: "p", color: "white" },
-        { sq: "h2", type: "p", color: "white" },
-        // Black pieces
-        { sq: "h8", type: "k", color: "black" },
-        { sq: "f8", type: "r", color: "black" },
-        { sq: "g7", type: "p", color: "black" },
-        { sq: "h7", type: "p", color: "black" }
-      ],
-      moves: [
-        {
-          userMove: { from: "g5", to: "f7" },
-          aiResponse: { from: "h8", to: "g8" },
-          text: "Double check forcing the King into the corner.",
-          stepUnlock: 2
-        },
-        {
-          userMove: { from: "c4", to: "g8" },
-          aiResponse: { from: "f8", to: "g8" },
-          text: "Brilliant Queen sacrifice on g8! Rook is forced to capture.",
-          stepUnlock: 3
-        },
-        {
-          userMove: { from: "f7", to: "h6" },
-          aiResponse: null, // Checkmate!
-          text: "Smothered Checkmate! The King is trapped by its own Rook.",
-          stepUnlock: 4
-        }
-      ]
-    },
-    goated: {
-      name: "Goated",
+    difficult: {
+      name: "Difficult",
       description: "Paul Morphy's Opera House 4-Move Masterpiece",
       userColor: "white",
       setup: [
@@ -172,6 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnModePlay = document.getElementById('btn-mode-play');
   const btnModeDirect = document.getElementById('btn-mode-direct');
 
+  // Victory Modal DOM
+  const victoryModal = document.getElementById('victory-modal');
+  const btnVictoryClose = document.getElementById('btn-victory-close');
+
   // Match Tracker DOM
   const progressVal = document.getElementById('progress-val');
   const progressFill = document.getElementById('progress-fill');
@@ -182,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnModePlay.addEventListener('click', () => {
       entryModal.classList.add('hidden');
       isDirectAccessMode = false;
-      startLevel('goated');
+      startLevel('difficult');
     });
   }
 
@@ -192,8 +157,15 @@ document.addEventListener('DOMContentLoaded', () => {
       isDirectAccessMode = true;
       unlockTabsUpTo(4);
       switchTabTo(1);
-      startLevel('goated');
+      startLevel('difficult');
       if (boardOverlay) boardOverlay.classList.add('hidden');
+    });
+  }
+
+  // Handle Victory Modal Selection
+  if (btnVictoryClose) {
+    btnVictoryClose.addEventListener('click', () => {
+      victoryModal.classList.add('hidden');
     });
   }
 
@@ -443,8 +415,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update commentary
     if (commentaryText) commentaryText.textContent = currentMove.text;
 
-    // Goated Move 2 Special Exchange: Slide White second Rook to d1
-    if (currentLevelKey === 'goated' && moveIndex === 1) {
+    // Difficult (Morphy) Move 2 Special Exchange: Slide White second Rook to d1
+    if (currentLevelKey === 'difficult' && moveIndex === 1) {
       boardState['d1'] = { type: 'r', color: 'white' };
       delete boardState['h1'];
     }
@@ -478,6 +450,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDirectAccessMode) {
         unlockTabsUpTo(currentMove.stepUnlock);
         switchTabTo(currentMove.stepUnlock);
+      }
+      // Show victory modal overlay
+      if (victoryModal) {
+        victoryModal.classList.remove('hidden');
       }
     }
   }
