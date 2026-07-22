@@ -159,12 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM Elements
   const chessBoardEl = document.getElementById('chess-board');
-  const levelButtons = document.querySelectorAll('.btn-level-compact');
+  const levelButtons = document.querySelectorAll('.level-pill');
   const activeLevelSpan = document.querySelector('#active-level-indicator span');
   const resetBtn = document.getElementById('reset-game-btn');
   const statusText = document.getElementById('status-text');
   const statusBadge = document.getElementById('game-status-badge');
-  const statusDot = statusBadge.querySelector('.pulse-dot');
+  const statusDot = statusBadge.querySelector('.status-pulse-light');
   const contentSteps = document.querySelectorAll('.content-step');
   const contentScroller = document.getElementById('content-scroller');
 
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update Game Status Badge and Dot indicator
   function updateStatusText(text, statusType) {
     statusText.textContent = text;
-    statusDot.className = 'pulse-dot';
+    statusDot.className = 'status-pulse-light';
     if (statusType) {
       statusDot.classList.add(statusType);
     }
