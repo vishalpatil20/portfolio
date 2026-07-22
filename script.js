@@ -1,15 +1,7 @@
 // Interactive Split-Screen Chess Portfolio Engine
 
 document.addEventListener('DOMContentLoaded', () => {
-  // SVG Minimalist Chess Pieces Data
-  const PIECE_SVGS = {
-    p: `<svg viewBox="0 0 45 45"><path d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03-.83.33-1.41 1.15-1.41 2.12 0 1.24 1.01 2.25 2.25 2.25h6.5c1.24 0 2.25-1.01 2.25-2.25 0-.97-.58-1.79-1.41-2.12C28.06 24.84 29 23.03 29 21c0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z" stroke-linecap="round"/></svg>`,
-    n: `<svg viewBox="0 0 45 45"><path d="M 22,10 C 22,10 19,11 16,15 C 13,19 13,23 13,23 C 13,23 14,20 18,20 C 18,20 17,21 15,24 C 13,27 13,30 13,30 C 13,30 14,27 18,26 C 21,25 25,24 27,27 C 29,30 31,31 31,31 C 31,31 31,25 30,22 C 29,19 27,16 27,16 C 27,16 28,12 24,10 C 20,8 22,10 22,10 z" stroke-linecap="round"/><path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z" transform="matrix(0.861785,0.507278,-0.507278,0.861785,27.27,1.48)"/></svg>`,
-    b: `<svg viewBox="0 0 45 45"><path d="M9 36h27l-3.5-3.5h-20L9 36zM22.5 9c-3.5 0-5.5 3.5-5.5 8 0 1.8.5 4 1.5 6l-2.5 5.5h13l-2.5-5.5c1-2 1.5-4.2 1.5-6 0-4.5-2-8-5.5-8z" stroke-linecap="round"/><circle cx="22.5" cy="5" r="2"/></svg>`,
-    r: `<svg viewBox="0 0 45 45"><path d="M9 39h27v-3H9v3zm3-13h21v-4H12v4zm2.5-4l1.5-12h14l1.5 12h-17z" stroke-linecap="round"/><path d="M12 9v4h3v-4h4v4h5v-4h4v4h3v-4h3V5H9v4h3z"/></svg>`,
-    q: `<svg viewBox="0 0 45 45"><path d="M8 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm34 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM22.5 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" /><path d="M9 37h27l-3-20-7 15-4-19-4 19-7-15-3 20z" stroke-linecap="round"/></svg>`,
-    k: `<svg viewBox="0 0 45 45"><path d="M22.5 11.63V6M20 8h5M22.5 25c-5.52 0-10-4.48-10-10s4.48-10 10-10 10 4.48 10 10-4.48 10-10 10z" stroke-linecap="round"/><path d="M11.5 30C15 33 20 34 22.5 34c2.5 0 7.5-1 11-4" stroke-linecap="round"/></svg>`
-  };
+
 
   // Puzzle Positions Data
   const PUZZLES = {
@@ -259,7 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (piece) {
           const pieceEl = document.createElement('div');
           pieceEl.className = `chess-piece ${piece.color}`;
-          pieceEl.innerHTML = PIECE_SVGS[piece.type];
+          const colorLetter = piece.color === "white" ? "l" : "d";
+          pieceEl.innerHTML = `<img src="pieces/Chess_${piece.type}${colorLetter}t45.svg" alt="${piece.color} ${piece.type}">`;
           squareEl.appendChild(pieceEl);
         }
 
