@@ -16,8 +16,6 @@
 </head>
 <body>
 
-  <!-- Floating Ambient background spots removed for clean light aesthetic -->
-
   <div class="dashboard-wrapper">
     
     <!-- LEFT CONTAINER: Portfolio Card (Bright Theme) -->
@@ -168,55 +166,40 @@
     <!-- RIGHT CONTAINER: Chess Console Card (Dark Theme) -->
     <main class="chess-card" id="chess-panel">
       
-      <div class="chess-console">
+      <div class="chess-console-vertical">
         
-        <!-- Compact Board (280px) -->
-        <div class="board-column">
+        <!-- Board Section (Top) -->
+        <div class="chessboard-container-centered">
           <div class="chessboard-border">
             <div class="chess-board" id="chess-board"></div>
           </div>
         </div>
         
-        <!-- Side Console Controls & Thinking Indicator -->
-        <aside class="control-column">
+        <!-- Horizontal Control Panel (Bottom) -->
+        <div class="chess-control-panel">
           
-          <!-- Thinking Indicator (beside the chessboard) -->
-          <div class="console-card status-card">
-            <span class="section-label">System State</span>
-            <div class="status-indicator-wrapper" id="game-status-badge">
-              <span class="status-pulse-light"></span>
-              <span id="status-text">Choose Level</span>
-            </div>
+          <!-- Game State / Thinking Indicator -->
+          <div class="control-status" id="game-status-badge">
+            <span class="status-pulse-light"></span>
+            <span id="status-text">Choose Level</span>
           </div>
 
-          <!-- Difficulty Picker -->
-          <div class="console-card levels-card">
-            <span class="section-label">Tactics</span>
-            <div class="levels-list-vertical">
-              <button class="level-pill" data-level="easy">
-                <span class="name">Easy</span>
-                <span class="desc">Mate in 2</span>
-              </button>
-              <button class="level-pill" data-level="medium">
-                <span class="name">Medium</span>
-                <span class="desc">Mate in 4</span>
-              </button>
-              <button class="level-pill" data-level="goated">
-                <span class="name">Goated</span>
-                <span class="desc">Mate in 3</span>
-              </button>
-            </div>
+          <!-- Tactics Difficulty Selection (Horizontal pills) -->
+          <div class="control-levels">
+            <button class="level-pill-horizontal" data-level="easy">Easy</button>
+            <button class="level-pill-horizontal" data-level="medium">Medium</button>
+            <button class="level-pill-horizontal" data-level="goated">Goated</button>
           </div>
 
-          <!-- Reset / Current state -->
-          <div class="console-card actions-card">
-            <div class="level-state" id="active-level-indicator">
+          <!-- Reset / Info Actions -->
+          <div class="control-actions">
+            <div class="level-badge" id="active-level-indicator">
               Lvl: <span>None</span>
             </div>
-            <button class="reset-action-btn" id="reset-game-btn" disabled>Reset Game</button>
+            <button class="reset-action-btn" id="reset-game-btn" disabled>Reset</button>
           </div>
 
-        </aside>
+        </div>
 
       </div>
 

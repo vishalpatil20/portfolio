@@ -397,7 +397,13 @@ body {
   gap: 24px;
 }
 
-/* Board housing */
+/* Board housing centered */
+.chessboard-container-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .chessboard-border {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
@@ -406,15 +412,15 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Compact board */
+/* Larger, Centered Board (360px) */
 .chess-board {
   display: grid;
-  grid-template-columns: repeat(8, 35px);
-  grid-template-rows: repeat(8, 35px);
+  grid-template-columns: repeat(8, 45px);
+  grid-template-rows: repeat(8, 45px);
   border-radius: 4px;
   overflow: hidden;
-  width: 280px;
-  height: 280px;
+  width: 360px;
+  height: 360px;
 }
 
 .chess-square {
@@ -422,22 +428,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
 }
 
 /* Custom Board Square Colors */
 .chess-square.light {
-  background-color: #e8e6e1; /* Smooth ivory */
+  background-color: #e8e6e1;
 }
 
 .chess-square.dark {
-  background-color: #535c6e; /* Slate blue */
+  background-color: #535c6e;
 }
 
 .chess-square .coord-label {
   position: absolute;
-  font-size: 6px;
+  font-size: 7px;
   font-weight: 700;
   opacity: 0.5;
 }
@@ -445,13 +451,13 @@ body {
 .chess-square.light .coord-label { color: #64748b; }
 .chess-square.dark .coord-label { color: #cbd5e1; }
 
-.coord-label.rank { left: 2px; top: 2px; }
-.coord-label.file { right: 2px; bottom: 2px; }
+.coord-label.rank { left: 3px; top: 3px; }
+.coord-label.file { right: 3px; bottom: 3px; }
 
 /* Dynamic moves helper */
 .move-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background-color: var(--accent-cyan);
   border-radius: 50%;
   box-shadow: 0 0 6px var(--accent-cyan);
@@ -459,8 +465,8 @@ body {
 }
 
 .move-dot-capture {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border: 2px solid var(--accent-cyan);
   border-radius: 50%;
   box-shadow: 0 0 6px var(--accent-cyan);
@@ -478,10 +484,10 @@ body {
   background-color: rgba(8, 145, 178, 0.25) !important;
 }
 
-/* Pieces inside 35px square */
+/* Pieces inside 45px square */
 .chess-piece {
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
   cursor: pointer;
   z-index: 5;
   display: flex;
@@ -496,40 +502,35 @@ body {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
 }
 
-/* SIDE BAR CONTROL COLUMN (BESIDE CHESSBOARD) */
-.control-column {
+/* VERTICAL CHESS CONSOLE (CONTAINING BOARD TOP & CONTROLS BOTTOM) */
+.chess-console-vertical {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 150px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
 }
 
-.console-card {
+/* Horizontal Chess Control Panel below board */
+.chess-control-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 380px; /* Aligns with chessboard borders */
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
 }
 
-.section-label {
-  display: block;
-  font-size: 0.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 6px;
-  letter-spacing: 0.05em;
-}
-
-/* State Badge */
-.status-indicator-wrapper {
+.control-status {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 #status-text {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #94a3b8;
 }
@@ -569,62 +570,49 @@ body {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* Levels Pills */
-.levels-list-vertical {
+/* Horizontal Levels Pills */
+.control-levels {
   display: flex;
-  flex-direction: column;
   gap: 4px;
 }
 
-.level-pill {
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.level-pill-horizontal {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 4px;
   padding: 4px 8px;
-  text-align: left;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 600;
   transition: var(--transition);
 }
 
-.level-pill:hover {
-  background: rgba(255, 255, 255, 0.05);
+.level-pill-horizontal:hover {
+  background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 
-.level-pill.active {
+.level-pill-horizontal.active {
   border-color: var(--accent-cyan);
   background: rgba(8, 145, 178, 0.05);
+  color: var(--accent-cyan);
 }
 
-.level-pill .name {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #f8fafc;
-}
-
-.level-pill.active .name { color: var(--accent-cyan); }
-
-.level-pill .desc {
-  font-size: 0.6rem;
-  color: #64748b;
-}
-
-/* Actions Card */
-.actions-card {
+/* Action Controls badge + reset */
+.control-actions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
+  gap: 8px;
 }
 
-.level-state {
+.level-badge {
   font-size: 0.7rem;
   color: #64748b;
 }
 
-.level-state span {
+.level-badge span {
   font-weight: 700;
   color: var(--accent-cyan);
 }
@@ -691,53 +679,27 @@ body {
     height: auto;
     padding: 20px;
   }
-  .chess-console {
-    flex-direction: column;
-    gap: 16px;
-  }
-  .control-column {
-    width: 280px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .levels-list-vertical {
-    flex-direction: row;
-    gap: 6px;
-  }
-  .console-card {
-    flex: 1;
-  }
-  .section-label {
-    display: none;
-  }
 }
 
 @media (max-width: 500px) {
-  .control-column {
-    width: 240px;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .levels-list-vertical {
-    width: 100%;
-  }
-  .level-pill {
-    flex: 1;
-    text-align: center;
-  }
   .chess-board {
-    width: 240px;
-    height: 240px;
-    grid-template-columns: repeat(8, 30px);
-    grid-template-rows: repeat(8, 30px);
+    width: 280px;
+    height: 280px;
+    grid-template-columns: repeat(8, 35px);
+    grid-template-rows: repeat(8, 35px);
   }
   .chess-square {
+    width: 35px;
+    height: 35px;
+  }
+  .chess-piece {
     width: 30px;
     height: 30px;
   }
-  .chess-piece {
-    width: 26px;
-    height: 26px;
+  .chess-control-panel {
+    width: 280px;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
   }
 }
