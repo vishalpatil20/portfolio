@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
   // Puzzle Positions Data
   const PUZZLES = {
     easy: {
@@ -38,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           userMove: { from: "d1", to: "h5" },
           aiResponse: { from: "a7", to: "a6" },
-          text: "You develop the Queen to h5, eyeing the weak f7 pawn.",
-          stepUnlock: 1
+          text: "Queen moves to h5, threatening the weak f7 pawn.",
+          stepUnlock: 2
         },
         {
           userMove: { from: "h5", to: "f7" },
           aiResponse: null, // Checkmate!
-          text: "Checkmate! The Queen is supported by the Bishop on c4.",
+          text: "CHECKMATE! The Queen is supported by the Bishop on c4.",
           stepUnlock: 4
         }
       ]
@@ -71,23 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           userMove: { from: "g5", to: "f7" },
           aiResponse: { from: "h8", to: "g8" },
-          text: "Double check forcing the King back.",
-          stepUnlock: 1
-        },
-        {
-          userMove: { from: "f7", to: "h6" },
-          aiResponse: { from: "g8", to: "h8" },
-          text: "Brilliant double check! The King is cornered once again.",
+          text: "Double check forcing the King into the corner.",
           stepUnlock: 2
         },
         {
           userMove: { from: "c4", to: "g8" },
           aiResponse: { from: "f8", to: "g8" },
-          text: "Incredible Queen sacrifice! The rook is forced to capture.",
+          text: "Brilliant Queen sacrifice on g8! Rook is forced to capture.",
           stepUnlock: 3
         },
         {
-          userMove: { from: "h6", to: "f7" },
+          userMove: { from: "f7", to: "h6" },
           aiResponse: null, // Checkmate!
           text: "Smothered Checkmate! The King is trapped by its own Rook.",
           stepUnlock: 4
@@ -96,16 +89,19 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     goated: {
       name: "Goated",
-      description: "Paul Morphy's Opera House Mate",
+      description: "Paul Morphy's Opera House 4-Move Masterpiece",
       userColor: "white",
       setup: [
         // White pieces
         { sq: "c1", type: "k", color: "white" },
         { sq: "b3", type: "q", color: "white" },
+        { sq: "b5", type: "b", color: "white" },
         { sq: "g5", type: "b", color: "white" },
         { sq: "d1", type: "r", color: "white" },
+        { sq: "h1", type: "r", color: "white" },
         { sq: "a2", type: "p", color: "white" },
         { sq: "b2", type: "p", color: "white" },
+        { sq: "c2", type: "p", color: "white" },
         { sq: "f2", type: "p", color: "white" },
         { sq: "g2", type: "p", color: "white" },
         { sq: "h2", type: "p", color: "white" },
@@ -113,24 +109,38 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "e8", type: "k", color: "black" },
         { sq: "e6", type: "q", color: "black" },
         { sq: "d7", type: "n", color: "black" },
-        { sq: "f8", type: "b", color: "black" },
+        { sq: "f6", type: "n", color: "black" },
+        { sq: "d8", type: "r", color: "black" },
         { sq: "a7", type: "p", color: "black" },
         { sq: "b7", type: "p", color: "black" },
+        { sq: "c6", type: "p", color: "black" },
         { sq: "f7", type: "p", color: "black" },
         { sq: "g7", type: "p", color: "black" },
         { sq: "h7", type: "p", color: "black" }
       ],
       moves: [
         {
+          userMove: { from: "b5", to: "d7" },
+          aiResponse: { from: "d8", to: "d7" },
+          text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Rook to take back.",
+          stepUnlock: 1
+        },
+        {
+          userMove: { from: "d1", to: "d7" },
+          aiResponse: { from: "f6", to: "d7" },
+          text: "ROOK SACRIFICE! Eliminating the d7 defender to clear the open file.",
+          stepUnlock: 2
+        },
+        {
           userMove: { from: "b3", to: "b8" },
           aiResponse: { from: "d7", to: "b8" },
-          text: "Morphy's famous Queen sacrifice! Knight is forced to capture.",
+          text: "THE QUEEN SACRIFICE ON b8! Morphy's legendary signature move!",
           stepUnlock: 3
         },
         {
           userMove: { from: "d1", to: "d8" },
           aiResponse: null, // Checkmate!
-          text: "Checkmate! The Rook delivers the final blow protected by the Bishop.",
+          text: "CHECKMATE! The remaining Rook delivers the final checkmate blow.",
           stepUnlock: 4
         }
       ]
@@ -140,8 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Game Engine State
   let currentLevelKey = null;
   let moveIndex = 0;
-  let boardState = {}; // maps square e.g. "e4" -> { type: 'p', color: 'white' }
+  let boardState = {};
   let selectedSquare = null;
+  let isDirectAccessMode = false;
 
   // DOM Elements
   const chessBoardEl = document.getElementById('chess-board');
@@ -156,10 +167,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabButtons = document.querySelectorAll('.tab-btn');
   const boardOverlay = document.getElementById('board-overlay');
 
+  // Entry Modal DOM
+  const entryModal = document.getElementById('entry-modal');
+  const btnModePlay = document.getElementById('btn-mode-play');
+  const btnModeDirect = document.getElementById('btn-mode-direct');
+
+  // Match Tracker DOM
+  const progressVal = document.getElementById('progress-val');
+  const progressFill = document.getElementById('progress-fill');
+  const commentaryText = document.getElementById('commentary-text');
+
+  // Handle Entry Modal Selection
+  if (btnModePlay) {
+    btnModePlay.addEventListener('click', () => {
+      entryModal.classList.add('hidden');
+      isDirectAccessMode = false;
+      startLevel('goated');
+    });
+  }
+
+  if (btnModeDirect) {
+    btnModeDirect.addEventListener('click', () => {
+      entryModal.classList.add('hidden');
+      isDirectAccessMode = true;
+      unlockTabsUpTo(4);
+      switchTabTo(1);
+      startLevel('goated');
+      if (boardOverlay) boardOverlay.classList.add('hidden');
+    });
+  }
+
   // Initialize Tab clicks
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (!btn.classList.contains('locked')) {
+      if (!btn.classList.contains('locked') || isDirectAccessMode) {
         const stepNum = parseInt(btn.getAttribute('data-step-tab'));
         switchTabTo(stepNum);
       }
@@ -196,8 +237,11 @@ document.addEventListener('DOMContentLoaded', () => {
     activeLevelSpan.textContent = PUZZLES[levelKey].name;
     resetBtn.disabled = false;
     
-    // Status text update
+    // Status text & commentary update
     updateStatusText("Your Turn", "ready");
+    if (commentaryText) {
+      commentaryText.textContent = `${PUZZLES[levelKey].name}: ${PUZZLES[levelKey].description}. Make your first move!`;
+    }
 
     // Initialize board representation
     boardState = {};
@@ -205,22 +249,35 @@ document.addEventListener('DOMContentLoaded', () => {
       boardState[p.sq] = { type: p.type, color: p.color };
     });
 
-    // Reset tabs: Lock 1-4, unlock 0
-    tabButtons.forEach(btn => {
-      const sTab = parseInt(btn.getAttribute('data-step-tab'));
-      if (sTab > 0) {
-        btn.classList.add('locked');
-        btn.classList.remove('active');
-      } else {
-        btn.classList.remove('locked');
-        btn.classList.add('active');
-      }
-    });
+    // Handle tab locks based on mode
+    if (!isDirectAccessMode) {
+      tabButtons.forEach(btn => {
+        const sTab = parseInt(btn.getAttribute('data-step-tab'));
+        if (sTab > 1) {
+          btn.classList.add('locked');
+          btn.classList.remove('active');
+        } else {
+          btn.classList.remove('locked');
+          if (sTab === 1) btn.classList.add('active');
+        }
+      });
+      switchTabTo(1);
+    } else {
+      unlockTabsUpTo(4);
+    }
 
-    // Reset portfolio visual steps back to Intro (step 0)
-    switchTabTo(0);
-
+    updateProgressBar();
     renderBoard();
+  }
+
+  // Update Progress Bar
+  function updateProgressBar() {
+    if (!currentLevelKey || !progressVal || !progressFill) return;
+    const total = PUZZLES[currentLevelKey].moves.length;
+    const current = moveIndex;
+    progressVal.textContent = `${current} / ${total} MOVES`;
+    const pct = Math.min(100, Math.round((current / total) * 100));
+    progressFill.style.width = `${pct}%`;
   }
 
   // Switch to an active tab and content step
@@ -252,67 +309,66 @@ document.addEventListener('DOMContentLoaded', () => {
         step.classList.remove('active');
       }
     });
-    // Auto-scroll left panel to top
     contentScroller.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Render the Chessboard Squares and Pieces
+  // Render Chessboard
   function renderBoard() {
     chessBoardEl.innerHTML = '';
     
     const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
-    ranks.forEach(rank => {
-      files.forEach(file => {
-        const sq = file + rank;
-        const squareColorClass = (files.indexOf(file) + ranks.indexOf(rank)) % 2 === 0 ? 'light' : 'dark';
-        
-        const squareEl = document.createElement('div');
-        squareEl.className = `chess-square ${squareColorClass}`;
-        squareEl.dataset.square = sq;
+    for (let r = 0; r < 8; r++) {
+      for (let f = 0; f < 8; f++) {
+        const sq = files[f] + ranks[r];
+        const isLight = (r + f) % 2 === 0;
 
-        // Render rank labels on the leftmost column (a)
-        if (file === 'a') {
+        const squareEl = document.createElement('div');
+        squareEl.className = `chess-square ${isLight ? 'light' : 'dark'}`;
+        squareEl.setAttribute('data-square', sq);
+
+        // Coordinates labels
+        if (f === 0) {
           const rankLabel = document.createElement('span');
           rankLabel.className = 'coord-label rank';
-          rankLabel.textContent = rank;
+          rankLabel.textContent = ranks[r];
           squareEl.appendChild(rankLabel);
         }
-
-        // Render file labels on the bottom row (1)
-        if (rank === '1') {
+        if (r === 7) {
           const fileLabel = document.createElement('span');
           fileLabel.className = 'coord-label file';
-          fileLabel.textContent = file;
+          fileLabel.textContent = files[f];
           squareEl.appendChild(fileLabel);
         }
 
-        // Render piece if exists on square
+        // Render piece if exists
         const piece = boardState[sq];
         if (piece) {
           const pieceEl = document.createElement('div');
           pieceEl.className = `chess-piece ${piece.color}`;
-          const colorLetter = piece.color === "white" ? "l" : "d";
-          pieceEl.innerHTML = `<img src="pieces/Chess_${piece.type}${colorLetter}t45.svg" alt="${piece.color} ${piece.type}">`;
+          
+          const img = document.createElement('img');
+          const pCode = (piece.color === 'white' ? 'w' : 'b') + piece.type.toUpperCase();
+          img.src = `pieces/${pCode}.svg`;
+          img.alt = `${piece.color} ${piece.type}`;
+          
+          pieceEl.appendChild(img);
           squareEl.appendChild(pieceEl);
         }
 
-        // Square Click Interaction
+        // Square Click Listener
         squareEl.addEventListener('click', () => handleSquareClick(sq));
 
         chessBoardEl.appendChild(squareEl);
-      });
-    });
-
-    highlightValidMoves();
+      }
+    }
   }
 
-  // Handle click on a board square
+  // Handle Square Click
   function handleSquareClick(sq) {
     if (!currentLevelKey) return;
     
-    // Ignore clicks if AI is thinking or game is over
     if (statusDot.classList.contains('thinking') || moveIndex >= PUZZLES[currentLevelKey].moves.length) {
       return;
     }
@@ -320,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentMove = PUZZLES[currentLevelKey].moves[moveIndex];
     const piece = boardState[sq];
 
-    // If a piece belongs to the user, select it
+    // Select piece
     if (piece && piece.color === PUZZLES[currentLevelKey].userColor) {
       selectedSquare = sq;
       highlightSquare(sq);
@@ -328,16 +384,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Try executing move from selectedSquare to click square
+    // Try executing move
     if (selectedSquare) {
       const correctFrom = currentMove.userMove.from;
       const correctTo = currentMove.userMove.to;
 
       if (selectedSquare === correctFrom && sq === correctTo) {
-        // Correct move!
         executeMove(correctFrom, correctTo);
       } else {
-        // Wrong move - shake and flash red
         flashErrorSquare(selectedSquare);
         flashErrorSquare(sq);
         selectedSquare = null;
@@ -346,58 +400,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Highlight the selected square
+  // Highlight selected square
   function highlightSquare(sq) {
-    const squares = document.querySelectorAll('.chess-square');
-    squares.forEach(s => s.classList.remove('selected'));
-    
-    const target = document.querySelector(`[data-square="${sq}"]`);
-    if (target) target.classList.add('selected');
+    document.querySelectorAll('.chess-square').forEach(el => {
+      el.classList.remove('selected', 'valid-dest');
+    });
+    const el = document.querySelector(`[data-square="${sq}"]`);
+    if (el) el.classList.add('selected');
   }
 
-  // Highlight only the specific square that is the correct target move for this step
+  // Highlight valid target destination
   function highlightValidMoves() {
-    // Remove previous indicators
-    const dots = document.querySelectorAll('.move-dot, .move-dot-capture');
-    dots.forEach(d => d.remove());
-
     if (!selectedSquare || !currentLevelKey) return;
     const currentMove = PUZZLES[currentLevelKey].moves[moveIndex];
-
     if (selectedSquare === currentMove.userMove.from) {
       const destSq = currentMove.userMove.to;
       const destSquareEl = document.querySelector(`[data-square="${destSq}"]`);
-      
       if (destSquareEl) {
-        const hasOpponentPiece = boardState[destSq] && boardState[destSq].color !== boardState[selectedSquare].color;
+        const isCapture = !!boardState[destSq];
         const indicator = document.createElement('div');
-        indicator.className = hasOpponentPiece ? 'move-dot-capture' : 'move-dot';
+        indicator.className = isCapture ? 'move-dot-capture' : 'move-dot';
         destSquareEl.appendChild(indicator);
       }
     }
   }
 
-  // Execute a legal puzzle move
+  // Execute legal move
   function executeMove(from, to) {
-    // Perform move in model
     boardState[to] = boardState[from];
     delete boardState[from];
     
     selectedSquare = null;
     renderBoard();
 
-    // Trigger visual highlights for move trail
+    // Highlights
     document.querySelector(`[data-square="${from}"]`).classList.add('last-move-src');
     document.querySelector(`[data-square="${to}"]`).classList.add('last-move-dst');
 
     const currentMove = PUZZLES[currentLevelKey].moves[moveIndex];
     
-    // Check if there is an AI response
+    // Update commentary
+    if (commentaryText) commentaryText.textContent = currentMove.text;
+
+    // Goated Move 2 Special Exchange: Slide White second Rook to d1
+    if (currentLevelKey === 'goated' && moveIndex === 1) {
+      boardState['d1'] = { type: 'r', color: 'white' };
+      delete boardState['h1'];
+    }
+
+    moveIndex++;
+    updateProgressBar();
+
     if (currentMove.aiResponse) {
       updateStatusText("AI is thinking...", "thinking");
       
       setTimeout(() => {
-        // Execute AI response
         const aiFrom = currentMove.aiResponse.from;
         const aiTo = currentMove.aiResponse.to;
         
@@ -406,26 +463,24 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderBoard();
         
-        // Highlight AI move trail
         document.querySelector(`[data-square="${aiFrom}"]`).classList.add('last-move-src');
         document.querySelector(`[data-square="${aiTo}"]`).classList.add('last-move-dst');
         
-        // Unlock next portfolio step and switch active tab
+        if (!isDirectAccessMode) {
+          unlockTabsUpTo(currentMove.stepUnlock);
+          switchTabTo(currentMove.stepUnlock);
+        }
+        updateStatusText("Your Turn", "ready");
+      }, 1100);
+    } else {
+      updateStatusText("Checkmate! You win!", "ready");
+      if (!isDirectAccessMode) {
         unlockTabsUpTo(currentMove.stepUnlock);
         switchTabTo(currentMove.stepUnlock);
-        updateStatusText("Your Turn", "ready");
-        
-        moveIndex++;
-      }, 1200);
-    } else {
-      // Checkmate! End of puzzle
-      updateStatusText("Checkmate! You win!", "ready");
-      unlockTabsUpTo(currentMove.stepUnlock);
-      switchTabTo(currentMove.stepUnlock);
+      }
     }
   }
 
-  // Flash a square red for incorrect move
   function flashErrorSquare(sq) {
     const el = document.querySelector(`[data-square="${sq}"]`);
     if (el) {
@@ -434,38 +489,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Update Game Status Badge and Dot indicator
   function updateStatusText(text, statusType) {
     statusText.textContent = text;
     statusDot.className = 'status-pulse-light';
     if (statusType) {
       statusDot.classList.add(statusType);
     }
-  }
-
-
-
-  // Form submission simulation inside Step 4 (Victory)
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const status = document.getElementById('form-status');
-      const btn = contactForm.querySelector('.btn-submit');
-      const originalText = btn.textContent;
-
-      btn.disabled = true;
-      btn.innerHTML = 'Sending... <span class="btn-glow"></span>';
-      status.textContent = '';
-      status.className = 'form-status';
-
-      setTimeout(() => {
-        status.textContent = 'Message sent! Thanks for checkmating me.';
-        status.classList.add('success');
-        contactForm.reset();
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }, 1500);
-    });
   }
 });

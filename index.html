@@ -16,6 +16,23 @@
 </head>
 <body>
 
+  <!-- Entry Mode Choice Modal -->
+  <div class="entry-modal-overlay" id="entry-modal">
+    <div class="entry-modal-card">
+      <div class="modal-badge">Welcome</div>
+      <h2>Choose Your Path</h2>
+      <p>Would you like to play an interactive chess match to unlock my portfolio, or access all details directly?</p>
+      <div class="modal-actions">
+        <button class="btn-modal btn-play" id="btn-mode-play">
+          Play Chess Match
+        </button>
+        <button class="btn-modal btn-direct" id="btn-mode-direct">
+          Direct Access
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="dashboard-wrapper">
     
     <!-- LEFT CONTAINER: Portfolio Card -->
@@ -29,8 +46,7 @@
 
       <!-- Tabs Navigation Bar (No emojis) -->
       <nav class="portfolio-tabs" id="portfolio-tabs">
-        <button class="tab-btn active" data-step-tab="0">Challenge</button>
-        <button class="tab-btn locked" data-step-tab="1">About <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn active" data-step-tab="1">About <span class="tab-lock-dot"></span></button>
         <button class="tab-btn locked" data-step-tab="2">Projects <span class="tab-lock-dot"></span></button>
         <button class="tab-btn locked" data-step-tab="3">Stack <span class="tab-lock-dot"></span></button>
         <button class="tab-btn locked" data-step-tab="4">Contact <span class="tab-lock-dot"></span></button>
@@ -39,21 +55,8 @@
       <!-- Scrollable Steps Area -->
       <div class="portfolio-content-scroller" id="content-scroller">
         
-        <!-- Step 0: Initial Challenge / Choose level -->
-        <section class="content-step active" id="step-intro" data-step="0">
-          <div class="step-badge">Phase 0 — The Gambit</div>
-          <h1 class="step-title">Defeat me to unlock my <span class="text-gradient">Portfolio</span></h1>
-          <p class="step-description">
-            I am a creative developer & AI engineer specializing in bespoke digital experiences. To make things interesting, I've locked my details behind a chess matching system. 
-          </p>
-          <div class="instruction-box">
-            <span class="box-title">Match Rules:</span>
-            <p>Select a difficulty level on the right, execute the correct tactical moves on the board, and watch my story unfold step-by-step.</p>
-          </div>
-        </section>
-
-        <!-- Step 1: About Me -->
-        <section class="content-step" id="step-about" data-step="1">
+        <!-- Step 1: About Me (Default Start View) -->
+        <section class="content-step active" id="step-about" data-step="1">
           <div class="step-badge">Phase 1 — Biography</div>
           <h2 class="step-title">Crafting digital <span class="text-gradient">Excellence</span></h2>
           <p class="step-description">
@@ -177,6 +180,17 @@
       
       <div class="chess-console-vertical">
         
+        <!-- Match Progress Tracker -->
+        <div class="match-progress-container">
+          <div class="progress-info">
+            <span class="progress-label">MATCH PROGRESS</span>
+            <span class="progress-val" id="progress-val">0 / 0 MOVES</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
         <!-- Board Section (Top) -->
         <div class="chessboard-container-centered">
           <div class="chessboard-border">
@@ -190,6 +204,12 @@
           </div>
         </div>
         
+        <!-- Tactical Intel Commentary Banner -->
+        <div class="tactical-commentary-box" id="commentary-box">
+          <span class="commentary-tag">TACTICAL INTEL</span>
+          <p id="commentary-text">Select a level below to start the game.</p>
+        </div>
+
         <!-- Horizontal Control Panel (Bottom) -->
         <div class="chess-control-panel">
           
