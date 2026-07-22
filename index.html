@@ -180,37 +180,7 @@
       
       <div class="chess-console-vertical">
         
-        <!-- Match Progress Tracker -->
-        <div class="match-progress-container">
-          <div class="progress-info">
-            <span class="progress-label">MATCH PROGRESS</span>
-            <span class="progress-val" id="progress-val">0 / 0 MOVES</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="progress-fill"></div>
-          </div>
-        </div>
-
-        <!-- Board Section (Top) -->
-        <div class="chessboard-container-centered">
-          <div class="chessboard-border">
-            <div class="chess-board" id="chess-board"></div>
-            <div class="board-overlay" id="board-overlay">
-              <div class="overlay-card">
-                <h3>Select a Level</h3>
-                <p>Choose difficulty below to unlock the board</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Tactical Intel Commentary Banner -->
-        <div class="tactical-commentary-box" id="commentary-box">
-          <span class="commentary-tag">TACTICAL INTEL</span>
-          <p id="commentary-text">Select a level below to start the game.</p>
-        </div>
-
-        <!-- Horizontal Control Panel (Bottom) -->
+        <!-- 1. Horizontal Control Panel (Top) -->
         <div class="chess-control-panel">
           
           <!-- Row 1: Segmented Levels Selector -->
@@ -239,6 +209,36 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- 2. Board Section (Center) -->
+        <div class="chessboard-container-centered">
+          <div class="chessboard-border">
+            <div class="chess-board" id="chess-board"></div>
+            <div class="board-overlay" id="board-overlay">
+              <div class="overlay-card">
+                <h3>Select a Level</h3>
+                <p>Choose difficulty above to unlock the board</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Match Progress Tracker (Below Board) -->
+        <div class="match-progress-container">
+          <div class="progress-info">
+            <span class="progress-label">MATCH PROGRESS</span>
+            <span class="progress-val" id="progress-val">0 / 0 MOVES</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+        
+        <!-- 4. Tactical Intel Commentary Banner (Bottom) -->
+        <div class="tactical-commentary-box" id="commentary-box">
+          <span class="commentary-tag">TACTICAL INTEL</span>
+          <p id="commentary-text">Select a level above to start the game.</p>
         </div>
 
       </div>
