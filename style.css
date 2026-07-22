@@ -1,19 +1,19 @@
 /* 
  * Premium Chess Portfolio Stylesheet
- * Custom Crafted Palette and Compact Layout
+ * Custom Crafted Palette and Dual Card Layout
  */
 
 :root {
-  /* Dark Ambient Background */
-  --bg-dark: #090a10;
-  --bg-card-dark: #0f111a;
+  /* Warm Premium Off-White Canvas */
+  --bg-page: #FAF9F6;           /* Alabaster warm off-white */
+  --bg-card-dark: #0f111a;      /* Dark slate for chess card */
   --border-card-dark: rgba(255, 255, 255, 0.08);
 
   /* Off-White Portfolio Panel */
-  --port-bg: #fdfbf7;           /* Warm alabaster white */
+  --port-bg: #ffffff;           /* Pure white card */
   --port-text: #191b22;         /* Matte charcoal */
   --port-text-muted: #5c6270;   /* Muted graphite */
-  --port-border: rgba(0, 0, 0, 0.07);
+  --port-border: rgba(0, 0, 0, 0.06);
   --port-card: rgba(0, 0, 0, 0.02);
 
   /* Accents */
@@ -38,8 +38,8 @@
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: #fff;
+  background-color: var(--bg-page);
+  color: var(--port-text);
   font-family: var(--font-sans);
   overflow: hidden;
   height: 100vh;
@@ -50,64 +50,31 @@ body {
   position: relative;
 }
 
-/* Ambient Radial Light Spots */
-.glow-bg {
-  position: absolute;
-  width: 45vw;
-  height: 45vw;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.25;
-}
-
-.glow-1 {
-  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-  top: 5%;
-  right: 5%;
-}
-
-.glow-2 {
-  background: radial-gradient(circle, #0891b2 0%, transparent 70%);
-  bottom: 5%;
-  left: 5%;
-}
-
 /* Dashboard Centered Wrapper */
 .dashboard-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 28px; /* Gap separating the two cards */
   width: 100vw;
   height: 100vh;
   padding: 24px;
   z-index: 10;
 }
 
-.dashboard-card {
-  display: flex;
-  width: 980px;
-  height: 560px;
-  background-color: var(--bg-card-dark);
-  border: 1px solid var(--border-card-dark);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65);
-  position: relative;
-  backdrop-filter: blur(8px);
-}
-
-/* LEFT COLUMN: PORTFOLIO (WARM OFF-WHITE) */
-.portfolio-panel {
+/* LEFT CONTAINER: PORTFOLIO CARD (BRIGHT WHITE) */
+.portfolio-card {
   width: 430px;
+  height: 560px;
   flex-shrink: 0;
   background-color: var(--port-bg);
   color: var(--port-text);
   display: flex;
   flex-direction: column;
-  height: 100%;
-  border-right: 1px solid var(--port-border);
+  border: 1px solid var(--port-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
 }
 
 .panel-header {
@@ -409,14 +376,19 @@ body {
   color: var(--port-text-muted);
 }
 
-/* RIGHT COLUMN: CHESS CONSOLE PANEL (DARK THEME) */
-.chess-panel {
-  flex: 1;
+/* RIGHT CONTAINER: CHESS CONSOLE CARD (DARK THEME) */
+.chess-card {
+  width: 500px;
+  height: 560px;
   background-color: var(--bg-card-dark);
+  border: 1px solid var(--border-card-dark);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+  color: #fff;
 }
 
 .chess-console {
@@ -425,7 +397,7 @@ body {
   gap: 24px;
 }
 
-/* Smaller, Premium board housing */
+/* Board housing */
 .chessboard-border {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
@@ -699,29 +671,24 @@ body {
 }
 
 /* RESPONSIVE SCALING */
-@media (max-width: 900px) {
+@media (max-width: 990px) {
   body {
     overflow-y: auto;
     height: auto;
   }
   .dashboard-wrapper {
-    height: auto;
-    padding: 16px;
-  }
-  .dashboard-card {
     flex-direction: column;
     height: auto;
-    width: 100%;
-    max-width: 480px;
+    padding: 16px;
+    gap: 16px;
   }
-  .portfolio-panel {
+  .portfolio-card {
     width: 100%;
     height: 380px;
-    border-right: none;
-    border-bottom: 1px solid var(--port-border);
   }
-  .chess-panel {
+  .chess-card {
     width: 100%;
+    height: auto;
     padding: 20px;
   }
   .chess-console {

@@ -16,217 +16,212 @@
 </head>
 <body>
 
-  <!-- Premium Ambient Background Blur Spots -->
-  <div class="glow-bg glow-1"></div>
-  <div class="glow-bg glow-2"></div>
+  <!-- Floating Ambient background spots removed for clean light aesthetic -->
 
-  <!-- Centered Interactive Dashboard Card -->
   <div class="dashboard-wrapper">
-    <div class="dashboard-card">
-      
-      <!-- LEFT COLUMN: Portfolio side (Bright Off-White Theme) -->
-      <aside class="portfolio-panel" id="portfolio-panel">
-        <header class="panel-header">
-          <div class="logo">
-            <span class="logo-dot"></span>
-            <span class="logo-text">vishal.dev</span>
-          </div>
-        </header>
-
-        <!-- Scrollable Steps Area -->
-        <div class="portfolio-content-scroller" id="content-scroller">
-          
-          <!-- Step 0: Initial Challenge / Choose level -->
-          <section class="content-step active" id="step-intro" data-step="0">
-            <div class="step-badge">Phase 0 — The Gambit</div>
-            <h1 class="step-title">Defeat me to unlock my <span class="text-gradient">Portfolio</span></h1>
-            <p class="step-description">
-              I am a creative developer & AI engineer specializing in bespoke digital experiences. To make things interesting, I've locked my details behind a chess matching system. 
-            </p>
-            <div class="instruction-box">
-              <span class="box-title">Match Rules:</span>
-              <p>Select a difficulty level on the right, execute the correct tactical moves on the compact board, and watch my story unfold step-by-step.</p>
-            </div>
-          </section>
-
-          <!-- Step 1: About Me -->
-          <section class="content-step" id="step-about" data-step="1">
-            <div class="step-badge">Phase 1 — Biography</div>
-            <h2 class="step-title">Crafting digital <span class="text-gradient">Excellence</span></h2>
-            <p class="step-description">
-              I build robust, high-performance web systems and integrate advanced LLMs to create clean, responsive interfaces with extreme attention to detail.
-            </p>
-            <div class="quick-stats-grid">
-              <div class="stat-card">
-                <span class="num">2+</span>
-                <span class="label">Years Exp</span>
-              </div>
-              <div class="stat-card">
-                <span class="num">10+</span>
-                <span class="label">Completed</span>
-              </div>
-              <div class="stat-card">
-                <span class="num">99%</span>
-                <span class="label">Polish Rate</span>
-              </div>
-            </div>
-            <div class="prompt-to-move gold">
-              <span>✦ Make your next move on the right to unlock Projects</span>
-            </div>
-          </section>
-
-          <!-- Step 2: Selected Projects -->
-          <section class="content-step" id="step-projects" data-step="2">
-            <div class="step-badge">Phase 2 — Selected Work</div>
-            <h2 class="step-title">Interactive <span class="text-gradient">Mockups</span></h2>
-            
-            <div class="project-cards-container">
-              <div class="project-item">
-                <div class="item-header">
-                  <span class="category">AI Ecosystem</span>
-                  <span class="year">2026</span>
-                </div>
-                <h3>GPT Ads Media</h3>
-                <p>Preview system for sponsored LLM conversational results.</p>
-              </div>
-
-              <div class="project-item">
-                <div class="item-header">
-                  <span class="category">Generative AI</span>
-                  <span class="year">2025</span>
-                </div>
-                <h3>Code Karwade Bhai</h3>
-                <p>AI assistant designed for automated coding templates.</p>
-              </div>
-            </div>
-            <div class="prompt-to-move gold">
-              <span>✦ Make your next move to unlock my Tech Stack</span>
-            </div>
-          </section>
-
-          <!-- Step 3: Tech Stack -->
-          <section class="content-step" id="step-skills" data-step="3">
-            <div class="step-badge">Phase 3 — Arsenal</div>
-            <h2 class="step-title">My Tech <span class="text-gradient">Stack</span></h2>
-            <p class="step-description">
-              Core frameworks and tools I deploy to construct highly interactive, modern web systems.
-            </p>
-            <div class="skills-split-box">
-              <div class="skills-block">
-                <h5>Frontend</h5>
-                <ul>
-                  <li>React & Next.js</li>
-                  <li>Vanilla JS & CSS3</li>
-                  <li>TailwindCSS</li>
-                </ul>
-              </div>
-              <div class="skills-block">
-                <h5>Backend & AI</h5>
-                <ul>
-                  <li>FastAPI & FastAPI</li>
-                  <li>Node.js / Express</li>
-                  <li>OpenAI Integration</li>
-                </ul>
-              </div>
-            </div>
-            <div class="prompt-to-move gold">
-              <span>✦ Deliver the Checkmate to unlock Contact Form</span>
-            </div>
-          </section>
-
-          <!-- Step 4: Contact / Victory -->
-          <section class="content-step" id="step-victory" data-step="4">
-            <div class="step-badge victory">Match Secured!</div>
-            <h2 class="step-title">Let's create something <span class="text-gradient">Epic</span></h2>
-            <p class="step-description">
-              Outstanding tactical play! You've checkmated me. Drop me a line below and let's collaborate.
-            </p>
-
-            <form id="contact-form" class="compact-contact-form">
-              <div class="input-row">
-                <input type="text" id="name" placeholder="Name" required>
-                <input type="email" id="email" placeholder="Email" required>
-              </div>
-              <textarea id="message" rows="2" placeholder="Tell me about your project..." required></textarea>
-              <button type="submit" class="btn btn-submit">
-                Send Message
-              </button>
-              <div id="form-status" class="form-status"></div>
-            </form>
-
-            <div class="direct-mail">
-              <a href="mailto:hello@myvkserver.online" class="mail-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                hello@myvkserver.online
-              </a>
-            </div>
-          </section>
-
+    
+    <!-- LEFT CONTAINER: Portfolio Card (Bright Theme) -->
+    <aside class="portfolio-card" id="portfolio-panel">
+      <header class="panel-header">
+        <div class="logo">
+          <span class="logo-dot"></span>
+          <span class="logo-text">vishal.dev</span>
         </div>
+      </header>
 
-        <footer class="panel-footer">
-          <p class="copyright">© 2026 Vishal Patil. All rights reserved.</p>
-        </footer>
-      </aside>
-
-      <!-- RIGHT COLUMN: Compact Chess Console (Sleek Dark Theme) -->
-      <main class="chess-panel" id="chess-panel">
+      <!-- Scrollable Steps Area -->
+      <div class="portfolio-content-scroller" id="content-scroller">
         
-        <div class="chess-console">
-          
-          <!-- Compact Board (280px) -->
-          <div class="board-column">
-            <div class="chessboard-border">
-              <div class="chess-board" id="chess-board"></div>
+        <!-- Step 0: Initial Challenge / Choose level -->
+        <section class="content-step active" id="step-intro" data-step="0">
+          <div class="step-badge">Phase 0 — The Gambit</div>
+          <h1 class="step-title">Defeat me to unlock my <span class="text-gradient">Portfolio</span></h1>
+          <p class="step-description">
+            I am a creative developer & AI engineer specializing in bespoke digital experiences. To make things interesting, I've locked my details behind a chess matching system. 
+          </p>
+          <div class="instruction-box">
+            <span class="box-title">Match Rules:</span>
+            <p>Select a difficulty level on the right, execute the correct tactical moves on the compact board, and watch my story unfold step-by-step.</p>
+          </div>
+        </section>
+
+        <!-- Step 1: About Me -->
+        <section class="content-step" id="step-about" data-step="1">
+          <div class="step-badge">Phase 1 — Biography</div>
+          <h2 class="step-title">Crafting digital <span class="text-gradient">Excellence</span></h2>
+          <p class="step-description">
+            I build robust, high-performance web systems and integrate advanced LLMs to create clean, responsive interfaces with extreme attention to detail.
+          </p>
+          <div class="quick-stats-grid">
+            <div class="stat-card">
+              <span class="num">2+</span>
+              <span class="label">Years Exp</span>
+            </div>
+            <div class="stat-card">
+              <span class="num">10+</span>
+              <span class="label">Completed</span>
+            </div>
+            <div class="stat-card">
+              <span class="num">99%</span>
+              <span class="label">Polish Rate</span>
             </div>
           </div>
+          <div class="prompt-to-move gold">
+            <span>✦ Make your next move on the right to unlock Projects</span>
+          </div>
+        </section>
+
+        <!-- Step 2: Selected Projects -->
+        <section class="content-step" id="step-projects" data-step="2">
+          <div class="step-badge">Phase 2 — Selected Work</div>
+          <h2 class="step-title">Interactive <span class="text-gradient">Mockups</span></h2>
           
-          <!-- Side Console Controls & Thinking Indicator -->
-          <aside class="control-column">
-            
-            <!-- Thinking Indicator (beside the chessboard) -->
-            <div class="console-card status-card">
-              <span class="section-label">System State</span>
-              <div class="status-indicator-wrapper" id="game-status-badge">
-                <span class="status-pulse-light"></span>
-                <span id="status-text">Choose Level</span>
+          <div class="project-cards-container">
+            <div class="project-item">
+              <div class="item-header">
+                <span class="category">AI Ecosystem</span>
+                <span class="year">2026</span>
               </div>
+              <h3>GPT Ads Media</h3>
+              <p>Preview system for sponsored LLM conversational results.</p>
             </div>
 
-            <!-- Difficulty Picker -->
-            <div class="console-card levels-card">
-              <span class="section-label">Tactics</span>
-              <div class="levels-list-vertical">
-                <button class="level-pill" data-level="easy">
-                  <span class="name">Easy</span>
-                  <span class="desc">Mate in 2</span>
-                </button>
-                <button class="level-pill" data-level="medium">
-                  <span class="name">Medium</span>
-                  <span class="desc">Mate in 4</span>
-                </button>
-                <button class="level-pill" data-level="goated">
-                  <span class="name">Goated</span>
-                  <span class="desc">Mate in 3</span>
-                </button>
+            <div class="project-item">
+              <div class="item-header">
+                <span class="category">Generative AI</span>
+                <span class="year">2025</span>
               </div>
+              <h3>Code Karwade Bhai</h3>
+              <p>AI assistant designed for automated coding templates.</p>
             </div>
+          </div>
+          <div class="prompt-to-move gold">
+            <span>✦ Make your next move to unlock my Tech Stack</span>
+          </div>
+        </section>
 
-            <!-- Reset / Current state -->
-            <div class="console-card actions-card">
-              <div class="level-state" id="active-level-indicator">
-                Lvl: <span>None</span>
-              </div>
-              <button class="reset-action-btn" id="reset-game-btn" disabled>Reset Game</button>
+        <!-- Step 3: Skills -->
+        <section class="content-step" id="step-skills" data-step="3">
+          <div class="step-badge">Phase 3 — Arsenal</div>
+          <h2 class="step-title">My Tech <span class="text-gradient">Stack</span></h2>
+          <p class="step-description">
+            Core frameworks and tools I deploy to construct highly interactive, modern web systems.
+          </p>
+          <div class="skills-split-box">
+            <div class="skills-block">
+              <h5>Frontend</h5>
+              <ul>
+                <li>React & Next.js</li>
+                <li>Vanilla JS & CSS3</li>
+                <li>TailwindCSS</li>
+              </ul>
             </div>
+            <div class="skills-block">
+              <h5>Backend & AI</h5>
+              <ul>
+                <li>FastAPI & FastAPI</li>
+                <li>Node.js / Express</li>
+                <li>OpenAI Integration</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-to-move gold">
+            <span>✦ Deliver the Checkmate to unlock Contact Form</span>
+          </div>
+        </section>
 
-          </aside>
+        <!-- Step 4: Contact / Victory -->
+        <section class="content-step" id="step-victory" data-step="4">
+          <div class="step-badge victory">Match Secured!</div>
+          <h2 class="step-title">Let's create something <span class="text-gradient">Epic</span></h2>
+          <p class="step-description">
+            Outstanding tactical play! You've checkmated me. Drop me a line below and let's collaborate.
+          </p>
 
+          <form id="contact-form" class="compact-contact-form">
+            <div class="input-row">
+              <input type="text" id="name" placeholder="Name" required>
+              <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <textarea id="message" rows="2" placeholder="Tell me about your project..." required></textarea>
+            <button type="submit" class="btn btn-submit">
+              Send Message
+            </button>
+            <div id="form-status" class="form-status"></div>
+          </form>
+
+          <div class="direct-mail">
+            <a href="mailto:hello@myvkserver.online" class="mail-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              hello@myvkserver.online
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <footer class="panel-footer">
+        <p class="copyright">© 2026 Vishal Patil. All rights reserved.</p>
+      </footer>
+    </aside>
+
+    <!-- RIGHT CONTAINER: Chess Console Card (Dark Theme) -->
+    <main class="chess-card" id="chess-panel">
+      
+      <div class="chess-console">
+        
+        <!-- Compact Board (280px) -->
+        <div class="board-column">
+          <div class="chessboard-border">
+            <div class="chess-board" id="chess-board"></div>
+          </div>
         </div>
+        
+        <!-- Side Console Controls & Thinking Indicator -->
+        <aside class="control-column">
+          
+          <!-- Thinking Indicator (beside the chessboard) -->
+          <div class="console-card status-card">
+            <span class="section-label">System State</span>
+            <div class="status-indicator-wrapper" id="game-status-badge">
+              <span class="status-pulse-light"></span>
+              <span id="status-text">Choose Level</span>
+            </div>
+          </div>
 
-      </main>
+          <!-- Difficulty Picker -->
+          <div class="console-card levels-card">
+            <span class="section-label">Tactics</span>
+            <div class="levels-list-vertical">
+              <button class="level-pill" data-level="easy">
+                <span class="name">Easy</span>
+                <span class="desc">Mate in 2</span>
+              </button>
+              <button class="level-pill" data-level="medium">
+                <span class="name">Medium</span>
+                <span class="desc">Mate in 4</span>
+              </button>
+              <button class="level-pill" data-level="goated">
+                <span class="name">Goated</span>
+                <span class="desc">Mate in 3</span>
+              </button>
+            </div>
+          </div>
 
-    </div>
+          <!-- Reset / Current state -->
+          <div class="console-card actions-card">
+            <div class="level-state" id="active-level-indicator">
+              Lvl: <span>None</span>
+            </div>
+            <button class="reset-action-btn" id="reset-game-btn" disabled>Reset Game</button>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </main>
+
   </div>
 
   <!-- Confetti Victory Screen -->
