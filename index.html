@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal Patil — Creative Developer & AI Engineer</title>
-  <meta name="description" content="Portfolio of Vishal Patil, showcasing high-performance web applications, AI integrations, and creative user interfaces.">
+  <title>Vishal Patil — Creative Developer & Chess Portfolio</title>
+  <meta name="description" content="Interactive split-screen portfolio of Vishal Patil. Defeat the AI in a game of chess to unlock my experience, projects, and skills.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,186 +20,167 @@
   <div class="glow-bg glow-1"></div>
   <div class="glow-bg glow-2"></div>
 
-  <!-- Header / Navigation -->
-  <header class="header">
-    <div class="header-container">
-      <a href="#" class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">vishal.dev</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#contact" class="nav-link btn-contact">Get in Touch</a>
-      </nav>
-      <button class="mobile-menu-toggle" aria-label="Toggle Menu">
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
+  <div class="app-container">
+    
+    <!-- Left Column: Portfolio Content -->
+    <aside class="portfolio-panel" id="portfolio-panel">
+      <header class="panel-header">
+        <div class="logo">
+          <span class="logo-dot"></span>
+          <span class="logo-text">vishal.dev</span>
+        </div>
+        <div class="game-status-badge" id="game-status-badge">
+          <span class="pulse-dot select-level"></span>
+          <span id="status-text">Select a Level to Begin</span>
+        </div>
+      </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-container">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span> Available for new opportunities
-        </div>
-        <h1 class="hero-title">
-          Crafting Next-Gen <span class="text-gradient">Digital Experiences</span> & AI Products
-        </h1>
-        <p class="hero-subtitle">
-          I'm Vishal, a creative developer specializing in building highly interactive web systems, intelligent AI agents, and polished interfaces with extreme attention to detail.
-        </p>
-        <div class="hero-ctas">
-          <a href="#projects" class="btn btn-primary">Explore My Work</a>
-          <a href="#contact" class="btn btn-secondary">Let's Connect</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Work/Projects Section -->
-    <section id="projects" class="projects-section">
-      <div class="section-container">
-        <div class="section-header">
-          <h2 class="section-title">Selected Work</h2>
-          <p class="section-subtitle">A collection of premium web apps and AI-powered interfaces built to scale.</p>
-        </div>
+      <!-- Portfolio Dynamic Content Container -->
+      <div class="portfolio-content-scroller" id="content-scroller">
         
-        <div class="projects-grid">
-          <!-- Project 1 -->
-          <article class="project-card">
-            <div class="project-image-wrapper">
-              <div class="project-placeholder-img img-gptads">
-                <div class="project-overlay-glow"></div>
-                <span class="project-tag-absolute">Featured</span>
-              </div>
+        <!-- Step 0: Welcome / Level Selection -->
+        <section class="content-step active" id="step-intro" data-step="0">
+          <div class="step-badge">Phase 0: The Challenge</div>
+          <h1 class="step-title">Defeat me to unlock my <span class="text-gradient">Portfolio</span></h1>
+          <p class="step-description">
+            Hi, I'm **Vishal Patil**, a creative developer & AI engineer. To show you my skills, I've set up three tactical chess positions. Choose your difficulty, execute the winning moves, and watch my experience unfold on the left as you checkmate me.
+          </p>
+          
+          <div class="level-selector-card">
+            <h3>Select Difficulty</h3>
+            <div class="level-buttons">
+              <button class="btn btn-level" data-level="easy">
+                <span class="level-name">Easy</span>
+                <span class="level-desc">Mate in 2</span>
+              </button>
+              <button class="btn btn-level" data-level="medium">
+                <span class="level-name">Medium</span>
+                <span class="level-desc">Mate in 4 (Smothered)</span>
+              </button>
+              <button class="btn btn-level" data-level="goated">
+                <span class="level-name">Goated</span>
+                <span class="level-desc">Mate in 3 (Opera House)</span>
+              </button>
             </div>
-            <div class="project-content">
-              <div class="project-meta">
-                <span class="project-category">AI Advertising</span>
-                <span class="project-year">2026</span>
-              </div>
-              <h3 class="project-card-title">GPT Ads Media</h3>
-              <p class="project-desc">A premium advertising ecosystem mockup and campaign simulator built natively to preview sponsored conversational links in LLM search results.</p>
-              <div class="project-tech-tags">
-                <span>HTML5</span>
-                <span>Vanilla CSS</span>
-                <span>Vanilla JS</span>
-                <span>Programmatic Ads</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/vishalpatil20/gptadsmedia" target="_blank" rel="noopener" class="project-link-btn">
-                  View Source
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="project-card">
-            <div class="project-image-wrapper">
-              <div class="project-placeholder-img img-chatgpt-clone">
-                <div class="project-overlay-glow"></div>
-              </div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">
-                <span class="project-category">Generative AI</span>
-                <span class="project-year">2025</span>
-              </div>
-              <h3 class="project-card-title">Code Karwade Bhai</h3>
-              <p class="project-desc">A feature-rich conversational assistant and developer prompt tool integrating OpenAI APIs for automated code generation and refactoring.</p>
-              <div class="project-tech-tags">
-                <span>React</span>
-                <span>OpenAI API</span>
-                <span>TailwindCSS</span>
-                <span>Node.js</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/vishalpatil20/code-karwade-bhai" target="_blank" rel="noopener" class="project-link-btn">
-                  View Source
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section">
-      <div class="section-container">
-        <div class="section-header">
-          <h2 class="section-title">My Tech Stack</h2>
-          <p class="section-subtitle">Core technologies and frameworks I use to build scalable products.</p>
-        </div>
-        
-        <div class="skills-grid">
-          <div class="skills-category-card">
-            <h3>Frontend</h3>
-            <ul class="skills-list">
-              <li>React & Next.js</li>
-              <li>JavaScript (ES6+)</li>
-              <li>CSS3 & Sass / Tailwind</li>
-              <li>WebGL / Three.js basics</li>
-            </ul>
           </div>
-          <div class="skills-category-card">
-            <h3>Backend & AI</h3>
-            <ul class="skills-list">
-              <li>Node.js / Express</li>
-              <li>Python & FastAPI</li>
-              <li>OpenAI & LLM Integration</li>
-              <li>SQL & NoSQL Databases</li>
-            </ul>
-          </div>
-          <div class="skills-category-card">
-            <h3>Operations</h3>
-            <ul class="skills-list">
-              <li>Git & CI/CD workflows</li>
-              <li>Docker</li>
-              <li>Cloud VPS Deployment</li>
-              <li>DNS & Infrastructure</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-      <div class="section-container">
-        <div class="contact-card">
-          <div class="contact-info">
-            <h2 class="contact-title">Let's create something <span class="text-gradient">extraordinary</span></h2>
-            <p class="contact-subtitle">Get in touch for collaborations, projects, or just to say hello.</p>
-            <div class="contact-methods">
-              <a href="mailto:hello@myvkserver.online" class="contact-method-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                hello@myvkserver.online
-              </a>
+        <!-- Step 1: About Me -->
+        <section class="content-step" id="step-about" data-step="1">
+          <div class="step-badge">Phase 1: About Me</div>
+          <h2 class="step-title">Crafting Next-Gen <span class="text-gradient">Interfaces</span></h2>
+          <p class="step-description">
+            I specialize in bridging the gap between high-performance systems and visual excellence. My passion lies in building interactive applications, custom dashboards, and web-native tools that leverage LLMs and intelligent design.
+          </p>
+          <div class="about-quick-stats">
+            <div class="stat-card">
+              <span class="stat-num">2+</span>
+              <span class="stat-label">Years Exp</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num">10+</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num">99.9%</span>
+              <span class="stat-label">Uptime</span>
+            </div>
+          </div>
+          <div class="instruction-bubble">
+            <p>💡 Make your next move to unlock my **Selected Projects**.</p>
+          </div>
+        </section>
+
+        <!-- Step 2: Selected Work -->
+        <section class="content-step" id="step-projects" data-step="2">
+          <div class="step-badge">Phase 2: Selected Projects</div>
+          <h2 class="step-title">Recent <span class="text-gradient">Creations</span></h2>
+          
+          <div class="mini-projects-list">
+            <div class="mini-project-card">
+              <div class="mp-header">
+                <span class="mp-category">AI Advertising</span>
+                <span class="mp-year">2026</span>
+              </div>
+              <h3 class="mp-title">GPT Ads Media</h3>
+              <p class="mp-desc">An advertising ecosystem simulation for sponsored links inside LLM outputs.</p>
+              <div class="mp-tags">
+                <span>Vanilla JS</span> <span>CSS Grid</span> <span>Simulation</span>
+              </div>
+            </div>
+
+            <div class="mini-project-card">
+              <div class="mp-header">
+                <span class="mp-category">Generative AI</span>
+                <span class="mp-year">2025</span>
+              </div>
+              <h3 class="mp-title">Code Karwade Bhai</h3>
+              <p class="mp-desc">AI-powered assistant tailored for quick programming templates.</p>
+              <div class="mp-tags">
+                <span>React</span> <span>OpenAI</span> <span>Tailwind</span>
+              </div>
             </div>
           </div>
           
-          <form id="contact-form" class="contact-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="John Doe" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="john@example.com" required>
-              </div>
+          <div class="instruction-bubble">
+            <p>💡 Make your next move to unlock my **Tech Stack**.</p>
+          </div>
+        </section>
+
+        <!-- Step 3: Skills -->
+        <section class="content-step" id="step-skills" data-step="3">
+          <div class="step-badge">Phase 3: Tech Stack</div>
+          <h2 class="step-title">My <span class="text-gradient">Arsenal</span></h2>
+          <p class="step-description">
+            Here are the primary tools and systems I work with daily to construct high-speed, secure, and beautiful web apps.
+          </p>
+          
+          <div class="skills-mini-grid">
+            <div class="skills-col">
+              <h4>Frontend</h4>
+              <ul>
+                <li>React & Next.js</li>
+                <li>CSS3 & Vanilla CSS</li>
+                <li>TailwindCSS</li>
+                <li>WebGL basics</li>
+              </ul>
+            </div>
+            <div class="skills-col">
+              <h4>Backend & AI</h4>
+              <ul>
+                <li>Node.js / Express</li>
+                <li>Python & FastAPI</li>
+                <li>OpenAI API</li>
+                <li>SQL / PostgreSQL</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="instruction-bubble">
+            <p>💡 Deliver the **Checkmate** to win the game and get my contact info!</p>
+          </div>
+        </section>
+
+        <!-- Step 4: Contact / Victory -->
+        <section class="content-step" id="step-victory" data-step="4">
+          <div class="step-badge victory-badge">Checkmate!</div>
+          <h2 class="step-title">Let's build something <span class="text-gradient">Together</span></h2>
+          <p class="step-description">
+            Outstanding moves! You've successfully checkmated me. Let's keep the conversation going. Send me a message below or reach out directly.
+          </p>
+
+          <form id="contact-form" class="contact-form-split">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="john@example.com" required>
             </div>
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+              <textarea id="message" rows="3" placeholder="Let's collaborate..." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary submit-btn">
               Send Message
@@ -207,20 +188,47 @@
             </button>
             <div id="form-status" class="form-status"></div>
           </form>
+
+          <div class="direct-contact">
+            <a href="mailto:hello@myvkserver.online" class="email-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              hello@myvkserver.online
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <footer class="panel-footer">
+        <p class="copyright">© 2026 Vishal Patil. All rights reserved.</p>
+        <a href="https://github.com/vishalpatil20" target="_blank" class="github-link" aria-label="GitHub Profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+      </footer>
+    </aside>
+
+    <!-- Right Column: Interactive Chessboard -->
+    <main class="chess-panel" id="chess-panel">
+      <div class="chessboard-wrapper">
+        <div class="chessboard-container">
+          <!-- Coordinates will be rendered here dynamically along with squares -->
+          <div class="chess-board" id="chess-board"></div>
+        </div>
+        
+        <!-- Game Assistant Overlay/Status -->
+        <div class="game-controller-bar">
+          <div class="active-level-indicator" id="active-level-indicator">
+            Active: <span>None</span>
+          </div>
+          <button class="btn btn-reset" id="reset-game-btn" disabled>Reset Level</button>
         </div>
       </div>
-    </section>
-  </main>
+    </main>
 
-  <footer class="footer">
-    <div class="footer-container">
-      <p class="copyright">© 2026 Vishal Patil. All rights reserved.</p>
-      <div class="footer-socials">
-        <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener">GitHub</a>
-        <a href="#" class="btn-top">Back to top ↑</a>
-      </div>
-    </div>
-  </footer>
+  </div>
+
+  <!-- Confetti Canvas for Victory -->
+  <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
 
   <script src="script.js"></script>
 </body>
