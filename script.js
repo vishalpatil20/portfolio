@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       userColor: "white",
       setup: [
         // White pieces
-        { sq: "g1", type: "k", color: "white" },
+        { sq: "c1", type: "k", color: "white" },
         { sq: "b3", type: "q", color: "white" },
         { sq: "g5", type: "b", color: "white" },
         { sq: "d1", type: "r", color: "white" },
@@ -111,9 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "h2", type: "p", color: "white" },
         // Black pieces
         { sq: "e8", type: "k", color: "black" },
-        { sq: "e7", type: "q", color: "black" },
+        { sq: "e6", type: "q", color: "black" },
         { sq: "d7", type: "n", color: "black" },
-        { sq: "d8", type: "r", color: "black" },
+        { sq: "f8", type: "b", color: "black" },
         { sq: "a7", type: "p", color: "black" },
         { sq: "b7", type: "p", color: "black" },
         { sq: "f7", type: "p", color: "black" },
@@ -122,16 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       moves: [
         {
-          userMove: { from: "g5", to: "f6" },
-          aiResponse: { from: "d7", to: "f6" },
-          text: "Bishop captures, removing the defender of the e8 flight square.",
-          stepUnlock: 1
-        },
-        {
           userMove: { from: "b3", to: "b8" },
-          aiResponse: { from: "f6", to: "b8" },
+          aiResponse: { from: "d7", to: "b8" },
           text: "Morphy's famous Queen sacrifice! Knight is forced to capture.",
-          stepUnlock: 2
+          stepUnlock: 3
         },
         {
           userMove: { from: "d1", to: "d8" },
