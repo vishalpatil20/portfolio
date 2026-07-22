@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM Elements
   const chessBoardEl = document.getElementById('chess-board');
-  const levelButtons = document.querySelectorAll('.btn-level');
+  const levelButtons = document.querySelectorAll('.btn-level-compact');
   const activeLevelSpan = document.querySelector('#active-level-indicator span');
   const resetBtn = document.getElementById('reset-game-btn');
   const statusText = document.getElementById('status-text');
