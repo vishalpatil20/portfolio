@@ -451,11 +451,12 @@ body {
 }
 
 .chessboard-border {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 3px solid #181a23;
   border-radius: var(--radius-md);
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.25);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  background: #11131a;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  outline: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Larger, Centered Board (360px) */
@@ -480,11 +481,11 @@ body {
 
 /* Custom Board Square Colors */
 .chess-square.light {
-  background-color: #e8e6e1;
+  background-color: #eeeed2; /* Premium Chess.com light cream */
 }
 
 .chess-square.dark {
-  background-color: #535c6e;
+  background-color: #769656; /* Premium Chess.com dark green */
 }
 
 .chess-square .coord-label {
@@ -562,11 +563,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 380px; /* Aligns with chessboard borders */
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 378px; /* Aligns with chessboard borders */
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 8px 12px;
   border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.02);
 }
 
 .control-status {
@@ -619,31 +621,33 @@ body {
 /* Horizontal Levels Pills */
 .control-levels {
   display: flex;
-  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .level-pill-horizontal {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  border: none;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 5px 12px;
   cursor: pointer;
   color: #94a3b8;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  transition: var(--transition);
+  font-family: var(--font-header);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .level-pill-horizontal:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
   color: #fff;
 }
 
 .level-pill-horizontal.active {
-  border-color: var(--accent-cyan);
-  background: rgba(8, 145, 178, 0.05);
-  color: var(--accent-cyan);
+  background: #2e303f;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Action Controls badge + reset */
@@ -664,18 +668,20 @@ body {
 }
 
 .reset-action-btn {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #94a3b8;
-  padding: 3px 8px;
+  padding: 4px 10px;
   font-size: 0.65rem;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  font-weight: 600;
   transition: var(--transition);
 }
 
 .reset-action-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
 

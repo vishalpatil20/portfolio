@@ -422,7 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
       updateStatusText("Checkmate! You win!", "ready");
       unlockTabsUpTo(currentMove.stepUnlock);
       switchTabTo(currentMove.stepUnlock);
-      triggerVictoryConfetti();
     }
   }
 
@@ -444,66 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Victory Confetti Particle Effect
-  function triggerVictoryConfetti() {
-    const canvas = document.getElementById('confetti-canvas');
-    canvas.style.display = 'block';
-    const ctx = canvas.getContext('2d');
-    
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const colors = ['#f59e0b', '#06b6d4', '#8b5cf6', '#10b981', '#ec4899'];
-    const particles = Array.from({ length: 120 }).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height - height,
-      r: Math.random() * 4 + 3,
-      d: Math.random() * 2 + 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: Math.random() * 10 - 5
-    }));
-
-    let animationFrameId = null;
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.lineWidth = p.r;
-        ctx.strokeStyle = p.color;
-        ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-        ctx.stroke();
-
-        // Update positions
-        p.y += p.d;
-        p.tilt += 0.05;
-        
-        // Loop back up
-        if (p.y > height) {
-          p.y = -20;
-          p.x = Math.random() * width;
-        }
-      });
-
-      animationFrameId = requestAnimationFrame(draw);
-    }
-
-    draw();
-
-    // Stop confetti after 7 seconds
-    setTimeout(() => {
-      cancelAnimationFrame(animationFrameId);
-      ctx.clearRect(0, 0, width, height);
-      canvas.style.display = 'none';
-    }, 7000);
-  }
 
   // Form submission simulation inside Step 4 (Victory)
   const contactForm = document.getElementById('contact-form');
@@ -511,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const status = document.getElementById('form-status');
-      const btn = contactForm.querySelector('.btn-primary');
+      const btn = contactForm.querySelector('.btn-submit');
       const originalText = btn.textContent;
 
       btn.disabled = true;
