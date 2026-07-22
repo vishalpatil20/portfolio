@@ -159,6 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusDot = statusBadge.querySelector('.status-pulse-light');
   const contentSteps = document.querySelectorAll('.content-step');
   const contentScroller = document.getElementById('content-scroller');
+  const tabButtons = document.querySelectorAll('.tab-btn');
+
+  // Initialize Tab clicks
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!btn.classList.contains('locked')) {
+        const stepNum = parseInt(btn.getAttribute('data-step-tab'));
+        switchTabTo(stepNum);
+      }
+    });
+  });
 
   // Initialize Level selection
   levelButtons.forEach(btn => {
@@ -194,10 +205,41 @@ document.addEventListener('DOMContentLoaded', () => {
       boardState[p.sq] = { type: p.type, color: p.color };
     });
 
+    // Reset tabs: Lock 1-4, unlock 0
+    tabButtons.forEach(btn => {
+      const sTab = parseInt(btn.getAttribute('data-step-tab'));
+      if (sTab > 0) {
+        btn.classList.add('locked');
+        btn.classList.remove('active');
+      } else {
+        btn.classList.remove('locked');
+        btn.classList.add('active');
+      }
+    });
+
     // Reset portfolio visual steps back to Intro (step 0)
-    showStep(0);
+    switchTabTo(0);
 
     renderBoard();
+  }
+
+  // Switch to an active tab and content step
+  function switchTabTo(stepNum) {
+    tabButtons.forEach(btn => {
+      const sTab = parseInt(btn.getAttribute('data-step-tab'));
+      btn.classList.toggle('active', sTab === stepNum);
+    });
+    showStep(stepNum);
+  }
+
+  // Unlock all tabs up to target step
+  function unlockTabsUpTo(stepNum) {
+    tabButtons.forEach(btn => {
+      const sTab = parseInt(btn.getAttribute('data-step-tab'));
+      if (sTab <= stepNum) {
+        btn.classList.remove('locked');
+      }
+    });
   }
 
   // Show a specific step in the scrollable panel
@@ -368,8 +410,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`[data-square="${aiFrom}"]`).classList.add('last-move-src');
         document.querySelector(`[data-square="${aiTo}"]`).classList.add('last-move-dst');
         
-        // Unlock next portfolio step
-        showStep(currentMove.stepUnlock);
+        // Unlock next portfolio step and switch active tab
+        unlockTabsUpTo(currentMove.stepUnlock);
+        switchTabTo(currentMove.stepUnlock);
         updateStatusText("Your Turn", "ready");
         
         moveIndex++;
@@ -377,7 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // Checkmate! End of puzzle
       updateStatusText("Checkmate! You win!", "ready");
-      showStep(currentMove.stepUnlock);
+      unlockTabsUpTo(currentMove.stepUnlock);
+      switchTabTo(currentMove.stepUnlock);
       triggerVictoryConfetti();
     }
   }
