@@ -349,8 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
           pieceEl.className = `chess-piece ${piece.color}`;
           
           const img = document.createElement('img');
-          const pCode = (piece.color === 'white' ? 'w' : 'b') + piece.type.toUpperCase();
-          img.src = `pieces/${pCode}.svg`;
+          const colorChar = piece.color === 'white' ? 'l' : 'd';
+          const typeChar = piece.type.toLowerCase();
+          img.src = `pieces/Chess_${typeChar}${colorChar}t45.svg`;
           img.alt = `${piece.color} ${piece.type}`;
           
           pieceEl.appendChild(img);

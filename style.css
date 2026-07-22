@@ -70,14 +70,14 @@ body {
 
 .entry-modal-card {
   background: #ffffff;
-  border: 3px solid var(--faded-copper);
+  border: 3px solid var(--muted-olive);
   border-radius: var(--radius-lg);
-  padding: 32px 28px;
-  max-width: 440px;
+  padding: 36px 32px;
+  max-width: 460px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 25px 60px rgba(108, 88, 76, 0.35);
-  animation: modalScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 25px 60px rgba(108, 88, 76, 0.4), 0 0 30px rgba(173, 193, 120, 0.3);
+  animation: modalScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalScale {
