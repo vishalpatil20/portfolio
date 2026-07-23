@@ -29,11 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
       fen: "4kb1r/p2r1p1p/2p1qn2/1B4B1/8/1Q6/P1P2PPP/2KR4 w k - 0 15",
       moves: [
         {
-          userMove: { from: "h1", to: "d1" },
-          aiResponse: { from: "e7", to: "e6" },
-          text: "DEVELOPMENT! White brings the second Rook to the open file; Black defends with Qe6."
-        },
-        {
           userMove: { from: "b5", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
           text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Knight to recapture."
@@ -65,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.getElementById('reset-game-btn');
   const statusText = document.getElementById('status-text');
   const statusBadge = document.getElementById('game-status-badge');
-  const statusDot = statusBadge.querySelector('.status-pulse-light');
+  const statusDot = statusBadge ? statusBadge.querySelector('.status-pulse-light') : null;
   const contentSteps = document.querySelectorAll('.content-step');
   const contentScroller = document.getElementById('content-scroller');
   const tabButtons = document.querySelectorAll('.tab-btn');
@@ -270,9 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleSquareClick(sq) {
     if (!currentLevelKey) return;
     
-    if (statusDot.classList.contains('thinking') || moveIndex >= PUZZLES[currentLevelKey].moves.length) {
-      return;
-    }
+    if (statusDot && statusDot.classList.contains('thinking')) return;
+    if (moveIndex >= PUZZLES[currentLevelKey].moves.length) return;
 
     const currentMove = PUZZLES[currentLevelKey].moves[moveIndex];
     const piece = boardState[sq];
@@ -369,7 +363,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentLevelKey === 'difficult') {
           if (moveIndex === 1) switchTabTo(2);      // Move 1 -> Experience
           else if (moveIndex === 2) switchTabTo(3); // Move 2 -> Projects
-          else if (moveIndex === 3) switchTabTo(4); // Move 3 -> Tech Stack
         } else if (currentLevelKey === 'easy') {
           if (moveIndex === 1) switchTabTo(3);      // Move 1 -> Projects
         }

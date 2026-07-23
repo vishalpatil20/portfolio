@@ -514,7 +514,7 @@ body {
 
 /* RIGHT CARD: Chess Console Panel */
 .chess-card {
-  width: 480px;
+  flex: 1;
   height: 100%;
   background-color: var(--ash-brown);
   color: var(--vanilla-cream);
