@@ -2,37 +2,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Puzzle Positions Data
+  // Puzzle Positions Data loaded from real FEN strings
   const PUZZLES = {
     easy: {
       name: "Go Easy",
       description: "Scholar's Mate Combination",
       userColor: "white",
-      setup: [
-        // White pieces
-        { sq: "e1", type: "k", color: "white" },
-        { sq: "d1", type: "q", color: "white" },
-        { sq: "c4", type: "b", color: "white" },
-        { sq: "a2", type: "p", color: "white" },
-        { sq: "b2", type: "p", color: "white" },
-        { sq: "c2", type: "p", color: "white" },
-        { sq: "d2", type: "p", color: "white" },
-        { sq: "e4", type: "p", color: "white" },
-        { sq: "f2", type: "p", color: "white" },
-        { sq: "g2", type: "p", color: "white" },
-        { sq: "h2", type: "p", color: "white" },
-        // Black pieces
-        { sq: "e8", type: "k", color: "black" },
-        { sq: "c6", type: "n", color: "black" },
-        { sq: "e5", type: "p", color: "black" },
-        { sq: "a7", type: "p", color: "black" },
-        { sq: "b7", type: "p", color: "black" },
-        { sq: "c7", type: "p", color: "black" },
-        { sq: "d7", type: "p", color: "black" },
-        { sq: "f7", type: "p", color: "black" },
-        { sq: "g7", type: "p", color: "black" },
-        { sq: "h7", type: "p", color: "black" }
-      ],
+      fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3",
       moves: [
         {
           userMove: { from: "d1", to: "h5" },
@@ -50,37 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
       name: "Difficult",
       description: "Paul Morphy's Opera House Mating Combination",
       userColor: "white",
-      setup: [
-        // White pieces
-        { sq: "c1", type: "k", color: "white" },
-        { sq: "b3", type: "q", color: "white" },
-        { sq: "b5", type: "b", color: "white" },
-        { sq: "g5", type: "b", color: "white" },
-        { sq: "h1", type: "r", color: "white" },
-        { sq: "a2", type: "p", color: "white" },
-        { sq: "b2", type: "p", color: "white" },
-        { sq: "c2", type: "p", color: "white" },
-        { sq: "f2", type: "p", color: "white" },
-        { sq: "g2", type: "p", color: "white" },
-        { sq: "h2", type: "p", color: "white" },
-        // Black pieces
-        { sq: "e8", type: "k", color: "black" },
-        { sq: "e7", type: "q", color: "black" },
-        { sq: "d7", type: "r", color: "black" },
-        { sq: "f6", type: "n", color: "black" },
-        { sq: "a7", type: "p", color: "black" },
-        { sq: "b7", type: "p", color: "black" },
-        { sq: "c6", type: "p", color: "black" },
-        { sq: "f7", type: "p", color: "black" },
-        { sq: "g7", type: "p", color: "black" },
-        { sq: "h7", type: "p", color: "black" }
-      ],
+      fen: "4kb1r/p2r1p1p/2p1qn2/1B4B1/8/1Q6/P1P2PPP/2KR4 w k - 0 15",
       moves: [
-        {
-          userMove: { from: "h1", to: "d1" },
-          aiResponse: { from: "e7", to: "e6" },
-          text: "DEVELOPMENT! White brings the second Rook to the open file; Black defends with Qe6."
-        },
         {
           userMove: { from: "b5", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
@@ -128,6 +75,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressVal = document.getElementById('progress-val');
   const progressFill = document.getElementById('progress-fill');
   const commentaryText = document.getElementById('commentary-text');
+
+  // Parse FEN String into boardState representation
+  function parseFEN(fenString) {
+    const state = {};
+    const parts = fenString.trim().split(/\s+/);
+    const boardPart = parts[0];
+    const ranks = boardPart.split('/');
+    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
+    for (let r = 0; r < 8; r++) {
+      const rankStr = ranks[r];
+      let fIndex = 0;
+      for (let i = 0; i < rankStr.length; i++) {
+        const char = rankStr[i];
+        if (isNaN(char)) {
+          const isWhite = char === char.toUpperCase();
+          const type = char.toLowerCase();
+          const sq = files[fIndex] + (8 - r);
+          state[sq] = {
+            type: type,
+            color: isWhite ? 'white' : 'black'
+          };
+          fIndex++;
+        } else {
+          const emptyCount = parseInt(char, 10);
+          fIndex += emptyCount;
+        }
+      }
+    }
+    return state;
+  }
 
   // Handle Entry Modal Selection
   if (btnModePlay) {
@@ -188,11 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       commentaryText.textContent = `${PUZZLES[levelKey].name}: ${PUZZLES[levelKey].description}. Make your first move!`;
     }
 
-    // Initialize board representation
-    boardState = {};
-    PUZZLES[levelKey].setup.forEach(p => {
-      boardState[p.sq] = { type: p.type, color: p.color };
-    });
+    // Initialize board representation from FEN
+    boardState = parseFEN(PUZZLES[levelKey].fen);
 
     updateProgressBar();
     renderBoard();
