@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
       fen: "4kb1r/p2r1p1p/2p1qn2/1B4B1/8/1Q6/P1P2PPP/2KR4 w k - 0 15",
       moves: [
         {
+          userMove: { from: "h1", to: "d1" },
+          aiResponse: { from: "e7", to: "e6" },
+          text: "DEVELOPMENT! White brings the second Rook to the open file; Black defends with Qe6."
+        },
+        {
           userMove: { from: "b5", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
           text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Knight to recapture."
@@ -110,14 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Entry Modal Selection
   if (btnModePlay) {
     btnModePlay.addEventListener('click', () => {
-      entryModal.classList.add('hidden');
+      if (entryModal) entryModal.classList.add('hidden');
       startLevel('difficult');
     });
   }
 
   if (btnModeDirect) {
     btnModeDirect.addEventListener('click', () => {
-      entryModal.classList.add('hidden');
+      if (entryModal) entryModal.classList.add('hidden');
       startLevel('difficult');
     });
   }
@@ -157,8 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     levelButtons.forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-level') === levelKey);
     });
-    activeLevelSpan.textContent = PUZZLES[levelKey].name;
-    resetBtn.disabled = false;
+    if (activeLevelSpan) activeLevelSpan.textContent = PUZZLES[levelKey].name;
+    if (resetBtn) resetBtn.disabled = false;
     
     // Status text & commentary update
     updateStatusText("Your Turn", "ready");
@@ -299,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Highlight selected square
   function highlightSquare(sq) {
     document.querySelectorAll('.chess-square').forEach(el => {
-      el.classList.remove('selected', 'valid-dest');
+      el.classList.remove('selected');
     });
     const el = document.querySelector(`[data-square="${sq}"]`);
     if (el) el.classList.add('selected');
@@ -330,8 +335,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBoard();
 
     // Highlights
-    document.querySelector(`[data-square="${from}"]`).classList.add('last-move-src');
-    document.querySelector(`[data-square="${to}"]`).classList.add('last-move-dst');
+    const srcEl = document.querySelector(`[data-square="${from}"]`);
+    const dstEl = document.querySelector(`[data-square="${to}"]`);
+    if (srcEl) srcEl.classList.add('last-move-src');
+    if (dstEl) dstEl.classList.add('last-move-dst');
 
     const currentMove = PUZZLES[currentLevelKey].moves[moveIndex];
     
@@ -353,17 +360,31 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderBoard();
         
-        document.querySelector(`[data-square="${aiFrom}"]`).classList.add('last-move-src');
-        document.querySelector(`[data-square="${aiTo}"]`).classList.add('last-move-dst');
-        
+        const aiSrcEl = document.querySelector(`[data-square="${aiFrom}"]`);
+        const aiDstEl = document.querySelector(`[data-square="${aiTo}"]`);
+        if (aiSrcEl) aiSrcEl.classList.add('last-move-src');
+        if (aiDstEl) aiDstEl.classList.add('last-move-dst');
+
+        // Auto-advance portfolio step based on progress
+        if (currentLevelKey === 'difficult') {
+          if (moveIndex === 1) switchTabTo(2);      // Move 1 -> Experience
+          else if (moveIndex === 2) switchTabTo(3); // Move 2 -> Projects
+          else if (moveIndex === 3) switchTabTo(4); // Move 3 -> Tech Stack
+        } else if (currentLevelKey === 'easy') {
+          if (moveIndex === 1) switchTabTo(3);      // Move 1 -> Projects
+        }
+
         updateStatusText("Your Turn", "ready");
-      }, 1100);
+      }, 1000);
     } else {
       updateStatusText("Checkmate! You win!", "ready");
+      // Auto-switch to Contact & Chess.com Challenge tab on Checkmate victory!
+      switchTabTo(5);
     }
   }
 
   function flashErrorSquare(sq) {
+    if (!sq) return;
     const el = document.querySelector(`[data-square="${sq}"]`);
     if (el) {
       el.classList.add('error-flash');
@@ -372,10 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateStatusText(text, statusType) {
-    statusText.textContent = text;
-    statusDot.className = 'status-pulse-light';
-    if (statusType) {
-      statusDot.classList.add(statusType);
+    if (statusText) statusText.textContent = text;
+    if (statusDot) {
+      statusDot.className = 'status-pulse-light';
+      if (statusType) {
+        statusDot.classList.add(statusType);
+      }
     }
   }
 });

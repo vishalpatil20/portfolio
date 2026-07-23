@@ -676,30 +676,47 @@ body {
 
 /* Move helpers & highlights */
 .move-dot {
-  width: 12px;
-  height: 12px;
-  background-color: rgba(108, 88, 76, 0.4);
+  width: 14px;
+  height: 14px;
+  background-color: var(--muted-olive);
+  box-shadow: 0 0 6px rgba(173, 193, 120, 0.9);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 10;
 }
 
 .move-dot-capture {
-  width: 38px;
-  height: 38px;
-  border: 4px solid rgba(108, 88, 76, 0.4);
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--faded-copper);
+  box-shadow: 0 0 8px rgba(169, 132, 103, 0.7);
   border-radius: 50%;
   position: absolute;
   pointer-events: none;
+  z-index: 10;
 }
 
-/* Highlight Trails */
+/* Highlight Trails & Selection */
 .chess-square.selected {
   background-color: var(--cream) !important;
+  box-shadow: inset 0 0 0 3px var(--muted-olive);
 }
 
 .chess-square.last-move-src,
 .chess-square.last-move-dst {
-  background-color: rgba(221, 229, 182, 0.6) !important;
+  background-color: rgba(221, 229, 182, 0.75) !important;
+}
+
+/* Error Flash Animation */
+.chess-square.error-flash {
+  background-color: rgba(169, 132, 103, 0.8) !important;
+  animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 /* Pieces inside 45px square */
