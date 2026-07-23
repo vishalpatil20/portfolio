@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "b3", type: "q", color: "white" },
         { sq: "b5", type: "b", color: "white" },
         { sq: "g5", type: "b", color: "white" },
-        { sq: "d1", type: "r", color: "white" },
+        { sq: "h1", type: "r", color: "white" },
         { sq: "a2", type: "p", color: "white" },
         { sq: "b2", type: "p", color: "white" },
         { sq: "c2", type: "p", color: "white" },
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "h2", type: "p", color: "white" },
         // Black pieces
         { sq: "e8", type: "k", color: "black" },
-        { sq: "e6", type: "q", color: "black" },
+        { sq: "e7", type: "q", color: "black" },
         { sq: "d7", type: "r", color: "black" },
         { sq: "f6", type: "n", color: "black" },
         { sq: "a7", type: "p", color: "black" },
@@ -76,6 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "h7", type: "p", color: "black" }
       ],
       moves: [
+        {
+          userMove: { from: "h1", to: "d1" },
+          aiResponse: { from: "e7", to: "e6" },
+          text: "DEVELOPMENT! White brings the second Rook to the open file; Black defends with Qe6."
+        },
         {
           userMove: { from: "b5", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
