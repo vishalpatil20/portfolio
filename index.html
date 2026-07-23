@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal Patil — Creative Developer & Chess Portfolio</title>
-  <meta name="description" content="Interactive split-screen portfolio of Vishal Patil. Defeat the AI in a game of chess to unlock my experience, projects, and skills.">
+  <title>Vishal Patil — Software Engineer & AI Builder</title>
   
-  <!-- Google Font: Black Ops One -->
+  <!-- Fonts: Black Ops One -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
@@ -33,26 +32,8 @@
     </div>
   </div>
 
-  <!-- Victory Modal with Chess.com link -->
-  <div class="entry-modal-overlay hidden" id="victory-modal">
-    <div class="entry-modal-card">
-      <div class="modal-badge victory">VICTORY</div>
-      <h2>MATCH SECURED</h2>
-      <p>OUTSTANDING TACTICAL PLAY! YOU HAVE CHECKMATED THE ENGINE AND UNLOCKED THE PORTFOLIO.</p>
-      <p style="margin-top: -10px; margin-bottom: 20px; font-size: 0.72rem; color: var(--ash-brown);">IF YOU LOVED THIS EXPERIENCE, SEND ME A CHALLENGE TO A LIVE GAME ON CHESS.COM!</p>
-      <div class="modal-actions" style="flex-direction: column; gap: 8px;">
-        <a href="https://www.chess.com/member/vishalpatil20" target="_blank" class="btn-modal btn-play" style="text-decoration: none; display: block; line-height: 20px; width: 100%; text-align: center;">
-          CHESS.COM CHALLENGE
-        </a>
-        <button class="btn-modal btn-direct" id="btn-victory-close" style="width: 100%;">
-          EXPLORE PORTFOLIO
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div class="dashboard-wrapper">
-    
+
     <!-- LEFT CONTAINER: Portfolio Card -->
     <aside class="portfolio-card" id="portfolio-panel">
       <header class="panel-header">
@@ -64,22 +45,27 @@
 
       <!-- Tabs Navigation Bar (No emojis) -->
       <nav class="portfolio-tabs" id="portfolio-tabs">
-        <button class="tab-btn active" data-step-tab="1">About <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="2">Projects <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="3">Stack <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="4">Contact <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn active" data-step-tab="1">Who Am I? <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn locked" data-step-tab="2">Experience <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn locked" data-step-tab="3">Projects <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn locked" data-step-tab="4">Tech Stack <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn locked" data-step-tab="5">Contact <span class="tab-lock-dot"></span></button>
       </nav>
 
       <!-- Scrollable Steps Area -->
       <div class="portfolio-content-scroller" id="content-scroller">
-        
-        <!-- Step 1: About Me (Default Start View) -->
+
+        <!-- Step 1: Who Am I? -->
         <section class="content-step active" id="step-about" data-step="1">
-          <div class="step-badge">Phase 1 — Biography</div>
+          <div class="step-badge">Phase 1 — Identity</div>
           <h2 class="step-title">Crafting digital <span class="text-gradient">Excellence</span></h2>
           <p class="step-description">
-            I build robust, high-performance web systems and integrate advanced LLMs to create clean, responsive interfaces with extreme attention to detail.
-          </p>
+            I'm Vishal Patil, a software engineer passionate about building products
+            that don't just work—they create memorable experiences. My work spans
+            full-stack development, AI integrations, automation, and interactive web
+            applications, always with a strong focus on performance, clean design,
+            and exceptional user experience. I enjoy solving complex problems and
+            transforming ambitious ideas into polished digital products.</p>
           <div class="quick-stats-grid">
             <div class="stat-card">
               <span class="num">2+</span>
@@ -95,15 +81,44 @@
             </div>
           </div>
           <div class="prompt-to-move gold">
-            <span>Make your next move on the right to unlock Projects</span>
+            <span>Make your next move on the right to unlock Work Experience</span>
           </div>
         </section>
 
-        <!-- Step 2: Selected Projects -->
-        <section class="content-step" id="step-projects" data-step="2">
-          <div class="step-badge">Phase 2 — Selected Work</div>
-          <h2 class="step-title">Interactive <span class="text-gradient">Mockups</span></h2>
-          
+        <!-- Step 2: Work Experience -->
+        <section class="content-step" id="step-experience" data-step="2">
+          <div class="step-badge">Phase 2 — Track Record</div>
+          <h2 class="step-title">Work <span class="text-gradient">Experience</span></h2>
+
+          <div class="project-cards-container">
+            <div class="project-item">
+              <div class="item-header">
+                <span class="category">Full-Time / Lead</span>
+                <span class="year">2024 — PRESENT</span>
+              </div>
+              <h3>Software & AI Integration Engineer</h3>
+              <p>Architecting scalable web platforms, custom LLM toolings, and high-throughput automation pipelines.</p>
+            </div>
+
+            <div class="project-item">
+              <div class="item-header">
+                <span class="category">Full-Stack Development</span>
+                <span class="year">2023 — 2024</span>
+              </div>
+              <h3>Full-Stack Engineer</h3>
+              <p>Developed responsive web client interfaces, REST APIs, and automated CI/CD cloud deployments.</p>
+            </div>
+          </div>
+          <div class="prompt-to-move gold">
+            <span>Make your next move to unlock Featured Projects</span>
+          </div>
+        </section>
+
+        <!-- Step 3: Featured Projects -->
+        <section class="content-step" id="step-projects" data-step="3">
+          <div class="step-badge">Phase 3 — Selected Work</div>
+          <h2 class="step-title">Featured <span class="text-gradient">Projects</span></h2>
+
           <div class="project-cards-container">
             <div class="project-item">
               <div class="item-header">
@@ -124,14 +139,14 @@
             </div>
           </div>
           <div class="prompt-to-move gold">
-            <span>Make your next move to unlock my Tech Stack</span>
+            <span>Make your next move to unlock Tech Stack</span>
           </div>
         </section>
 
-        <!-- Step 3: Skills -->
-        <section class="content-step" id="step-skills" data-step="3">
-          <div class="step-badge">Phase 3 — Arsenal</div>
-          <h2 class="step-title">My Tech <span class="text-gradient">Stack</span></h2>
+        <!-- Step 4: Tech Stack -->
+        <section class="content-step" id="step-skills" data-step="4">
+          <div class="step-badge">Phase 4 — Arsenal</div>
+          <h2 class="step-title">Tech <span class="text-gradient">Stack</span></h2>
           <p class="step-description">
             Core frameworks and tools I deploy to construct highly interactive, modern web systems.
           </p>
@@ -154,16 +169,16 @@
             </div>
           </div>
           <div class="prompt-to-move gold">
-            <span>Deliver the Checkmate to unlock Contact Form</span>
+            <span>Deliver Checkmate to unlock Contact & Chess Challenge</span>
           </div>
         </section>
 
-        <!-- Step 4: Contact / Victory -->
-        <section class="content-step" id="step-victory" data-step="4">
-          <div class="step-badge victory">Match Secured!</div>
+        <!-- Step 5: Contact & Chess.com Challenge -->
+        <section class="content-step" id="step-contact" data-step="5">
+          <div class="step-badge victory">Get In Touch</div>
           <h2 class="step-title">Let's create something <span class="text-gradient">Epic</span></h2>
           <p class="step-description">
-            Outstanding tactical play! You've checkmated me. Drop me a line below and let's collaborate.
+            Whether you want to build a project, collaborate, or play a game of chess—reach out below!
           </p>
 
           <form id="contact-form" class="compact-contact-form">
@@ -180,8 +195,21 @@
 
           <div class="direct-mail">
             <a href="mailto:hello@myvkserver.online" class="mail-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
               hello@myvkserver.online
+            </a>
+          </div>
+
+          <!-- Chess.com Challenge Card -->
+          <div class="chess-challenge-box" style="margin-top: 16px; padding: 14px; background: var(--vanilla-cream); border: 2px solid var(--muted-olive); border-radius: var(--radius-sm); text-align: center;">
+            <span class="box-title" style="color: var(--ash-brown); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 4px; display: block;">CHESS.COM CHALLENGE</span>
+            <p style="font-size: 0.72rem; color: var(--ash-brown); opacity: 0.9; margin-bottom: 10px;">LOVED PLAYING THE MATCH? CHALLENGE ME TO A LIVE CHESS GAME ON CHESS.COM!</p>
+            <a href="https://www.chess.com/member/vishalpatil20" target="_blank" class="btn-modal btn-play" style="text-decoration: none; display: inline-block; padding: 10px 16px; font-size: 0.75rem;">
+              CHALLENGE ME ON CHESS.COM
             </a>
           </div>
         </section>
@@ -189,11 +217,11 @@
       </div>
 
       <footer class="panel-footer">
-        <p class="copyright">© 2026 Vishal Patil. All rights reserved.</p>
+        <span class="copyright">© 2026 Vishal Patil</span>
       </footer>
     </aside>
 
-    <!-- RIGHT CONTAINER: Chess Console Card -->
+    <!-- RIGHT CONTAINER: Chess Console -->
     <main class="chess-card" id="chess-panel">
       
       <div class="chess-console-vertical">

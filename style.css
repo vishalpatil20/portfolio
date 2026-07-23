@@ -210,19 +210,19 @@ body {
 
 .tab-btn {
   flex: 1;
-  padding: 10px 4px;
+  padding: 10px 2px;
   border: none;
   background: transparent;
   cursor: pointer;
   color: var(--ash-brown);
   opacity: 0.7;
-  font-size: 0.7rem;
+  font-size: 0.64rem;
   transition: var(--transition);
   border-bottom: 3px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   text-align: center;
   text-transform: uppercase;
 }

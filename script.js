@@ -38,19 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
           userMove: { from: "d1", to: "h5" },
           aiResponse: { from: "a7", to: "a6" },
           text: "Queen moves to h5, developing with threats on f7.",
-          stepUnlock: 2
+          stepUnlock: 3
         },
         {
           userMove: { from: "h5", to: "f7" },
           aiResponse: null, // Checkmate!
           text: "CHECKMATE! The Queen is supported by the Bishop on c4.",
-          stepUnlock: 4
+          stepUnlock: 5
         }
       ]
     },
     difficult: {
       name: "Difficult",
-      description: "Paul Morphy's Opera House 4-Move Masterpiece",
+      description: "Paul Morphy's Opera House Mating Combination",
       userColor: "white",
       setup: [
         // White pieces
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { sq: "b5", type: "b", color: "white" },
         { sq: "g5", type: "b", color: "white" },
         { sq: "d1", type: "r", color: "white" },
-        { sq: "h1", type: "r", color: "white" },
         { sq: "a2", type: "p", color: "white" },
         { sq: "b2", type: "p", color: "white" },
         { sq: "c2", type: "p", color: "white" },
@@ -69,9 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Black pieces
         { sq: "e8", type: "k", color: "black" },
         { sq: "e6", type: "q", color: "black" },
-        { sq: "d7", type: "n", color: "black" },
+        { sq: "d7", type: "r", color: "black" },
         { sq: "f6", type: "n", color: "black" },
-        { sq: "d8", type: "r", color: "black" },
         { sq: "a7", type: "p", color: "black" },
         { sq: "b7", type: "p", color: "black" },
         { sq: "c6", type: "p", color: "black" },
@@ -82,27 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
       moves: [
         {
           userMove: { from: "b5", to: "d7" },
-          aiResponse: { from: "d8", to: "d7" },
-          text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Rook to take back.",
-          stepUnlock: 1
-        },
-        {
-          userMove: { from: "d1", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
-          text: "ROOK SACRIFICE! Eliminating the d7 defender to clear the open file.",
+          text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Knight to recapture.",
           stepUnlock: 2
         },
         {
           userMove: { from: "b3", to: "b8" },
           aiResponse: { from: "d7", to: "b8" },
-          text: "THE QUEEN SACRIFICE ON b8! Morphy's legendary signature move!",
-          stepUnlock: 3
+          text: "THE QUEEN SACRIFICE ON b8!! Morphy's legendary signature move forcing Knight recapture.",
+          stepUnlock: 4
         },
         {
           userMove: { from: "d1", to: "d8" },
           aiResponse: null, // Checkmate!
-          text: "CHECKMATE! The remaining Rook delivers the final checkmate blow.",
-          stepUnlock: 4
+          text: "CHECKMATE! The Rook delivers the final checkmate blow along the open file!",
+          stepUnlock: 5
         }
       ]
     }
@@ -133,10 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnModePlay = document.getElementById('btn-mode-play');
   const btnModeDirect = document.getElementById('btn-mode-direct');
 
-  // Victory Modal DOM
-  const victoryModal = document.getElementById('victory-modal');
-  const btnVictoryClose = document.getElementById('btn-victory-close');
-
   // Match Tracker DOM
   const progressVal = document.getElementById('progress-val');
   const progressFill = document.getElementById('progress-fill');
@@ -155,17 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btnModeDirect.addEventListener('click', () => {
       entryModal.classList.add('hidden');
       isDirectAccessMode = true;
-      unlockTabsUpTo(4);
+      unlockTabsUpTo(5);
       switchTabTo(1);
       startLevel('difficult');
       if (boardOverlay) boardOverlay.classList.add('hidden');
-    });
-  }
-
-  // Handle Victory Modal Selection
-  if (btnVictoryClose) {
-    btnVictoryClose.addEventListener('click', () => {
-      victoryModal.classList.add('hidden');
     });
   }
 
@@ -235,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       switchTabTo(1);
     } else {
-      unlockTabsUpTo(4);
+      unlockTabsUpTo(5);
     }
 
     updateProgressBar();
@@ -415,12 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update commentary
     if (commentaryText) commentaryText.textContent = currentMove.text;
 
-    // Difficult (Morphy) Move 2 Special Exchange: Slide White second Rook to d1
-    if (currentLevelKey === 'difficult' && moveIndex === 1) {
-      boardState['d1'] = { type: 'r', color: 'white' };
-      delete boardState['h1'];
-    }
-
     moveIndex++;
     updateProgressBar();
 
@@ -450,10 +425,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDirectAccessMode) {
         unlockTabsUpTo(currentMove.stepUnlock);
         switchTabTo(currentMove.stepUnlock);
-      }
-      // Show victory modal overlay
-      if (victoryModal) {
-        victoryModal.classList.remove('hidden');
       }
     }
   }
