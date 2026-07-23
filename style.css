@@ -883,47 +883,101 @@ body {
   cursor: not-allowed;
 }
 
-/* RESPONSIVE SCALING */
+/* ==========================================================================
+   ULTRA-RESPONSIVE MOBILE & TABLET ADAPTATION SYSTEM
+   ========================================================================== */
+
 @media (max-width: 990px) {
   body {
     overflow-y: auto;
     height: auto;
+    padding: 16px 0;
   }
+
   .dashboard-wrapper {
     flex-direction: column;
     height: auto;
-    padding: 16px;
-    gap: 16px;
+    max-height: none;
+    padding: 0 14px;
+    gap: 20px;
+    width: 100%;
   }
+
   .portfolio-card {
     width: 100%;
-    height: 380px;
+    height: 440px;
   }
+
   .chess-card {
     width: 100%;
     height: auto;
-    padding: 20px;
+    padding: 20px 14px;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  .portfolio-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .portfolio-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    min-width: 78px;
+    font-size: 0.62rem;
+    padding: 12px 4px;
+  }
+
   .chess-board {
-    width: 280px;
-    height: 280px;
-    grid-template-columns: repeat(8, 35px);
-    grid-template-rows: repeat(8, 35px);
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
   }
+
   .chess-square {
-    width: 35px;
-    height: 35px;
+    width: 100%;
+    height: 100%;
   }
+
   .chess-piece {
-    width: 30px;
-    height: 30px;
+    width: 82%;
+    height: 82%;
+  }
+
+  .chess-control-panel,
+  .match-progress-container,
+  .tactical-commentary-box {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-modal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .chess-board {
+    max-width: 280px;
   }
   .chess-control-panel,
   .match-progress-container,
   .tactical-commentary-box {
-    width: 280px;
+    max-width: 280px;
+  }
+  .step-title {
+    font-size: 1.2rem;
   }
 }
