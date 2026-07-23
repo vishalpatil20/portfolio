@@ -37,14 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           userMove: { from: "d1", to: "h5" },
           aiResponse: { from: "a7", to: "a6" },
-          text: "Queen moves to h5, developing with threats on f7.",
-          stepUnlock: 3
+          text: "Queen moves to h5, developing with threats on f7."
         },
         {
           userMove: { from: "h5", to: "f7" },
           aiResponse: null, // Checkmate!
-          text: "CHECKMATE! The Queen is supported by the Bishop on c4.",
-          stepUnlock: 5
+          text: "CHECKMATE! The Queen is supported by the Bishop on c4."
         }
       ]
     },
@@ -81,20 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           userMove: { from: "b5", to: "d7" },
           aiResponse: { from: "f6", to: "d7" },
-          text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Knight to recapture.",
-          stepUnlock: 2
+          text: "BISHOP SACRIFICE! Capturing on d7 and forcing Black's Knight to recapture."
         },
         {
           userMove: { from: "b3", to: "b8" },
           aiResponse: { from: "d7", to: "b8" },
-          text: "THE QUEEN SACRIFICE ON b8!! Morphy's legendary signature move forcing Knight recapture.",
-          stepUnlock: 4
+          text: "THE QUEEN SACRIFICE ON b8!! Morphy's legendary signature move forcing Knight recapture."
         },
         {
           userMove: { from: "d1", to: "d8" },
           aiResponse: null, // Checkmate!
-          text: "CHECKMATE! The Rook delivers the final checkmate blow along the open file!",
-          stepUnlock: 5
+          text: "CHECKMATE! The Rook delivers the final checkmate blow along the open file!"
         }
       ]
     }
@@ -105,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let moveIndex = 0;
   let boardState = {};
   let selectedSquare = null;
-  let isDirectAccessMode = false;
 
   // DOM Elements
   const chessBoardEl = document.getElementById('chess-board');
@@ -134,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnModePlay) {
     btnModePlay.addEventListener('click', () => {
       entryModal.classList.add('hidden');
-      isDirectAccessMode = false;
       startLevel('difficult');
     });
   }
@@ -142,21 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnModeDirect) {
     btnModeDirect.addEventListener('click', () => {
       entryModal.classList.add('hidden');
-      isDirectAccessMode = true;
-      unlockTabsUpTo(5);
-      switchTabTo(1);
       startLevel('difficult');
-      if (boardOverlay) boardOverlay.classList.add('hidden');
     });
   }
 
-  // Initialize Tab clicks
+  // Initialize Tab clicks - ALL tabs fully unlocked and accessible at any time
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (!btn.classList.contains('locked') || isDirectAccessMode) {
-        const stepNum = parseInt(btn.getAttribute('data-step-tab'));
-        switchTabTo(stepNum);
-      }
+      const stepNum = parseInt(btn.getAttribute('data-step-tab'));
+      switchTabTo(stepNum);
     });
   });
 
@@ -202,23 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
       boardState[p.sq] = { type: p.type, color: p.color };
     });
 
-    // Handle tab locks based on mode
-    if (!isDirectAccessMode) {
-      tabButtons.forEach(btn => {
-        const sTab = parseInt(btn.getAttribute('data-step-tab'));
-        if (sTab > 1) {
-          btn.classList.add('locked');
-          btn.classList.remove('active');
-        } else {
-          btn.classList.remove('locked');
-          if (sTab === 1) btn.classList.add('active');
-        }
-      });
-      switchTabTo(1);
-    } else {
-      unlockTabsUpTo(5);
-    }
-
     updateProgressBar();
     renderBoard();
   }
@@ -242,16 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showStep(stepNum);
   }
 
-  // Unlock all tabs up to target step
-  function unlockTabsUpTo(stepNum) {
-    tabButtons.forEach(btn => {
-      const sTab = parseInt(btn.getAttribute('data-step-tab'));
-      if (sTab <= stepNum) {
-        btn.classList.remove('locked');
-      }
-    });
-  }
-
   // Show a specific step in the scrollable panel
   function showStep(stepNum) {
     contentSteps.forEach(step => {
@@ -262,7 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         step.classList.remove('active');
       }
     });
-    contentScroller.scrollTo({ top: 0, behavior: 'smooth' });
+    if (contentScroller) {
+      contentScroller.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   // Render Chessboard
@@ -414,18 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`[data-square="${aiFrom}"]`).classList.add('last-move-src');
         document.querySelector(`[data-square="${aiTo}"]`).classList.add('last-move-dst');
         
-        if (!isDirectAccessMode) {
-          unlockTabsUpTo(currentMove.stepUnlock);
-          switchTabTo(currentMove.stepUnlock);
-        }
         updateStatusText("Your Turn", "ready");
       }, 1100);
     } else {
       updateStatusText("Checkmate! You win!", "ready");
-      if (!isDirectAccessMode) {
-        unlockTabsUpTo(currentMove.stepUnlock);
-        switchTabTo(currentMove.stepUnlock);
-      }
     }
   }
 

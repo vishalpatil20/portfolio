@@ -15,18 +15,18 @@
 </head>
 <body>
 
-  <!-- Entry Mode Choice Modal (Tactical Command Prompt) -->
+  <!-- Entry Mode Choice Modal (Simple Question Prompt) -->
   <div class="entry-modal-overlay" id="entry-modal">
     <div class="entry-modal-card">
-      <div class="modal-badge">TACTICAL PROTOCOL</div>
-      <h2>WELCOME OPERATIVE</h2>
-      <p>TEST YOUR WIT IN A GAMIFIED CHESS MATCH TO UNLOCK MY PORTFOLIO STEP-BY-STEP, OR BYPASS THE MATCH FOR IMMEDIATE ARCHIVE ACCESS.</p>
+      <div class="modal-badge">WELCOME</div>
+      <h2>WOULD YOU LIKE TO PLAY CHESS?</h2>
+      <p>Would you like to play a quick chess game while exploring my portfolio?</p>
       <div class="modal-actions">
         <button class="btn-modal btn-play" id="btn-mode-play">
-          ACCEPT THE CHALLENGE
+          YES, LET'S PLAY
         </button>
         <button class="btn-modal btn-direct" id="btn-mode-direct">
-          DIRECT ARCHIVE ACCESS
+          NO, JUST EXPLORE
         </button>
       </div>
     </div>
@@ -43,13 +43,13 @@
         </div>
       </header>
 
-      <!-- Tabs Navigation Bar (No emojis) -->
+      <!-- Tabs Navigation Bar (All open & accessible) -->
       <nav class="portfolio-tabs" id="portfolio-tabs">
-        <button class="tab-btn active" data-step-tab="1">Who Am I? <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="2">Experience <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="3">Projects <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="4">Tech Stack <span class="tab-lock-dot"></span></button>
-        <button class="tab-btn locked" data-step-tab="5">Contact <span class="tab-lock-dot"></span></button>
+        <button class="tab-btn active" data-step-tab="1">Who Am I?</button>
+        <button class="tab-btn" data-step-tab="2">Experience</button>
+        <button class="tab-btn" data-step-tab="3">Projects</button>
+        <button class="tab-btn" data-step-tab="4">Tech Stack</button>
+        <button class="tab-btn" data-step-tab="5">Contact</button>
       </nav>
 
       <!-- Scrollable Steps Area -->
@@ -80,9 +80,6 @@
               <span class="label">Polish Rate</span>
             </div>
           </div>
-          <div class="prompt-to-move gold">
-            <span>Make your next move on the right to unlock Work Experience</span>
-          </div>
         </section>
 
         <!-- Step 2: Work Experience -->
@@ -108,9 +105,6 @@
               <h3>Full-Stack Engineer</h3>
               <p>Developed responsive web client interfaces, REST APIs, and automated CI/CD cloud deployments.</p>
             </div>
-          </div>
-          <div class="prompt-to-move gold">
-            <span>Make your next move to unlock Featured Projects</span>
           </div>
         </section>
 
@@ -138,9 +132,6 @@
               <p>AI assistant designed for automated coding templates.</p>
             </div>
           </div>
-          <div class="prompt-to-move gold">
-            <span>Make your next move to unlock Tech Stack</span>
-          </div>
         </section>
 
         <!-- Step 4: Tech Stack -->
@@ -167,9 +158,6 @@
                 <li>OpenAI Integration</li>
               </ul>
             </div>
-          </div>
-          <div class="prompt-to-move gold">
-            <span>Deliver Checkmate to unlock Contact & Chess Challenge</span>
           </div>
         </section>
 
