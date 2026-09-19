@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btnViewPortfolio) btnViewPortfolio.classList.add('active');
       if (btnViewChess) btnViewChess.classList.remove('active');
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   if (btnViewPortfolio) {

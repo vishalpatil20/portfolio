@@ -356,18 +356,6 @@ body {
   background: var(--cream);
   border-color: var(--border-copper);
 }
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--transition-fast);
-  min-height: 80px;
-}
-
-.promo-choice-btn:hover {
-  background: rgba(212, 139, 70, 0.18);
-  border-color: var(--border-copper);
-  transform: translateY(-3px);
-  box-shadow: var(--copper-glow-sm);
-}
 
 .promo-piece-wrap {
   width: 44px;
@@ -2295,8 +2283,8 @@ body {
 
   .portfolio-card {
     height: auto;
-    max-height: calc(100vh - 100px);
-    min-height: 480px;
+    max-height: none;
+    min-height: auto;
   }
 
   .panel-header {
@@ -2328,10 +2316,12 @@ body {
     padding: 10px 4px;
     font-size: 0.70rem;
     flex-shrink: 0;
+    touch-action: manipulation;
   }
 
   .portfolio-content-scroller {
     padding: 12px 14px;
+    overflow-y: visible;
   }
 
   .chess-card {
