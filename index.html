@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal Patil — Distributed Systems Engineer &amp; AI Architect</title>
+  <title>Vishal B Patil — Site Reliability Engineer &amp; Distributed Systems Developer</title>
   
-  <!-- Google Fonts: Black Ops One & System Fonts -->
+  <!-- Google Fonts: System & Display Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- CSS Design System -->
   <link rel="stylesheet" href="style.css">
@@ -18,33 +18,31 @@
   <!-- Mobile Segmented View Switcher (< 768px) -->
   <nav class="mobile-view-switcher" id="mobile-view-switcher" role="tablist" aria-label="Mobile View Switcher">
     <button type="button" class="view-switch-btn active" id="btn-view-chess" data-view="chess" role="tab" aria-selected="true" aria-controls="chess-panel" onclick="document.body.classList.remove('active-view-portfolio'); document.body.classList.add('active-view-chess'); this.classList.add('active'); this.setAttribute('aria-selected', 'true'); const ob = document.getElementById('btn-view-portfolio'); if(ob) { ob.classList.remove('active'); ob.setAttribute('aria-selected', 'false'); }">
-      <span class="switch-icon" aria-hidden="true">♟️</span>
       <span class="switch-label">Chess Console</span>
     </button>
     <button type="button" class="view-switch-btn" id="btn-view-portfolio" data-view="portfolio" role="tab" aria-selected="false" aria-controls="portfolio-panel" onclick="document.body.classList.remove('active-view-chess'); document.body.classList.add('active-view-portfolio'); this.classList.add('active'); this.setAttribute('aria-selected', 'true'); const cb = document.getElementById('btn-view-chess'); if(cb) { cb.classList.remove('active'); cb.setAttribute('aria-selected', 'false'); }">
-      <span class="switch-icon" aria-hidden="true">💼</span>
-      <span class="switch-label">Portfolio</span>
+      <span class="switch-label">Portfolio Dossier</span>
     </button>
   </nav>
 
-  <!-- Entry Mode Choice Modal (Retained & Modernized) -->
+  <!-- Entry Mode Choice Modal -->
   <div class="entry-modal-overlay" id="entry-modal">
     <div class="entry-modal-card">
-      <div class="modal-badge">ARCHITECTURAL DOSSIER &amp; CHESS ENGINE</div>
+      <div class="modal-badge">SITE RELIABILITY &amp; CHESS ENGINE DOSSIER</div>
       <h2>Welcome to the Engine Room</h2>
-      <p>Explore high-concurrency systems architecture while testing your endgame tactics against an interactive FIDE chess engine.</p>
+      <p>Explore Kubernetes infrastructure automation and distributed systems engineering while testing your endgame tactics against an interactive FIDE chess engine.</p>
       <div class="modal-actions">
         <button class="btn-modal btn-play" id="btn-mode-play">
-          Yes, Let's Play ♟️
+          Play Chess Engine
         </button>
         <button class="btn-modal btn-direct" id="btn-mode-direct">
-          Explore Portfolio First 💼
+          Explore Portfolio First
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Interactive Pawn Promotion Popover Modal (Feature 27) -->
+  <!-- Interactive Pawn Promotion Popover Modal -->
   <div class="promotion-modal-overlay hidden" id="promotion-modal" role="dialog" aria-modal="true" aria-labelledby="promotion-modal-title">
     <div class="promotion-modal-card">
       <div class="modal-badge">PAWN PROMOTION</div>
@@ -90,13 +88,13 @@
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
           <div class="logo-text-group">
-            <span class="logo-text">VISHAL PATIL</span>
-            <span class="logo-subtext">SYSTEMS &amp; AI ARCHITECT</span>
+            <span class="logo-text">VISHAL B PATIL</span>
+            <span class="logo-subtext">SITE RELIABILITY &amp; DISTRIBUTED SYSTEMS</span>
           </div>
         </div>
         <div class="header-status-pill">
           <span class="status-live-dot"></span>
-          <span class="status-live-label">AVAILABLE FOR ARCHITECTURE / FULL-TIME</span>
+          <span class="status-live-label">AVAILABLE FOR SRE &amp; DEVOPS ROLES</span>
         </div>
       </header>
 
@@ -129,58 +127,59 @@
 
         <!-- STEP 1: IDENTITY & ARCHITECTURAL PHILOSOPHY -->
         <section class="content-step active" id="step-about" data-step="1" role="tabpanel" aria-labelledby="tab-btn-1">
-          <div class="step-badge">Phase 1 // Identity &amp; Philosophy</div>
-          <h2 class="step-title">Engineering Deterministic Systems &amp; <span class="text-gradient">Sovereign AI</span></h2>
+          <div class="step-badge">Phase 1 // Identity &amp; Profile Summary</div>
+          <h2 class="step-title">Site Reliability &amp; <span class="text-gradient">Distributed Systems Engineer</span></h2>
           
           <p class="step-description">
-            I am <strong>Vishal Patil</strong>, a systems engineer and software architect specializing in high-concurrency distributed backends, autonomous multi-agent fabrics, and deterministic browser runtimes. I reject bloated runtime abstractions in favor of mathematically bounded state machines, zero-dependency engineering, and predictable sub-millisecond execution. Whether orchestrating distributed consensus across autonomous workers or pruning game trees in browser threads, I engineer software that remains resilient under adversarial load.
+            I am <strong>Vishal B Patil</strong>, a Site Reliability Engineer specializing in Kubernetes, infrastructure automation, GCP/AWS cloud environments, and high-concurrency backend services. Skilled in Terraform, GKE, CI/CD pipelines, and observability dashboards (Prometheus &amp; Grafana), I focus on operational excellence, automated incident recovery, and system reliability.
           </p>
 
           <!-- Key Architecture Signals Grid -->
           <div class="quick-stats-grid">
             <div class="stat-card">
-              <span class="num">99.99%</span>
-              <span class="label">Determinism SLA</span>
+              <span class="num">50+</span>
+              <span class="label">Workflows Stabilized</span>
             </div>
             <div class="stat-card">
-              <span class="num">&lt;15ms</span>
-              <span class="label">P99 Stream Latency</span>
+              <span class="num">40%</span>
+              <span class="label">Latency Reduction</span>
             </div>
             <div class="stat-card">
-              <span class="num">0 Deps</span>
-              <span class="label">Sovereign Core</span>
+              <span class="num">5K+</span>
+              <span class="label">Req/sec Workloads</span>
             </div>
             <div class="stat-card">
-              <span class="num">4+ Yrs</span>
-              <span class="label">Production Scale</span>
+              <span class="num">&lt;30s</span>
+              <span class="label">Detection SLA</span>
             </div>
           </div>
 
-          <!-- Core Architectural Pillars -->
+          <!-- Education & Academic Foundation -->
           <div class="philosophy-pillars-container">
-            <h3 class="subsection-label">Core Architectural Tenets</h3>
+            <h3 class="subsection-label">Education &amp; Academic Background</h3>
             
+            <div class="pillar-card">
+              <div class="pillar-indicator">EDU</div>
+              <div class="pillar-body">
+                <h4>The National Institute of Engineering — Mysuru, IN</h4>
+                <p><strong>Bachelor of Engineering in Information Science and Engineering</strong> (2021 – 2025)</p>
+                <p><em>Relevant Coursework:</em> Data Structures &amp; Algorithms, Operating Systems, Computer Networks, Database Management Systems, Object-Oriented Programming.</p>
+              </div>
+            </div>
+
             <div class="pillar-card">
               <div class="pillar-indicator">01</div>
               <div class="pillar-body">
-                <h4>Zero-Fluff Determinism</h4>
-                <p>If an engine cannot be reasoned about in isolation with bounded state, it degrades under pressure. I favor bare-metal browser and server primitives over brittle third-party abstraction layers.</p>
+                <h4>Automated Self-Healing Infrastructure</h4>
+                <p>Building concurrent monitoring agents in Go and Docker to detect node failures, trigger automated container recovery, and cut manual intervention by 70%.</p>
               </div>
             </div>
 
             <div class="pillar-card">
               <div class="pillar-indicator">02</div>
               <div class="pillar-body">
-                <h4>Resilient Asynchrony &amp; Consensus</h4>
-                <p>Architecting decoupled event topologies, non-blocking worker pools, and state convergence mechanisms capable of surviving network partitions without centralized single points of failure.</p>
-              </div>
-            </div>
-
-            <div class="pillar-card">
-              <div class="pillar-indicator">03</div>
-              <div class="pillar-body">
-                <h4>Algorithmic Symbiosis</h4>
-                <p>Synthesizing classical computational theory (graph traversal, Minimax game-tree pruning, bitwise heuristics) with generative neural agents to build verifiable, explainable AI applications.</p>
+                <h4>GitOps &amp; Declarative Infrastructure</h4>
+                <p>Provisioning auto-scaling GKE clusters with Terraform, managing Secret Manager integration, and shipping zero-downtime canary deployments via Istio Service Mesh.</p>
               </div>
             </div>
           </div>
@@ -188,10 +187,10 @@
 
         <!-- STEP 2: PRODUCTION EXPERIENCE & TIMELINE -->
         <section class="content-step" id="step-experience" data-step="2" role="tabpanel" aria-labelledby="tab-btn-2">
-          <div class="step-badge">Phase 2 // Production Track Record</div>
-          <h2 class="step-title">Chronological <span class="text-gradient">Production Experience</span></h2>
+          <div class="step-badge">Phase 2 // Professional Experience</div>
+          <h2 class="step-title">Enterprise <span class="text-gradient">Work History</span></h2>
           <p class="step-description">
-            A record of architecting distributed runtimes, scaling concurrent cloud platforms, and deploying resilient AI integrations under demanding real-world workloads.
+            Hands-on experience architecting backend microservices, streamlining CI/CD release pipelines, and reducing system latency at scale.
           </p>
 
           <div class="project-cards-container timeline-container">
@@ -199,105 +198,69 @@
             <!-- Timeline Item 1 -->
             <article class="project-item timeline-item">
               <div class="item-header">
-                <span class="category">Current / Principal Engineering</span>
-                <span class="year">2024 — PRESENT</span>
+                <span class="category">Epicor // Bangalore, India</span>
+                <span class="year">Aug 2025 — May 2026</span>
               </div>
-              <h3 class="role-title">Lead Distributed Systems &amp; AI Architect</h3>
-              <div class="organization-tag">Autonomous Systems &amp; Intelligence Infrastructure</div>
+              <h3 class="role-title">Associate Product Developer</h3>
+              <div class="organization-tag">Eclipse ERP Platform &amp; Payment Gateway Infrastructure</div>
               
               <p class="role-summary">
-                Directing the architectural evolution of autonomous multi-agent execution fabrics, real-time telemetry streaming, and high-concurrency event loops.
+                Engineered core backend microservices and financial ledger validation pipelines for enterprise ERP applications.
               </p>
 
               <ul class="role-achievements">
                 <li>
-                  <strong>Multi-Agent Orchestration:</strong> Engineered a distributed agent coordination mesh processing <strong>120,000+ daily autonomous tasks</strong> with 99.98% fault-recovery success via Raft-inspired state consensus.
+                  <strong>ERP Core Modules:</strong> Developed backend features and RESTful APIs for the Eclipse ERP platform using Java across Accounts Receivable (AR), Accounts Payable (AP), and General Ledger (GL).
                 </li>
                 <li>
-                  <strong>Low-Latency Streaming:</strong> Rebuilt the real-time event pipeline using zero-copy WebSocket workers, reducing <strong>P99 latency from 180ms to 14ms</strong> under 50,000 concurrent client sessions.
+                  <strong>Ledger Reliability:</strong> Rebuilt validation logic and workflow enhancements across core ledger operations, cutting transaction-processing errors by <strong>25%</strong> and improving reliability for <strong>50+ daily financial workflows</strong>.
                 </li>
                 <li>
-                  <strong>Cost &amp; Inference Optimization:</strong> Implemented semantic caching and dynamic token routing, dropping upstream LLM operational costs by <strong>42%</strong> with &lt;600ms Time-To-First-Token.
+                  <strong>Payment Administration Portal:</strong> Architected and developed an administration portal for QR-based payment systems, enabling configurable monitoring across multiple merchant accounts.
                 </li>
               </ul>
 
               <div class="tech-tag-row">
-                <span class="tech-tag highlight">TypeScript</span>
-                <span class="tech-tag">Node.js Workers</span>
-                <span class="tech-tag">Python / FastAPI</span>
-                <span class="tech-tag">Redis Streams</span>
-                <span class="tech-tag">Kafka</span>
-                <span class="tech-tag">Docker</span>
+                <span class="tech-tag highlight">Java</span>
+                <span class="tech-tag">RESTful APIs</span>
+                <span class="tech-tag">Eclipse ERP</span>
+                <span class="tech-tag">General Ledger</span>
+                <span class="tech-tag">QR Payment Systems</span>
               </div>
             </article>
 
             <!-- Timeline Item 2 -->
             <article class="project-item timeline-item">
               <div class="item-header">
-                <span class="category">Full-Stack &amp; Platform Architecture</span>
-                <span class="year">2023 — 2024</span>
+                <span class="category">Epicor // Bangalore, India</span>
+                <span class="year">Feb 2025 — Aug 2025</span>
               </div>
-              <h3 class="role-title">Senior Full-Stack &amp; Systems Engineer</h3>
-              <div class="organization-tag">High-Scale Developer Platforms &amp; Tooling</div>
+              <h3 class="role-title">Product Developer Intern</h3>
+              <div class="organization-tag">Invoice Processing &amp; Cloud CI/CD Automation</div>
 
               <p class="role-summary">
-                Spearheaded web architecture, client-side runtime optimizations, and collaborative real-time developer workflows.
+                Designed asynchronous messaging pipelines and automated end-to-end cloud deployments to Google Cloud Platform.
               </p>
 
               <ul class="role-achievements">
                 <li>
-                  <strong>Real-Time Concurrency:</strong> Deployed a collaborative browser workspace serving <strong>85,000+ monthly active developers</strong> with conflict-free operational transform data synchronization.
+                  <strong>Invoice Workflow Automation:</strong> Developed enterprise backend services using Java, .NET, and RabbitMQ to automate invoice processing workflows, reducing manual effort by <strong>60%</strong>.
                 </li>
                 <li>
-                  <strong>Client Runtime Performance:</strong> Trimmed production JS bundles by <strong>64%</strong> (1.4MB to 490KB), securing sub-800ms First Contentful Paint across restricted 3G mobile networks.
+                  <strong>Messaging Latency Optimization:</strong> Optimized asynchronous messaging pipelines using RabbitMQ message queues, reducing backend response latency by <strong>40%</strong> while improving system scalability.
                 </li>
                 <li>
-                  <strong>Reliability &amp; Delivery:</strong> Authored automated canary release pipelines with ephemeral container staging, maintaining <strong>zero production regressions</strong> across 18 consecutive months.
+                  <strong>CI/CD &amp; GCP Release Ownership:</strong> Built and owned the CI/CD pipeline using GitHub Actions for the Ebill QR payment system, packaging deployments with Helm charts and shipping releases end-to-end to Google Cloud Platform (GCP), accelerating processing speed by <strong>30%</strong>.
                 </li>
               </ul>
 
               <div class="tech-tag-row">
-                <span class="tech-tag highlight">Next.js</span>
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">CI/CD Canary</span>
-              </div>
-            </article>
-
-            <!-- Timeline Item 3 -->
-            <article class="project-item timeline-item">
-              <div class="item-header">
-                <span class="category">Core Software Engineering</span>
-                <span class="year">2021 — 2023</span>
-              </div>
-              <h3 class="role-title">Systems Software Engineer &amp; Algorithmic Specialist</h3>
-              <div class="organization-tag">Computational Systems &amp; Distributed Networks</div>
-
-              <p class="role-summary">
-                Designed core microservices, high-throughput algorithmic pipelines, and relational database indexing topologies.
-              </p>
-
-              <ul class="role-achievements">
-                <li>
-                  <strong>Microservice Decomposition:</strong> Decoupled monolithic backend services into asynchronous event-driven workers, boosting aggregate system throughput by <strong>320%</strong>.
-                </li>
-                <li>
-                  <strong>Database Query Profiling:</strong> Overhauled indexing and query plans across multi-terabyte PostgreSQL databases, eliminating <strong>89% of slow queries (&gt;500ms)</strong>.
-                </li>
-                <li>
-                  <strong>Algorithmic Runtimes:</strong> Engineered custom graph traversal and spatial indexing algorithms deployed in real-time logistics optimization.
-                </li>
-              </ul>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Python</span>
-                <span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">Redis</span>
-                <span class="tech-tag">C++ / Cython</span>
-                <span class="tech-tag">Linux</span>
+                <span class="tech-tag highlight">Java</span>
+                <span class="tech-tag">.NET</span>
+                <span class="tech-tag">RabbitMQ</span>
+                <span class="tech-tag">GitHub Actions</span>
+                <span class="tech-tag">Helm</span>
+                <span class="tech-tag">GCP</span>
               </div>
             </article>
 
@@ -306,172 +269,193 @@
 
         <!-- STEP 3: FEATURED PROJECTS -->
         <section class="content-step" id="step-projects" data-step="3" role="tabpanel" aria-labelledby="tab-btn-3">
-          <div class="step-badge">Phase 3 // Architectural Case Studies</div>
-          <h2 class="step-title">Featured <span class="text-gradient">Engineering Systems</span></h2>
+          <div class="step-badge">Phase 3 // Systems &amp; Infrastructure Projects</div>
+          <h2 class="step-title">Featured <span class="text-gradient">Engineering Projects</span></h2>
           <p class="step-description">
-            Deep-dive architectural implementations showcasing autonomous agent consensus, client-side game theory, and developer enablement platforms.
+            Production-grade cloud platforms, auto-healing distributed monitoring systems, and concurrent load testing harnesses.
           </p>
 
           <div class="project-cards-container">
 
-            <!-- Project 1: Nexus Multi-Agent Orchestrator -->
+            <!-- Project 1: CloudNative GKE Deployment Platform -->
             <article class="project-item feature-project-card">
               <div class="item-header">
-                <span class="category">Autonomous Systems &amp; Consensus</span>
-                <span class="year">2026 // Active</span>
+                <span class="category">Cloud Infrastructure &amp; Service Mesh</span>
+                <span class="year">2025 // Production</span>
               </div>
-              <h3 class="project-headline">Nexus Multi-Agent Orchestrator</h3>
+              <h3 class="project-headline">CloudNative GKE Deployment Platform</h3>
               <p class="project-pitch">
-                A distributed autonomous multi-agent orchestration runtime featuring peer-to-peer heartbeat monitoring, consensus-driven task dispatch, and self-healing execution loops.
+                Automated Infrastructure-as-Code (IaC) and canary deployment pipeline for Kubernetes on Google Cloud Platform.
               </p>
 
               <div class="project-deepdive">
                 <div class="deepdive-block">
-                  <span class="deepdive-title">Architectural Highlights</span>
+                  <span class="deepdive-title">Technical Highlights</span>
                   <p>
-                    Implements a Byzantine-fault-tolerant consensus mechanism enabling heterogeneous agents (explorers, miners, implementers, challengers) to converge on verifiable outputs without centralized controller bottlenecks. Employs transactional rollbacks and jittered exponential-backoff retry queues.
+                    Provisioned GCP infrastructure with Terraform—custom VPC, subnet, firewall rules, and an auto-scaling GKE cluster with automated node management. Built a GitHub Actions CI/CD pipeline to containerize applications, publish images to Artifact Registry, and automate deployments using reusable Helm charts. Integrated GCP Secret Manager for secrets management and Istio service mesh for gateway/virtual-service traffic routing, enabling zero-downtime canary deployments.
                   </p>
                 </div>
 
                 <div class="project-metrics-strip">
                   <div class="metric-pill">
-                    <span class="m-val">120k+</span>
-                    <span class="m-lbl">Daily Agent Loops</span>
+                    <span class="m-val">IaC</span>
+                    <span class="m-lbl">Terraform GCP</span>
                   </div>
                   <div class="metric-pill">
-                    <span class="m-val">99.98%</span>
-                    <span class="m-lbl">Task Convergence</span>
+                    <span class="m-val">GKE</span>
+                    <span class="m-lbl">Auto-Scaling</span>
                   </div>
                   <div class="metric-pill">
-                    <span class="m-val">&lt;250ms</span>
-                    <span class="m-lbl">Node Failover</span>
+                    <span class="m-val">Istio</span>
+                    <span class="m-lbl">Canary Mesh</span>
                   </div>
                 </div>
               </div>
 
               <div class="tech-tag-row">
-                <span class="tech-tag highlight">TypeScript</span>
-                <span class="tech-tag">Node.js Worker Threads</span>
-                <span class="tech-tag">Redis Streams</span>
-                <span class="tech-tag">EventSource</span>
+                <span class="tech-tag highlight">Terraform</span>
+                <span class="tech-tag">GCP / GKE</span>
+                <span class="tech-tag">Kubernetes</span>
+                <span class="tech-tag">Helm</span>
                 <span class="tech-tag">Docker</span>
+                <span class="tech-tag">GitHub Actions</span>
+                <span class="tech-tag">Istio</span>
               </div>
 
               <div class="project-actions">
-                <a href="https://github.com/vishalpatil20/nexus-orchestrator" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
-                  <span>Explore Architecture Docs</span>
+                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
+                  <span>View Repository</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link secondary">
-                  <span>Source Repository</span>
                 </a>
               </div>
             </article>
 
-            <!-- Project 2: WebWorker Chess Engine & AI -->
+            <!-- Project 2: Auto-Healing Infrastructure -->
             <article class="project-item feature-project-card">
               <div class="item-header">
-                <span class="category">Algorithmic Game Theory &amp; Client Systems</span>
-                <span class="year">2026 // Production</span>
+                <span class="category">SRE &amp; Distributed Monitoring</span>
+                <span class="year">2025 // Production</span>
               </div>
-              <h3 class="project-headline">WebWorker Chess Engine &amp; Procedural AI</h3>
+              <h3 class="project-headline">Auto-Healing Infrastructure with Monitoring and Alerting</h3>
               <p class="project-pitch">
-                A high-performance, 100% zero-external-dependency FIDE chess engine executing entirely in browser threads, paired with an asynchronous Minimax AI and procedural Web Audio synthesizer.
+                Distributed monitoring platform built in Go featuring automated container recovery and Slack alert integration.
               </p>
 
               <div class="project-deepdive">
                 <div class="deepdive-block">
-                  <span class="deepdive-title">Architectural Highlights</span>
+                  <span class="deepdive-title">Technical Highlights</span>
                   <p>
-                    Complete move generation covering FEN parsing/serialization, en passant, castling transit verification, and 50-move/repetition draw evaluation. Search engine utilizes alpha-beta pruning, Piece-Square Tables (PSTs), MVV-LVA move ordering, and quiescence search—offloaded to a Web Worker to sustain 60fps frame rates with &lt;1.5s search SLA. Real-time procedural sound is generated via native Web Audio API oscillators and gain envelopes with zero audio file assets.
+                    Built a distributed monitoring platform in Go using concurrent workers, Docker containers, and automated recovery mechanisms, cutting manual intervention for common failure cases by <strong>70%</strong>. Shipped Prometheus and Grafana dashboards tracking CPU, memory, and disk health across 10+ simulated nodes, supporting proactive monitoring, faster incident response, and root-cause analysis. Integrated Slack webhook alerts for critical failures, cutting incident detection time to <strong>under 30 seconds</strong>.
                   </p>
                 </div>
 
                 <div class="project-metrics-strip">
                   <div class="metric-pill">
-                    <span class="m-val">45k+</span>
-                    <span class="m-lbl">Nodes / Sec Eval</span>
+                    <span class="m-val">70%</span>
+                    <span class="m-lbl">Manual Effort Cut</span>
                   </div>
                   <div class="metric-pill">
-                    <span class="m-val">60 FPS</span>
-                    <span class="m-lbl">Locked UI Thread</span>
+                    <span class="m-val">&lt;30s</span>
+                    <span class="m-lbl">Alert Detection</span>
                   </div>
                   <div class="metric-pill">
-                    <span class="m-val">0 KB</span>
-                    <span class="m-lbl">External Audio Assets</span>
+                    <span class="m-val">10+</span>
+                    <span class="m-lbl">Monitored Nodes</span>
                   </div>
                 </div>
               </div>
 
               <div class="tech-tag-row">
-                <span class="tech-tag highlight">Vanilla ES6+</span>
-                <span class="tech-tag">Web Workers API</span>
+                <span class="tech-tag highlight">Go</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">AWS EC2</span>
+                <span class="tech-tag">Prometheus</span>
+                <span class="tech-tag">Grafana</span>
+                <span class="tech-tag">Shell Script</span>
+                <span class="tech-tag">Slack API</span>
+              </div>
+
+              <div class="project-actions">
+                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
+                  <span>View Repository</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 3: Configurable Load Testing Platform -->
+            <article class="project-item feature-project-card">
+              <div class="item-header">
+                <span class="category">Distributed Systems &amp; Workload Generation</span>
+                <span class="year">2025 // Production</span>
+              </div>
+              <h3 class="project-headline">Configurable Load Testing Platform with RabbitMQ</h3>
+              <p class="project-pitch">
+                High-concurrency load-testing system capable of generating sustained HTTP workloads at 5K+ requests/second.
+              </p>
+
+              <div class="project-deepdive">
+                <div class="deepdive-block">
+                  <span class="deepdive-title">Technical Highlights</span>
+                  <p>
+                    Designed a concurrent load-testing platform simulating over <strong>10K virtual users</strong> using RabbitMQ message queues. Built distributed worker services generating sustained HTTP workloads at <strong>5K+ requests/second</strong>, with live latency, throughput, and error-rate tracking monitored via Grafana and Nginx.
+                  </p>
+                </div>
+
+                <div class="project-metrics-strip">
+                  <div class="metric-pill">
+                    <span class="m-val">10K+</span>
+                    <span class="m-lbl">Simulated Users</span>
+                  </div>
+                  <div class="metric-pill">
+                    <span class="m-val">5K+</span>
+                    <span class="m-lbl">Req/Sec Workload</span>
+                  </div>
+                  <div class="metric-pill">
+                    <span class="m-val">RabbitMQ</span>
+                    <span class="m-lbl">Worker Mesh</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag highlight">NodeJS</span>
+                <span class="tech-tag">RabbitMQ</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Grafana</span>
+                <span class="tech-tag">Nginx</span>
+              </div>
+
+              <div class="project-actions">
+                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
+                  <span>View Repository</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 4: Interactive WebWorker Chess Engine -->
+            <article class="project-item feature-project-card">
+              <div class="item-header">
+                <span class="category">Client Runtimes &amp; Game Theory</span>
+                <span class="year">2026 // Production</span>
+              </div>
+              <h3 class="project-headline">FIDE Chess Rules Engine &amp; Minimax AI</h3>
+              <p class="project-pitch">
+                100% zero-dependency browser chess engine with full move generation, Minimax AI, and Web Audio API synthesizer.
+              </p>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag highlight">JavaScript ES6+</span>
+                <span class="tech-tag">FIDE Rules Engine</span>
+                <span class="tech-tag">Minimax AI</span>
                 <span class="tech-tag">Web Audio API</span>
-                <span class="tech-tag">Minimax &amp; Alpha-Beta</span>
-                <span class="tech-tag">Vector SVG</span>
               </div>
 
               <div class="project-actions">
                 <a href="#chess-panel" class="btn-project-link primary" onclick="document.body.classList.remove('active-view-portfolio'); document.body.classList.add('active-view-chess'); const cb = document.getElementById('btn-view-chess'); if(cb) cb.classList.add('active'); const pb = document.getElementById('btn-view-portfolio'); if(pb) pb.classList.remove('active');">
-                  <span>Play Live on Right Console ♟️</span>
-                </a>
-                <a href="https://github.com/vishalpatil20/webworker-chess" target="_blank" rel="noopener noreferrer" class="btn-project-link secondary">
-                  <span>Inspect Engine Spec</span>
-                </a>
-              </div>
-            </article>
-
-            <!-- Project 3: Code Karwade Bhai -->
-            <article class="project-item feature-project-card">
-              <div class="item-header">
-                <span class="category">Collaborative Tooling &amp; Developer Productivity</span>
-                <span class="year">2025 — 2026</span>
-              </div>
-              <h3 class="project-headline">Code Karwade Bhai</h3>
-              <p class="project-pitch">
-                An AI-augmented collaborative developer platform that translates architectural specifications into battle-tested full-stack scaffoldings, boilerplates, and automated test harnesses.
-              </p>
-
-              <div class="project-deepdive">
-                <div class="deepdive-block">
-                  <span class="deepdive-title">Architectural Highlights</span>
-                  <p>
-                    Features context-aware Abstract Syntax Tree (AST) validation and targeted semantic injection to prevent hallucinated imports or broken dependency trees. Real-time multi-cursor collaboration is supported via operational transformation over low-overhead WebSockets with isolated Docker execution sandboxes.
-                  </p>
-                </div>
-
-                <div class="project-metrics-strip">
-                  <div class="metric-pill">
-                    <span class="m-val">85k+</span>
-                    <span class="m-lbl">Projects Scaffolding</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">99.4%</span>
-                    <span class="m-lbl">Syntax Validity</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">&lt;800ms</span>
-                    <span class="m-lbl">Gen Latency</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Next.js 14</span>
-                <span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">WebSockets</span>
-                <span class="tech-tag">Monaco Editor</span>
-                <span class="tech-tag">Docker Sandbox</span>
-                <span class="tech-tag">PostgreSQL</span>
-              </div>
-
-              <div class="project-actions">
-                <a href="https://github.com/vishalpatil20/code-karwade-bhai" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
-                  <span>Platform Blueprint</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link secondary">
-                  <span>GitHub Code</span>
+                  <span>Play Engine Live on Right Panel</span>
                 </a>
               </div>
             </article>
@@ -479,152 +463,147 @@
           </div>
         </section>
 
-        <!-- STEP 4: ARSENAL / TECH COMPETENCIES -->
+        <!-- STEP 4: ARSENAL / SKILLS & TOOLS -->
         <section class="content-step" id="step-skills" data-step="4" role="tabpanel" aria-labelledby="tab-btn-4">
-          <div class="step-badge">Phase 4 // Technical Arsenal</div>
-          <h2 class="step-title">Architectural <span class="text-gradient">Competencies</span></h2>
+          <div class="step-badge">Phase 4 // Skills &amp; Tools</div>
+          <h2 class="step-title">Technical <span class="text-gradient">Arsenal</span></h2>
           <p class="step-description">
-            A classified taxonomy of production technologies, systems primitives, and protocols deployed across distributed backends and zero-latency client runtimes.
+            A comprehensive taxonomy of production languages, cloud infrastructure platforms, observability suites, and distributed backend frameworks.
           </p>
 
           <div class="arsenal-grid">
             
-            <!-- Arsenal Tier 1: Client & UI Systems -->
+            <!-- Category 1: Languages -->
             <div class="arsenal-category-card">
               <div class="category-header">
                 <div class="category-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                 </div>
                 <div>
-                  <h3 class="category-title">Client &amp; High-Performance UI Systems</h3>
-                  <span class="category-subtitle">Zero-Latency Interaction &amp; Browser Primitives</span>
+                  <h3 class="category-title">Languages &amp; Core Runtimes</h3>
+                  <span class="category-subtitle">Strongly Typed &amp; Concurrent Systems</span>
                 </div>
               </div>
-              
-              <p class="category-summary">
-                Constructing lightweight, accessible, high-framerate browser applications that operate without framework bloat.
-              </p>
 
               <div class="competency-group">
-                <span class="group-label">Core Runtimes &amp; Frameworks</span>
                 <div class="tech-tag-row">
+                  <span class="tech-tag highlight">Go</span>
+                  <span class="tech-tag highlight">Java</span>
                   <span class="tech-tag highlight">TypeScript</span>
-                  <span class="tech-tag">React 19</span>
-                  <span class="tech-tag">Next.js (App Router)</span>
-                  <span class="tech-tag">Vanilla DOM (ESNext)</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <span class="group-label">Browser Engines &amp; APIs</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag">Web Workers API</span>
-                  <span class="tech-tag">Web Audio API (Procedural)</span>
-                  <span class="tech-tag">Pointer Events &amp; Touch</span>
-                  <span class="tech-tag">Canvas / SVG Rendering</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <span class="group-label">Styling &amp; Micro-Interactions</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag">CSS Grid / Subgrid</span>
-                  <span class="tech-tag">Design Tokens (Custom Props)</span>
-                  <span class="tech-tag">Glassmorphism / Acrylics</span>
-                  <span class="tech-tag">WCAG 2.1 AA A11y</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">Bash / Shell Script</span>
                 </div>
               </div>
             </div>
 
-            <!-- Arsenal Tier 2: Distributed & Backend Systems -->
+            <!-- Category 2: Cloud & DevOps -->
+            <div class="arsenal-category-card">
+              <div class="category-header">
+                <div class="category-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                </div>
+                <div>
+                  <h3 class="category-title">Cloud &amp; DevOps Infrastructure</h3>
+                  <span class="category-subtitle">Kubernetes, IaC &amp; Container Orchestration</span>
+                </div>
+              </div>
+
+              <div class="competency-group">
+                <div class="tech-tag-row">
+                  <span class="tech-tag highlight">GCP (GKE, VPC, Secret Manager)</span>
+                  <span class="tech-tag highlight">Terraform</span>
+                  <span class="tech-tag highlight">Kubernetes (Helm, ArgoCD, GitOps)</span>
+                  <span class="tech-tag">Istio (Service Mesh)</span>
+                  <span class="tech-tag">GitHub Actions</span>
+                  <span class="tech-tag">AWS (EC2, S3, RDS, IAM)</span>
+                  <span class="tech-tag">Docker</span>
+                  <span class="tech-tag">Jenkins</span>
+                  <span class="tech-tag">CI/CD &amp; Configuration Management</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 3: SRE & Operations -->
+            <div class="arsenal-category-card">
+              <div class="category-header">
+                <div class="category-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div>
+                  <h3 class="category-title">SRE &amp; Operations</h3>
+                  <span class="category-subtitle">Incident Response, Auto-Scaling &amp; Operational Excellence</span>
+                </div>
+              </div>
+
+              <div class="competency-group">
+                <div class="tech-tag-row">
+                  <span class="tech-tag highlight">Production Support</span>
+                  <span class="tech-tag highlight">Incident Response</span>
+                  <span class="tech-tag">Root Cause &amp; Post-Mortem Analysis</span>
+                  <span class="tech-tag">Monitoring &amp; Alerting</span>
+                  <span class="tech-tag">Auto-Scaling</span>
+                  <span class="tech-tag">Secrets Management</span>
+                  <span class="tech-tag">Performance Optimization</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 4: Backend & Distributed Systems -->
             <div class="arsenal-category-card">
               <div class="category-header">
                 <div class="category-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                 </div>
                 <div>
-                  <h3 class="category-title">Distributed &amp; Backend Systems</h3>
-                  <span class="category-subtitle">High-Concurrency Event Loops &amp; Data Meshes</span>
-                </div>
-              </div>
-
-              <p class="category-summary">
-                Designing scalable, fault-tolerant backend infrastructures capable of sustained high-volume concurrent throughput.
-              </p>
-
-              <div class="competency-group">
-                <span class="group-label">Languages &amp; Runtimes</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">Node.js (Worker Threads)</span>
-                  <span class="tech-tag">Python (AsyncIO / FastAPI)</span>
-                  <span class="tech-tag">Go (Goroutines &amp; Channels)</span>
+                  <h3 class="category-title">Backend &amp; Distributed Systems</h3>
+                  <span class="category-subtitle">Message Queues, Microservices &amp; Concurrency</span>
                 </div>
               </div>
 
               <div class="competency-group">
-                <span class="group-label">Data Stores &amp; Stream Processing</span>
                 <div class="tech-tag-row">
-                  <span class="tech-tag">PostgreSQL (Partitioning/GIN)</span>
-                  <span class="tech-tag">Redis Cluster &amp; Streams</span>
-                  <span class="tech-tag">Apache Kafka</span>
-                  <span class="tech-tag">Vector Embeddings (pgvector)</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <span class="group-label">Protocols &amp; Concurrency</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag">WebSockets / SSE</span>
-                  <span class="tech-tag">gRPC / Protobuf</span>
-                  <span class="tech-tag">RESTful API Design</span>
-                  <span class="tech-tag">Distributed State &amp; CRDTs</span>
+                  <span class="tech-tag highlight">RabbitMQ</span>
+                  <span class="tech-tag highlight">Microservices</span>
+                  <span class="tech-tag">RESTful APIs</span>
+                  <span class="tech-tag">WebSockets</span>
+                  <span class="tech-tag">Redis</span>
+                  <span class="tech-tag">Concurrency</span>
                 </div>
               </div>
             </div>
 
-            <!-- Arsenal Tier 3: AI Systems, Infrastructure & DevOps -->
+            <!-- Category 5: Observability, Tools & Databases -->
             <div class="arsenal-category-card">
               <div class="category-header">
                 <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
                 </div>
                 <div>
-                  <h3 class="category-title">AI/ML &amp; Systems Infrastructure</h3>
-                  <span class="category-subtitle">Autonomous Agents &amp; Sovereign Deployments</span>
-                </div>
-              </div>
-
-              <p class="category-summary">
-                Deploying autonomous multi-agent systems, local model inference pipelines, and deterministic CI/CD cloud harnesses.
-              </p>
-
-              <div class="competency-group">
-                <span class="group-label">AI &amp; Multi-Agent Systems</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">Multi-Agent Consensus</span>
-                  <span class="tech-tag">Structured Function Calling</span>
-                  <span class="tech-tag">Semantic Routing &amp; Caching</span>
-                  <span class="tech-tag">Local Models (Ollama/vLLM)</span>
+                  <h3 class="category-title">Observability, Databases &amp; Frameworks</h3>
+                  <span class="category-subtitle">Telemetry, Data Stores &amp; Web Frameworks</span>
                 </div>
               </div>
 
               <div class="competency-group">
-                <span class="group-label">DevOps &amp; Cloud Infrastructure</span>
+                <span class="group-label">Observability &amp; Tools</span>
                 <div class="tech-tag-row">
-                  <span class="tech-tag">Docker &amp; Containers</span>
-                  <span class="tech-tag">Linux Systems &amp; Bash</span>
-                  <span class="tech-tag">GitHub Actions CI/CD</span>
-                  <span class="tech-tag">Nginx &amp; Edge Workers</span>
+                  <span class="tech-tag highlight">Prometheus</span>
+                  <span class="tech-tag highlight">Grafana</span>
+                  <span class="tech-tag">GCP Cloud Monitoring &amp; Logging</span>
+                  <span class="tech-tag">Git / GitHub</span>
+                  <span class="tech-tag">Postman</span>
+                  <span class="tech-tag">Linux</span>
                 </div>
               </div>
 
               <div class="competency-group">
-                <span class="group-label">Engineering Verification</span>
+                <span class="group-label">Databases &amp; Frameworks</span>
                 <div class="tech-tag-row">
-                  <span class="tech-tag">Opaque-Box E2E Testing</span>
-                  <span class="tech-tag">Playwright / Jest / Vitest</span>
-                  <span class="tech-tag">Heap &amp; Memory Profiling</span>
-                  <span class="tech-tag">Static Type Analysis</span>
+                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">NodeJS / ExpressJS</span>
+                  <span class="tech-tag">.NET</span>
+                  <span class="tech-tag">ReactJS</span>
                 </div>
               </div>
             </div>
@@ -632,24 +611,24 @@
           </div>
         </section>
 
-        <!-- STEP 5: CONNECT & LIVE CHALLENGE -->
+        <!-- STEP 5: CONTACT & TRANSMISSION -->
         <section class="content-step" id="step-contact" data-step="5" role="tabpanel" aria-labelledby="tab-btn-5">
-          <div class="step-badge victory">Phase 5 // Direct Transmission</div>
-          <h2 class="step-title">Initiate Transmission or <span class="text-gradient">Board Challenge</span></h2>
+          <div class="step-badge victory">Phase 5 // Contact Information</div>
+          <h2 class="step-title">Direct <span class="text-gradient">Contact Transmission</span></h2>
           
           <p class="step-description">
-            Whether you are architecting an autonomous distributed system, scaling a mission-critical platform, or seeking a 3+0 blitz opponent on Chess.com, my channels are open.
+            Available for Site Reliability Engineering (SRE), DevOps, and Distributed Systems roles. Get in touch directly via email or the form below.
           </p>
 
           <!-- Quick Transmission Metadata Bar -->
           <div class="transmission-meta-bar">
             <div class="meta-item">
-              <span class="meta-label">RESPONSE LATENCY</span>
-              <span class="meta-val">&lt; 4 Hours P90</span>
+              <span class="meta-label">PRIMARY LOCATION</span>
+              <span class="meta-val">Bangalore, India • Mysuru, IN</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">PRIMARY TIMEZONE</span>
-              <span class="meta-val">IST (UTC+05:30) • Global Remote</span>
+              <span class="meta-label">DIRECT EMAIL</span>
+              <span class="meta-val">vishal.b.patil.dev@gmail.com</span>
             </div>
           </div>
 
@@ -657,29 +636,28 @@
           <form id="contact-form" class="compact-contact-form" novalidate>
             <div class="input-row">
               <div class="input-field-group">
-                <label for="name" class="input-label">YOUR NAME</label>
-                <input type="text" id="name" placeholder="Ada Lovelace" required autocomplete="name">
+                <label for="form-name" class="input-label">YOUR NAME</label>
+                <input type="text" id="form-name" placeholder="Engineering Hiring Team" required autocomplete="name">
               </div>
               <div class="input-field-group">
-                <label for="email" class="input-label">WORK EMAIL</label>
-                <input type="email" id="email" placeholder="ada@analytical-engine.io" required autocomplete="email">
+                <label for="form-email" class="input-label">WORK EMAIL</label>
+                <input type="email" id="form-email" placeholder="hiring@company.com" required autocomplete="email">
               </div>
             </div>
 
             <div class="input-field-group full-width">
-              <label for="inquiry-type" class="input-label">TRANSMISSION FOCUS</label>
+              <label for="inquiry-type" class="input-label">INQUIRY FOCUS</label>
               <select id="inquiry-type" class="select-field">
-                <option value="systems">Distributed Systems &amp; Backend Architecture</option>
-                <option value="ai">Autonomous AI &amp; Agent Systems</option>
-                <option value="fulltime">Full-Time Senior Engineering Role</option>
-                <option value="consulting">Technical Advisory / Architecture Audit</option>
-                <option value="chess">Chess Challenge / Tactical Analysis</option>
+                <option value="sre">Site Reliability Engineer (SRE) Role</option>
+                <option value="devops">Cloud Infrastructure &amp; DevOps</option>
+                <option value="systems">Backend &amp; Distributed Systems</option>
+                <option value="general">General Professional Inquiry</option>
               </select>
             </div>
 
             <div class="input-field-group full-width">
-              <label for="message" class="input-label">PROJECT SPECIFICATION / INQUIRY</label>
-              <textarea id="message" rows="3" placeholder="Outline your system parameters, problem statement, or challenge details..." required></textarea>
+              <label for="form-message" class="input-label">MESSAGE DETAILS</label>
+              <textarea id="form-message" rows="3" placeholder="Provide job details, platform requirements, or interview schedule..." required></textarea>
             </div>
 
             <button type="submit" class="btn btn-submit" id="btn-send-message">
@@ -697,47 +675,23 @@
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
-              <span class="email-text" id="target-email">hello@myvkserver.online</span>
+              <span class="email-text" id="target-email">vishal.b.patil.dev@gmail.com</span>
             </div>
 
             <div class="mail-actions-group">
-              <a href="mailto:hello@myvkserver.online" class="mail-action-btn mail-link" title="Open in default mail client">
+              <a href="mailto:vishal.b.patil.dev@gmail.com" class="mail-action-btn mail-link" title="Open in default mail client">
                 <span>Open Mailer</span>
               </a>
-              <button type="button" class="mail-action-btn mail-copy" id="btn-copy-email" title="Copy email address to clipboard" onclick="navigator.clipboard.writeText('hello@myvkserver.online'); const l = document.getElementById('copy-btn-label'); if(l){ const o = l.textContent; l.textContent = 'Copied!'; setTimeout(() => l.textContent = o, 2000); }">
+              <button type="button" class="mail-action-btn mail-copy" id="btn-copy-email" title="Copy email address to clipboard" onclick="navigator.clipboard.writeText('vishal.b.patil.dev@gmail.com'); const l = document.getElementById('copy-btn-label'); if(l){ const o = l.textContent; l.textContent = 'Copied!'; setTimeout(() => l.textContent = o, 2000); }">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span id="copy-btn-label">Copy Address</span>
               </button>
             </div>
           </div>
 
-          <!-- Verified Chess.com Live Challenge Card -->
-          <div class="chess-challenge-box">
-            <div class="challenge-header">
-              <div class="challenge-badge">
-                <span class="live-pulse-dot" aria-hidden="true"></span>
-                <span>CHESS.COM LIVE CHALLENGE</span>
-              </div>
-              <span class="handle-tag">@vishalpatil20</span>
-            </div>
-            
-            <h3 class="challenge-title">Put Your Endgame to the Test in Real-Time</h3>
-            <p class="challenge-desc">
-              Finished the tactics puzzles on the right? Challenge me directly to a rated <strong>3+0 Blitz</strong> or <strong>10+0 Rapid</strong> match on Chess.com.
-            </p>
-
-            <div class="challenge-actions">
-              <a href="https://www.chess.com/member/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-challenge-chesscom">
-                <span class="chess-icon" aria-hidden="true">♟️</span>
-                <span>Challenge @vishalpatil20 on Chess.com</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              </a>
-            </div>
-          </div>
-
           <!-- External Profiles Strip -->
           <div class="social-channels-strip">
-            <span class="strip-label">EXTERNAL SIGNAL CHANNELS</span>
+            <span class="strip-label">PROFESSIONAL PROFILES &amp; CHANNELS</span>
             <div class="social-links-grid">
               <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-link-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -747,10 +701,6 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 <span>LinkedIn</span>
               </a>
-              <a href="https://x.com/vishalpatil_dev" target="_blank" rel="noopener noreferrer" class="social-link-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                <span>X / Twitter</span>
-              </a>
             </div>
           </div>
         </section>
@@ -759,8 +709,8 @@
 
       <footer class="panel-footer">
         <div class="footer-inner">
-          <span class="copyright">© 2026 Vishal Patil • All Runtimes Deterministic</span>
-          <span class="engine-indicator">Sovereign Web Core v2.4</span>
+          <span class="copyright">© 2026 Vishal B Patil • All Systems Operational</span>
+          <span class="engine-indicator">SRE Portfolio v2.5</span>
         </div>
       </footer>
     </aside>
@@ -845,14 +795,14 @@
         <!-- 2. Tactical Intel Commentary Banner (Above Board) -->
         <div class="tactical-commentary-box" id="commentary-box">
           <span class="commentary-tag">TACTICAL INTEL</span>
-          <p id="commentary-text">Select a level above to start the game.</p>
+          <p id="commentary-text">Make your opening move against the AI.</p>
         </div>
 
         <!-- 3. Board Section (Center) -->
         <div class="chessboard-container-centered">
           <div class="chessboard-border">
             <div class="chess-board" id="chess-board"></div>
-            <div class="board-overlay" id="board-overlay">
+            <div class="board-overlay hidden" id="board-overlay">
               <div class="overlay-card">
                 <h3>Select a Level</h3>
                 <p>Choose difficulty above to unlock the board</p>
@@ -866,7 +816,7 @@
           <div class="player-label-row">
             <div class="player-tag">
               <span class="player-color-dot white" aria-hidden="true"></span>
-              <span class="player-name">Vishal (Player)</span>
+              <span class="player-name">Vishal B Patil</span>
             </div>
             <span class="material-diff-badge" id="material-diff-white" aria-label="Material advantage"></span>
           </div>
@@ -875,7 +825,7 @@
           </div>
         </div>
 
-        <!-- Move History Strip (SAN Notation - Feature 13 & 30) -->
+        <!-- Move History Strip (SAN Notation) -->
         <div class="move-history-panel" id="move-history" data-panel="move-history-panel">
           <div class="history-header">
             <span class="history-title">MOVE HISTORY</span>
@@ -890,7 +840,7 @@
         <div class="match-progress-container" id="progress-bar">
           <div class="progress-info">
             <span class="progress-label">MATCH PROGRESS</span>
-            <span class="progress-val" id="progress-val">0 / 0 MOVES</span>
+            <span class="progress-val" id="progress-val">0 MOVES</span>
           </div>
           <div class="progress-track">
             <div class="progress-fill" id="progress-fill"></div>
