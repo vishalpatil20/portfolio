@@ -2157,6 +2157,11 @@ body {
   transition: width 0.35s var(--ease-spring);
 }
 
+/* Mobile Switcher Base (Hidden on Desktop >= 768px) */
+.mobile-view-switcher {
+  display: none;
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN & MOBILE VIEW SWITCHER (< 768px)
    ========================================================================== */
@@ -2209,7 +2214,7 @@ body {
     overflow-y: auto;
     height: auto;
     min-height: 100vh;
-    padding: 8px 10px 32px 10px;
+    padding: 8px 8px 24px 8px;
     justify-content: flex-start;
   }
 
@@ -2217,18 +2222,16 @@ body {
   .mobile-view-switcher {
     display: flex;
     position: sticky;
-    top: 8px;
+    top: 4px;
     z-index: 600;
     width: 100%;
-    max-width: 390px;
-    margin: 0 auto 14px auto;
-    background: rgba(14, 17, 26, 0.90);
-    backdrop-filter: var(--blur-standard);
-    -webkit-backdrop-filter: var(--blur-standard);
-    border: 1px solid var(--border-specular);
-    border-radius: var(--radius-full);
-    padding: 4px;
-    box-shadow: var(--shadow-lg), 0 0 16px rgba(0, 0, 0, 0.5);
+    max-width: 420px;
+    margin: 0 auto 10px auto;
+    background: #f0ead2;
+    border: 1px solid #a98467;
+    border-radius: var(--radius-sm);
+    padding: 3px;
+    box-shadow: 0 2px 8px rgba(108, 88, 76, 0.12);
   }
 
   .view-switch-btn {
@@ -2236,24 +2239,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-height: 44px;
-    padding: 10px 14px;
+    gap: 6px;
+    min-height: 40px;
+    padding: 8px 12px;
     font-family: var(--font-body);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6c584c;
     background: transparent;
     border: none;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-xs);
     cursor: pointer;
     transition: var(--transition-fast);
   }
 
   .view-switch-btn.active {
-    background: var(--copper-gradient);
+    background: #6c584c;
     color: #ffffff;
-    box-shadow: var(--copper-glow-sm), var(--shadow-sm);
+    box-shadow: 0 1px 4px rgba(108, 88, 76, 0.2);
   }
 
   .dashboard-wrapper {
@@ -2266,7 +2269,7 @@ body {
     gap: 0;
   }
 
-  /* Mobile Surface Visibility Toggling: Single-focus surface */
+  /* Mobile Surface Visibility Toggling */
   body.active-view-chess .portfolio-card {
     display: none !important;
   }
@@ -2283,32 +2286,36 @@ body {
     display: flex !important;
   }
 
-  /* Fallback if mobile classes placed directly on elements */
-  .portfolio-card.mobile-hidden,
-  .chess-card.mobile-hidden {
-    display: none !important;
-  }
-
-  .portfolio-card.mobile-active,
-  .chess-card.mobile-active {
-    display: flex !important;
-  }
-
   .portfolio-card,
   .chess-card {
     width: 100% !important;
     flex: none !important;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-sm);
   }
 
   .portfolio-card {
-    height: 78vh;
-    min-height: 520px;
-    max-height: 720px;
+    height: auto;
+    max-height: calc(100vh - 100px);
+    min-height: 480px;
+  }
+
+  .panel-header {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .logo-text {
+    font-size: 0.85rem;
+  }
+
+  .header-status-pill {
+    padding: 3px 8px;
   }
 
   .portfolio-tabs {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
 
@@ -2317,21 +2324,32 @@ body {
   }
 
   .tab-btn {
-    min-width: 72px;
-    padding: 12px 4px;
-    font-size: 0.74rem;
+    min-width: 80px;
+    padding: 10px 4px;
+    font-size: 0.70rem;
+    flex-shrink: 0;
+  }
+
+  .portfolio-content-scroller {
+    padding: 12px 14px;
   }
 
   .chess-card {
     height: auto;
     min-height: unset;
-    padding: 14px 10px;
+    padding: 10px 8px;
+  }
+
+  .chess-console-vertical {
+    width: 100%;
+    max-width: 100%;
+    gap: 6px;
   }
 
   /* Fluid Chessboard Scaling for Mobile */
   .chess-board {
-    width: min(88vw, 344px);
-    height: min(88vw, 344px);
+    width: min(88vw, 320px);
+    height: min(88vw, 320px);
     aspect-ratio: 1 / 1;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
@@ -2343,8 +2361,8 @@ body {
   }
 
   .chess-piece {
-    width: 84%;
-    height: 84%;
+    width: 100%;
+    height: 100%;
   }
 
   .move-dot-capture {
@@ -2378,6 +2396,14 @@ body {
 
 /* Small Handset (< 380px) */
 @media (max-width: 380px) {
+  .chess-board {
+    width: 290px;
+    height: 290px;
+  }
+
+  .step-title {
+    font-size: 1.3rem;
+  }
   .chess-board {
     width: 290px;
     height: 290px;

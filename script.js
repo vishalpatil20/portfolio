@@ -205,6 +205,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Mobile View Switcher
+  const btnViewPortfolio = document.getElementById('btn-view-portfolio');
+  const btnViewChess = document.getElementById('btn-view-chess');
+
+  function setMobileView(view) {
+    if (view === 'chess') {
+      document.body.classList.add('active-view-chess');
+      document.body.classList.remove('active-view-portfolio');
+      if (btnViewChess) btnViewChess.classList.add('active');
+      if (btnViewPortfolio) btnViewPortfolio.classList.remove('active');
+    } else {
+      document.body.classList.add('active-view-portfolio');
+      document.body.classList.remove('active-view-chess');
+      if (btnViewPortfolio) btnViewPortfolio.classList.add('active');
+      if (btnViewChess) btnViewChess.classList.remove('active');
+    }
+  }
+
+  if (btnViewPortfolio) {
+    btnViewPortfolio.addEventListener('click', () => setMobileView('portfolio'));
+  }
+  if (btnViewChess) {
+    btnViewChess.addEventListener('click', () => setMobileView('chess'));
+  }
+  setMobileView('portfolio');
+
   // Portfolio Tab Buttons
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
