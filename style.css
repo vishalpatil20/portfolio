@@ -82,16 +82,16 @@
   --shadow-xl: 0 12px 32px rgba(108, 88, 76, 0.18);
   --shadow-inner-bevel: none;
 
-  /* Chessboard Tokens */
-  --square-light: #dde5b6;
-  --square-dark:  #adc178;
+  /* Chessboard Tokens - High Contrast Parchment & Faded Copper */
+  --square-light: #f0e6d2;
+  --square-dark:  #b88b68;
   --square-light-coord: #6c584c;
-  --square-dark-coord:  #6c584c;
+  --square-dark-coord:  #f0e6d2;
   
   --trail-src: rgba(169, 132, 103, 0.35);
   --trail-dst: rgba(173, 193, 120, 0.45);
   --trail-border: #a98467;
-  --selected-sq: rgba(173, 193, 120, 0.55);
+  --selected-sq: rgba(169, 132, 103, 0.55);
 
   /* Typography System (Modern High-Contrast Architecture) */
   --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1927,19 +1927,21 @@ body {
 
 /* Move Target Indicators */
 .move-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--muted-olive);
+  width: 12px;
+  height: 12px;
+  background: #6c584c;
+  border: 1.5px solid #ffffff;
   border-radius: var(--radius-full);
   pointer-events: none;
   z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .move-dot-capture {
-  width: 34px;
-  height: 34px;
-  border: 2px solid var(--muted-olive);
-  background: rgba(173, 193, 120, 0.25);
+  width: 36px;
+  height: 36px;
+  border: 3px solid #c94a4a;
+  background: rgba(201, 74, 74, 0.22);
   border-radius: var(--radius-full);
   position: absolute;
   pointer-events: none;
@@ -1948,19 +1950,19 @@ body {
 
 /* Trails, Selected & Check Aura */
 .chess-square.selected {
-  background-color: rgba(173, 193, 120, 0.5) !important;
-  box-shadow: inset 0 0 0 2px var(--ash-brown) !important;
+  background-color: rgba(169, 132, 103, 0.55) !important;
+  box-shadow: inset 0 0 0 2px #6c584c !important;
 }
 
 .chess-square.last-move-src,
 .chess-square.last-move-dst {
   background-color: rgba(221, 229, 182, 0.7) !important;
-  box-shadow: inset 0 0 0 1px var(--ash-brown) !important;
+  box-shadow: inset 0 0 0 1px #6c584c !important;
 }
 
 .chess-square.in-check {
-  background-color: rgba(201, 74, 74, 0.45) !important;
-}
+  background-color: rgba(201, 74, 74, 0.6) !important;
+  box-shadow: inset 0 0 0 2px #c94a4a !important;
   animation: checkPulse 1.2s ease-in-out infinite;
 }
 
@@ -1998,8 +2000,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
   pointer-events: none;
+}
+
+.chess-piece.black img {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.85)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
 }
 
 .chess-piece.dragging {

@@ -402,6 +402,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
     const inCheckSq = engine.isCheck() ? findKingSquare(engine.getTurn()) : null;
+    const history = engine.getHistory ? engine.getHistory() : [];
+    const lastMove = history.length > 0 ? history[history.length - 1] : null;
 
     for (let r = 0; r < 8; r++) {
       for (let f = 0; f < 8; f++) {
@@ -415,6 +417,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (sq === selectedSquare) squareEl.classList.add('selected');
         if (sq === inCheckSq) squareEl.classList.add('in-check');
+        if (lastMove) {
+          if (sq === lastMove.from) squareEl.classList.add('last-move-src');
+          if (sq === lastMove.to) squareEl.classList.add('last-move-dst');
+        }
 
         // Coordinates
         if (f === 0) {
@@ -464,13 +470,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function findKingSquare(color) {
     if (!engine) return null;
     const board = engine.getBoard();
-    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
     for (let i = 0; i < 64; i++) {
       if (board[i] && board[i].type === 'k' && board[i].color === color) {
-        const r = Math.floor(i / 8);
-        const f = i % 8;
-        return files[f] + ranks[r];
+        if (window.ChessEngine && window.ChessEngine.indexToSquare) {
+          return window.ChessEngine.indexToSquare(i);
+        }
+        const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        const ranks = ['1', '2', '3', '4', '5', '6', '7', '8'];
+        return files[i & 7] + ranks[i >> 3];
       }
     }
     return null;
