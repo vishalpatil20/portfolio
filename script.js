@@ -1,88 +1,240 @@
-// Interactive Split-Screen Chess Portfolio Controller
+// ==========================================================================
+// Vishal B Patil — Portfolio & Interactive Chess Coordinator
+// Modules:
+// 1. Theme Management (Dark & Light Mode)
+// 2. Mobile Navigation & Smooth Scroll
+// 3. Email Copying & Contact Form
+// 4. Procedural Audio Synthesizer Integration
+// 5. Standalone Chess Rules Engine, AI & Puzzles
+// 6. UI Synchronization & Keyboard Shortcuts
+// ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
 
-  // Audio Engine Initialization
+  // --------------------------------------------------------------------------
+  // 1. THEME MANAGEMENT (DARK & LIGHT)
+  // --------------------------------------------------------------------------
+  const themeToggleBtn = document.getElementById('theme-toggle');
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme_preference');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.documentElement.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+    }
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('theme_preference', nextTheme);
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+  initTheme();
+
+  // --------------------------------------------------------------------------
+  // 2. MOBILE NAVIGATION & ACTIVE SCROLL TRACKING
+  // --------------------------------------------------------------------------
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      mobileToggle.classList.toggle('open', isOpen);
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close menu when clicking a link
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        mobileToggle.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Active section indicator on scroll
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset + 120;
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, { passive: true });
+
+  // --------------------------------------------------------------------------
+  // 3. EMAIL COPY & CONTACT FORM HANDLING
+  // --------------------------------------------------------------------------
+  const copyEmailBtn = document.getElementById('btn-copy-email');
+  const copyBtnLabel = document.getElementById('copy-btn-label');
+  const toastRegion = document.getElementById('toast-region');
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  function showToast(message) {
+    if (!toastRegion) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    toastRegion.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(8px)';
+      toast.style.transition = 'opacity 300ms ease, transform 300ms ease';
+      setTimeout(() => toast.remove(), 320);
+    }, 3200);
+  }
+
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+      const email = 'vishal.b.patil.dev@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          if (copyBtnLabel) copyBtnLabel.textContent = 'Copied to Clipboard!';
+          showToast('Email address copied to clipboard');
+          setTimeout(() => {
+            if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Email Address';
+          }, 2400);
+        }).catch(() => fallbackCopy(email));
+      } else {
+        fallbackCopy(email);
+      }
+    });
+  }
+
+  function fallbackCopy(text) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    try {
+      document.execCommand('copy');
+      if (copyBtnLabel) copyBtnLabel.textContent = 'Copied to Clipboard!';
+      showToast('Email address copied to clipboard');
+      setTimeout(() => {
+        if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Email Address';
+      }, 2400);
+    } catch (_) {}
+    area.remove();
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('form-name')?.value || '').trim();
+      const email = (document.getElementById('form-email')?.value || '').trim();
+      const topic = (document.getElementById('inquiry-type')?.value || 'general');
+      const message = (document.getElementById('form-message')?.value || '').trim();
+
+      if (!name || !email || !message) {
+        if (formStatus) {
+          formStatus.textContent = 'Please complete all required fields.';
+          formStatus.className = 'form-status-msg err';
+        }
+        return;
+      }
+
+      const subject = encodeURIComponent(`[Portfolio Contact - ${topic.toUpperCase()}] from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\nMessage:\n${message}`);
+      window.location.href = `mailto:vishal.b.patil.dev@gmail.com?subject=${subject}&body=${body}`;
+
+      if (formStatus) {
+        formStatus.textContent = '✓ Opening your email client... Thank you!';
+        formStatus.className = 'form-status-msg ok';
+      }
+      contactForm.reset();
+      if (window.chessAudio) window.chessAudio.playVictory();
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 4. PROCEDURAL WEB AUDIO SYNTHESIZER
+  // --------------------------------------------------------------------------
   if (window.ChessAudioEngine && !window.chessAudio) {
     window.chessAudio = new window.ChessAudioEngine();
     window.chessAudio.init();
   }
+  const audio = window.chessAudio;
 
-  // DOM Elements
-  const chessBoardEl = document.getElementById('chess-board');
-  const boardOverlay = document.getElementById('board-overlay');
-  const levelButtons = document.querySelectorAll('.level-pill-horizontal');
-  const activeLevelSpan = document.querySelector('#active-level-indicator span');
-  const resetBtn = document.getElementById('reset-game-btn');
-  const undoBtn = document.getElementById('undo-game-btn');
-  const hintBtn = document.getElementById('hint-game-btn');
-  const statusText = document.getElementById('status-text');
-  const statusBadge = document.getElementById('game-status-badge');
-  const statusDot = statusBadge ? statusBadge.querySelector('.status-pulse-light') : null;
-  
-  const contentSteps = document.querySelectorAll('.content-step');
-  const contentScroller = document.getElementById('content-scroller');
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const modeButtons = document.querySelectorAll('.mode-pill');
   const audioMuteBtn = document.getElementById('audio-mute-btn');
+  const iconAudioOn = document.querySelector('.icon-audio-on');
+  const iconAudioOff = document.querySelector('.icon-audio-off');
 
-  const entryModal = document.getElementById('entry-modal');
-  const btnModePlay = document.getElementById('btn-mode-play');
-  const btnModeDirect = document.getElementById('btn-mode-direct');
+  function updateAudioButtonUI(isMuted) {
+    if (!audioMuteBtn) return;
+    audioMuteBtn.classList.toggle('muted', isMuted);
+    audioMuteBtn.setAttribute('aria-pressed', isMuted ? 'true' : 'false');
+    if (iconAudioOn) iconAudioOn.classList.toggle('hidden', isMuted);
+    if (iconAudioOff) iconAudioOff.classList.toggle('hidden', !isMuted);
+  }
 
-  const progressVal = document.getElementById('progress-val');
-  const progressFill = document.getElementById('progress-fill');
-  const commentaryText = document.getElementById('commentary-text');
+  if (audioMuteBtn && audio) {
+    updateAudioButtonUI(audio.isMuted());
+    audioMuteBtn.addEventListener('click', () => {
+      const isMuted = audio.toggleMute();
+      updateAudioButtonUI(isMuted);
+    });
+  }
 
-  const sanHistoryStrip = document.getElementById('san-history-strip');
-  const historyMoveCount = document.getElementById('history-move-count');
+  // --------------------------------------------------------------------------
+  // 5. CHESS ARENA STATE, ENGINE & MINIMAX AI
+  // --------------------------------------------------------------------------
+  const DOM = {
+    chessBoard: document.getElementById('chess-board'),
+    boardOverlay: document.getElementById('board-overlay'),
+    overlayTitle: document.getElementById('overlay-title'),
+    overlayText: document.getElementById('overlay-text'),
+    overlayRestartBtn: document.getElementById('overlay-restart-btn'),
 
-  const capturedBlackEl = document.getElementById('captured-black');
-  const capturedWhiteEl = document.getElementById('captured-white');
-  const materialDiffBlack = document.getElementById('material-diff-black');
-  const materialDiffWhite = document.getElementById('material-diff-white');
+    modeBtnAi: document.getElementById('mode-btn-ai'),
+    modeBtnPuzzles: document.getElementById('mode-btn-puzzles'),
+    aiLevelsGroup: document.getElementById('ai-levels-group'),
+    puzzleSelectGroup: document.getElementById('puzzle-select-group'),
+    diffPills: document.querySelectorAll('.level-pill'),
+    puzzleSelect: document.getElementById('puzzle-select'),
 
-  const promotionModal = document.getElementById('promotion-modal');
-  const promotionChoices = document.getElementById('promotion-choices');
+    flipBoardBtn: document.getElementById('flip-board-btn'),
+    hintBtn: document.getElementById('hint-game-btn'),
+    undoBtn: document.getElementById('undo-game-btn'),
+    resetBtn: document.getElementById('reset-game-btn'),
 
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
+    statusBadge: document.getElementById('game-status-badge'),
+    statusPulse: document.querySelector('.status-pulse-light'),
+    statusText: document.getElementById('status-text'),
+    commentaryText: document.getElementById('commentary-text'),
 
-  // Engine & Controller State
-  let engine = null;
-  let activeMode = 'ai'; // 'ai' or 'puzzles'
-  let activeLevel = 'easy'; // 'easy', 'medium', 'master' or 'difficult'
-  let selectedSquare = null;
-  let validMovesForSelected = [];
-  let pendingMove = null;
-  let isAiThinking = false;
-  let puzzleIndex = 0;
+    capturedBlack: document.getElementById('captured-black'),
+    capturedWhite: document.getElementById('captured-white'),
+    materialDiffBlack: document.getElementById('material-diff-black'),
+    materialDiffWhite: document.getElementById('material-diff-white'),
+    playerNameTop: document.getElementById('player-name-top'),
+    playerNameBottom: document.getElementById('player-name-bottom'),
 
-  const PUZZLES = {
-    easy: {
-      name: "Easy Puzzle",
-      description: "Scholar's Mate Combination",
-      userColor: "w",
-      fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3",
-      moves: [
-        { from: "d1", to: "h5", text: "Queen moves to h5, threatening f7." },
-        { from: "h5", to: "f7", text: "CHECKMATE! Scholar's Mate supported by c4 Bishop." }
-      ]
-    },
-    difficult: {
-      name: "Difficult Puzzle",
-      description: "Morphy's Opera House Mating Attack",
-      userColor: "w",
-      fen: "4kb1r/p2r1p1p/2p1qn2/1B4B1/8/1Q6/P1P2PPP/2KR4 w k - 0 15",
-      moves: [
-        { from: "b5", to: "d7", text: "BISHOP SACRIFICE on d7!" },
-        { from: "b3", to: "b8", text: "LEGENDARY QUEEN SACRIFICE on b8!" },
-        { from: "d1", to: "d8", text: "CHECKMATE! Rook delivers final blow down the open d-file." }
-      ]
-    }
+    sanHistoryStrip: document.getElementById('san-history-strip'),
+    historyMoveCount: document.getElementById('history-move-count'),
+
+    promotionModal: document.getElementById('promotion-modal'),
+    promotionChoices: document.getElementById('promotion-choices')
   };
 
-  // Minimax AI Valuation Tables
+  // Minimax Piece Valuation & Piece-Square Tables (PST)
   const PIECE_VALUES = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
 
   const PST_PAWN = [
@@ -137,8 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const moves = eng.getLegalMoves();
     if (moves.length === 0) return { score: evaluateBoard(eng) };
 
-    // Move ordering (captures first)
-    moves.sort((a, b) => (b.captured ? 1 : 0) - (a.captured ? 1 : 0));
+    // Move ordering (captures evaluated first)
+    moves.sort((a, b) => ((b.captured ? 1 : 0) - (a.captured ? 1 : 0)));
 
     let bestMove = moves[0];
 
@@ -173,544 +325,624 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function getAiMove(difficulty) {
-    if (!engine) return null;
-    const moves = engine.getLegalMoves();
+  function computeAiMove(level) {
+    if (!STATE.engine) return null;
+    const moves = STATE.engine.getLegalMoves();
     if (moves.length === 0) return null;
 
-    if (difficulty === 'easy') {
-      if (Math.random() < 0.65) {
+    if (level === 'easy') {
+      // 40% random move, 60% depth-1
+      if (Math.random() < 0.4) {
         return moves[Math.floor(Math.random() * moves.length)];
       }
-      return minimax(engine, 1, -Infinity, Infinity, false).move || moves[0];
-    } else if (difficulty === 'medium') {
-      return minimax(engine, 2, -Infinity, Infinity, false).move || moves[0];
+      return minimax(STATE.engine, 1, -Infinity, Infinity, false).move || moves[0];
+    } else if (level === 'medium') {
+      return minimax(STATE.engine, 2, -Infinity, Infinity, false).move || moves[0];
     } else {
-      return minimax(engine, 3, -Infinity, Infinity, false).move || moves[0];
+      // Master: Depth 3 with alpha-beta pruning & PST
+      return minimax(STATE.engine, 3, -Infinity, Infinity, false).move || moves[0];
     }
   }
 
-  // Handle Entry Modal
-  if (btnModePlay) {
-    btnModePlay.addEventListener('click', () => {
-      if (entryModal) entryModal.classList.add('hidden');
-      initGame('ai', 'easy');
-    });
-  }
-
-  if (btnModeDirect) {
-    btnModeDirect.addEventListener('click', () => {
-      if (entryModal) entryModal.classList.add('hidden');
-      initGame('ai', 'easy');
-    });
-  }
-
-  // Mobile View Switcher
-  const btnViewPortfolio = document.getElementById('btn-view-portfolio');
-  const btnViewChess = document.getElementById('btn-view-chess');
-
-  function setMobileView(view) {
-    if (view === 'chess') {
-      document.body.classList.add('active-view-chess');
-      document.body.classList.remove('active-view-portfolio');
-      if (btnViewChess) btnViewChess.classList.add('active');
-      if (btnViewPortfolio) btnViewPortfolio.classList.remove('active');
-    } else {
-      document.body.classList.add('active-view-portfolio');
-      document.body.classList.remove('active-view-chess');
-      if (btnViewPortfolio) btnViewPortfolio.classList.add('active');
-      if (btnViewChess) btnViewChess.classList.remove('active');
+  // Tactical Puzzles Setup
+  const PUZZLES = {
+    scholars: {
+      name: "Scholar's Mate Combination",
+      userColor: "w",
+      fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3",
+      solution: [
+        { from: "d1", to: "h5", text: "Queen strikes out to h5, setting up the lethal mate threat on f7!" },
+        { from: "h5", to: "f7", text: "CHECKMATE! 2. Qxf7# Scholar's Mate supported by the c4 Bishop!" }
+      ],
+      hint: "Target the vulnerable f7 square with your Queen."
+    },
+    opera: {
+      name: "Morphy's Opera House Attack",
+      userColor: "w",
+      fen: "4kb1r/p2r1p1p/2p1qn2/1B4B1/8/1Q6/P1P2PPP/2KR4 w k - 0 15",
+      solution: [
+        { from: "b5", to: "d7", text: "1. Bxd7+! Bishop sacrifice eliminates the pinned defender on d7!" },
+        { from: "b3", to: "b8", text: "2. Qb8+!! Legendary Queen Sacrifice deflects the Knight!" },
+        { from: "d1", to: "d8", text: "3. Rd8# CHECKMATE! Down the open d-file with Paul Morphy's precision!" }
+      ],
+      hint: "Eliminate the pinned defender on d7 first."
+    },
+    backrank: {
+      name: "Back-Rank Decapitation",
+      userColor: "w",
+      fen: "6k1/5ppp/8/8/8/8/4QPPP/6K1 w - - 0 1",
+      solution: [
+        { from: "e2", to: "e8", text: "CHECKMATE! 1. Qe8# The Black King is trapped behind its own shield of pawns!" }
+      ],
+      hint: "Black's back rank is unprotected. Infiltrate with the Queen."
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Controller State
+  const STATE = {
+    engine: null,
+    mode: 'ai', // 'ai' | 'puzzles'
+    difficulty: 'easy', // 'easy' | 'medium' | 'master'
+    puzzleKey: 'scholars',
+    puzzleStepIndex: 0,
+    isFlipped: false,
+    selectedSquare: null,
+    validMoves: [],
+    pendingPromotionMove: null,
+    isAiThinking: false
+  };
+
+  // Coordinate Systems
+  const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const RANKS = ['8', '7', '6', '5', '4', '3', '2', '1'];
+
+  function getDisplayRanks() {
+    return STATE.isFlipped ? ['1', '2', '3', '4', '5', '6', '7', '8'] : ['8', '7', '6', '5', '4', '3', '2', '1'];
   }
 
-  if (btnViewPortfolio) {
-    btnViewPortfolio.addEventListener('click', () => setMobileView('portfolio'));
-  }
-  if (btnViewChess) {
-    btnViewChess.addEventListener('click', () => setMobileView('chess'));
-  }
-  setMobileView('portfolio');
-
-  // Portfolio Tab Buttons
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const stepNum = parseInt(btn.getAttribute('data-step-tab'), 10);
-      switchTabTo(stepNum);
-    });
-  });
-
-  // Mode Pill Buttons
-  modeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mode = btn.getAttribute('data-mode');
-      modeButtons.forEach(b => {
-        const isAct = b === btn;
-        b.classList.toggle('active', isAct);
-        b.setAttribute('aria-checked', isAct);
-      });
-      activeMode = mode;
-      initGame(mode, activeLevel);
-    });
-  });
-
-  // Level Pill Buttons
-  levelButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const level = btn.getAttribute('data-level');
-      levelButtons.forEach(b => {
-        const isAct = b === btn;
-        b.classList.toggle('active', isAct);
-        b.setAttribute('aria-checked', isAct);
-      });
-      activeLevel = level;
-      initGame(activeMode, level);
-    });
-  });
-
-  // Reset Button
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      initGame(activeMode, activeLevel);
-    });
-  }
-
-  // Undo Button
-  if (undoBtn) {
-    undoBtn.addEventListener('click', () => {
-      if (!engine || isAiThinking) return;
-      engine.undoMove();
-      if (activeMode === 'ai') engine.undoMove(); // Undo AI move as well
-      selectedSquare = null;
-      renderBoard();
-      updateUIState();
-      if (window.chessAudio) window.chessAudio.playMove();
-    });
-  }
-
-  // Hint Button
-  if (hintBtn) {
-    hintBtn.addEventListener('click', () => {
-      if (!engine || isAiThinking) return;
-      const best = minimax(engine, 2, -Infinity, Infinity, engine.getTurn() === 'w').move;
-      if (best && commentaryText) {
-        commentaryText.textContent = `💡 Hint: Try moving piece at ${best.from.toUpperCase()} to ${best.to.toUpperCase()}`;
-        highlightSquare(best.from);
-      }
-    });
-  }
-
-  // Audio Toggle Button
-  if (audioMuteBtn) {
-    audioMuteBtn.addEventListener('click', () => {
-      audioMuteBtn.classList.toggle('muted');
-      const isMuted = audioMuteBtn.classList.contains('muted');
-      audioMuteBtn.setAttribute('aria-pressed', isMuted);
-      audioMuteBtn.title = isMuted ? 'Unmute Sound' : 'Mute Sound';
-      const onIcon = audioMuteBtn.querySelector('.icon-audio-on');
-      const offIcon = audioMuteBtn.querySelector('.icon-audio-off');
-      if (onIcon) onIcon.classList.toggle('hidden', isMuted);
-      if (offIcon) offIcon.classList.toggle('hidden', !isMuted);
-      if (window.chessAudio) window.chessAudio.toggleMute();
-    });
-  }
-
-  // Pawn Promotion Buttons
-  if (promotionChoices) {
-    promotionChoices.querySelectorAll('.promo-choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const promoType = btn.getAttribute('data-promotion');
-        if (promotionModal) promotionModal.classList.add('hidden');
-        if (pendingMove) {
-          executeEngineMove({ ...pendingMove, promotion: promoType });
-          pendingMove = null;
-        }
-      });
-    });
-  }
-
-  // Keyboard Navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    const key = e.key.toUpperCase();
-    if (['1', '2', '3', '4', '5'].includes(key)) {
-      switchTabTo(parseInt(key, 10));
-    } else if (key === 'R') {
-      initGame(activeMode, activeLevel);
-    } else if (key === 'U' && undoBtn && !undoBtn.disabled) {
-      undoBtn.click();
-    } else if (key === 'M' && audioMuteBtn) {
-      audioMuteBtn.click();
-    }
-  });
-
-  // Contact Form Submission
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const nameVal = document.getElementById('form-name')?.value.trim();
-      const emailVal = document.getElementById('form-email')?.value.trim();
-      const msgVal = document.getElementById('form-message')?.value.trim();
-
-      if (!nameVal || !emailVal || !msgVal) {
-        if (formStatus) {
-          formStatus.textContent = '❌ Please complete all required fields.';
-          formStatus.style.color = '#c94a4a';
-        }
-        return;
-      }
-
-      if (formStatus) {
-        formStatus.textContent = '✓ Message sent successfully! Thank you for reaching out.';
-        formStatus.style.color = '#6c584c';
-      }
-      contactForm.reset();
-      if (window.chessAudio) window.chessAudio.playVictory();
-    });
-  }
-
-  // Initialize Game Session
-  function initGame(mode, level) {
-    activeMode = mode;
-    activeLevel = level;
-    selectedSquare = null;
-    validMovesForSelected = [];
-    isAiThinking = false;
-    puzzleIndex = 0;
-
-    if (boardOverlay) boardOverlay.classList.add('hidden');
-    if (resetBtn) resetBtn.disabled = false;
-    if (activeLevelSpan) activeLevelSpan.textContent = level.toUpperCase();
-
-    if (!window.ChessEngine) {
-      console.error("ChessEngine not loaded");
-      return;
-    }
-
-    engine = new window.ChessEngine();
-
-    if (mode === 'puzzles') {
-      const pData = PUZZLES[level] || PUZZLES.easy;
-      engine.loadFEN(pData.fen);
-      if (commentaryText) commentaryText.textContent = `${pData.name}: ${pData.description}`;
-    } else {
-      engine.reset(); // Standard starting position
-      if (commentaryText) commentaryText.textContent = `VS AI (${level.toUpperCase()}): Make your opening move!`;
-    }
-
-    updateUIState();
-    renderBoard();
-  }
-
-  // Switch Active Portfolio Tab
-  function switchTabTo(stepNum) {
-    tabButtons.forEach(btn => {
-      const sTab = parseInt(btn.getAttribute('data-step-tab'), 10);
-      btn.classList.toggle('active', sTab === stepNum);
-    });
-
-    contentSteps.forEach(step => {
-      const sNum = parseInt(step.getAttribute('data-step'), 10);
-      step.classList.toggle('active', sNum === stepNum);
-    });
-
-    if (contentScroller) {
-      contentScroller.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }
-
-  // Render Chessboard 8x8 Grid
-  function renderBoard() {
-    chessBoardEl.innerHTML = '';
-    if (!engine) return;
-
-    const board = engine.getBoard(); // 64 element array
-    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
-
-    const inCheckSq = engine.isCheck() ? findKingSquare(engine.getTurn()) : null;
-    const history = engine.getHistory ? engine.getHistory() : [];
-    const lastMove = history.length > 0 ? history[history.length - 1] : null;
-
-    for (let r = 0; r < 8; r++) {
-      for (let f = 0; f < 8; f++) {
-        const sqIndex = r * 8 + f;
-        const sq = files[f] + ranks[r];
-        const isLight = (r + f) % 2 === 0;
-
-        const squareEl = document.createElement('div');
-        squareEl.className = `chess-square ${isLight ? 'light' : 'dark'}`;
-        squareEl.setAttribute('data-square', sq);
-
-        if (sq === selectedSquare) squareEl.classList.add('selected');
-        if (sq === inCheckSq) squareEl.classList.add('in-check');
-        if (lastMove) {
-          if (sq === lastMove.from) squareEl.classList.add('last-move-src');
-          if (sq === lastMove.to) squareEl.classList.add('last-move-dst');
-        }
-
-        // Coordinates
-        if (f === 0) {
-          const rL = document.createElement('span');
-          rL.className = 'coord-label rank';
-          rL.textContent = ranks[r];
-          squareEl.appendChild(rL);
-        }
-        if (r === 7) {
-          const fL = document.createElement('span');
-          fL.className = 'coord-label file';
-          fL.textContent = files[f];
-          squareEl.appendChild(fL);
-        }
-
-        // Render Piece SVG
-        const piece = engine.getPiece(sq);
-        if (piece) {
-          const pieceEl = document.createElement('div');
-          pieceEl.className = `chess-piece ${piece.color === 'w' ? 'white' : 'black'}`;
-
-          const img = document.createElement('img');
-          const colorChar = piece.color === 'w' ? 'l' : 'd';
-          img.src = `pieces/Chess_${piece.type}${colorChar}t45.svg`;
-          img.alt = `${piece.color === 'w' ? 'White' : 'Black'} ${piece.type}`;
-          pieceEl.appendChild(img);
-          squareEl.appendChild(pieceEl);
-        }
-
-        // Target dots / capture rings
-        const isTarget = validMovesForSelected.some(m => m.to === sq);
-        if (isTarget) {
-          const isCap = !!piece;
-          const dot = document.createElement('div');
-          dot.className = isCap ? 'move-dot-capture' : 'move-dot';
-          squareEl.appendChild(dot);
-        }
-
-        // Click Handler
-        squareEl.addEventListener('click', () => handleSquareClick(sq));
-
-        chessBoardEl.appendChild(squareEl);
-      }
-    }
+  function getDisplayFiles() {
+    return STATE.isFlipped ? ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'] : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   }
 
   function findKingSquare(color) {
-    if (!engine) return null;
-    const board = engine.getBoard();
+    if (!STATE.engine) return null;
+    const board = STATE.engine.getBoard();
     for (let i = 0; i < 64; i++) {
-      if (board[i] && board[i].type === 'k' && board[i].color === color) {
-        if (window.ChessEngine && window.ChessEngine.indexToSquare) {
+      const p = board[i];
+      if (p && p.type === 'k' && p.color === color) {
+        if (typeof window.ChessEngine.indexToSquare === 'function') {
           return window.ChessEngine.indexToSquare(i);
         }
-        const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        const ranks = ['1', '2', '3', '4', '5', '6', '7', '8'];
-        return files[i & 7] + ranks[i >> 3];
+        return FILES[i & 7] + String((i >> 3) + 1);
       }
     }
     return null;
   }
 
-  // Handle Board Square Click
-  function handleSquareClick(sq) {
-    if (!engine || isAiThinking) return;
-    if (engine.isGameOver()) return;
+  function renderBoard() {
+    if (!DOM.chessBoard || !STATE.engine) return;
+    DOM.chessBoard.innerHTML = '';
 
-    const piece = engine.getPiece(sq);
-    const turn = engine.getTurn();
+    const displayRanks = getDisplayRanks();
+    const displayFiles = getDisplayFiles();
+    const history = STATE.engine.getHistory ? STATE.engine.getHistory() : [];
+    const lastMove = history.length > 0 ? history[history.length - 1] : null;
 
-    // Select piece owned by current turn
-    if (piece && piece.color === turn) {
-      selectedSquare = sq;
-      validMovesForSelected = engine.generateLegalMoves({ from: sq });
-      renderBoard();
-      return;
+    let inCheckSquare = null;
+    if (STATE.engine.isCheck()) {
+      inCheckSquare = findKingSquare(STATE.engine.getTurn());
     }
 
-    // Attempt to move to destination square
-    if (selectedSquare) {
-      const targetMove = validMovesForSelected.find(m => m.to === sq);
-      if (targetMove) {
-        // Pawn promotion check
-        if (targetMove.piece === 'p' && (sq.endsWith('8') || sq.endsWith('1'))) {
-          pendingMove = targetMove;
-          if (promotionModal) promotionModal.classList.remove('hidden');
-          return;
+    for (let r = 0; r < 8; r++) {
+      for (let f = 0; f < 8; f++) {
+        const rank = displayRanks[r];
+        const file = displayFiles[f];
+        const sq = file + rank;
+
+        const fileIdx = FILES.indexOf(file);
+        const rankIdx = parseInt(rank, 10);
+        const isLight = (fileIdx + rankIdx) % 2 !== 0;
+
+        const squareEl = document.createElement('div');
+        squareEl.className = `chess-square ${isLight ? 'light' : 'dark'}`;
+        squareEl.setAttribute('data-square', sq);
+
+        if (sq === STATE.selectedSquare) squareEl.classList.add('selected');
+        if (sq === inCheckSquare) squareEl.classList.add('in-check');
+        if (lastMove) {
+          if (sq === lastMove.from) squareEl.classList.add('last-move-src');
+          if (sq === lastMove.to) squareEl.classList.add('last-move-dst');
         }
 
-        executeEngineMove(targetMove);
-      } else {
-        flashErrorSquare(selectedSquare);
-        selectedSquare = null;
-        validMovesForSelected = [];
-        renderBoard();
+        // Rank / File Coordinates
+        if (f === 0) {
+          const rankLbl = document.createElement('span');
+          rankLbl.className = 'coord-label rank';
+          rankLbl.textContent = rank;
+          squareEl.appendChild(rankLbl);
+        }
+        if (r === 7) {
+          const fileLbl = document.createElement('span');
+          fileLbl.className = 'coord-label file';
+          fileLbl.textContent = file;
+          squareEl.appendChild(fileLbl);
+        }
+
+        // Piece
+        const piece = STATE.engine.getPiece(sq);
+        if (piece) {
+          const pieceEl = document.createElement('div');
+          const isUserTurn = !STATE.isAiThinking && piece.color === STATE.engine.getTurn();
+          pieceEl.className = `chess-piece ${piece.color === 'w' ? 'white' : 'black'} ${isUserTurn ? 'own' : ''}`;
+          pieceEl.setAttribute('data-square', sq);
+
+          const colorChar = piece.color === 'w' ? 'l' : 'd';
+          const img = document.createElement('img');
+          img.src = `pieces/Chess_${piece.type}${colorChar}t45.svg`;
+          img.alt = `${piece.color === 'w' ? 'White' : 'Black'} ${piece.type}`;
+          img.draggable = false;
+          pieceEl.appendChild(img);
+
+          squareEl.appendChild(pieceEl);
+        }
+
+        // Legal Target Indicators
+        const targetMove = STATE.validMoves.find(m => m.to === sq);
+        if (targetMove) {
+          const isCapture = !!piece;
+          const dot = document.createElement('div');
+          dot.className = isCapture ? 'move-dot-capture' : 'move-dot';
+          squareEl.appendChild(dot);
+        }
+
+        // Square Click Interaction
+        squareEl.addEventListener('click', (e) => handleSquareClick(sq, piece, e));
+
+        DOM.chessBoard.appendChild(squareEl);
       }
     }
   }
 
-  // Execute move in engine
-  function executeEngineMove(moveObj) {
-    const res = engine.makeMove(moveObj);
-    selectedSquare = null;
-    validMovesForSelected = [];
+  function handleSquareClick(sq, piece) {
+    if (!STATE.engine || STATE.isAiThinking || STATE.engine.isGameOver()) return;
+
+    // Destination clicked for a valid move
+    if (STATE.selectedSquare && STATE.validMoves.some(m => m.to === sq)) {
+      const fromSq = STATE.selectedSquare;
+      const movePiece = STATE.engine.getPiece(fromSq);
+
+      // Pawn promotion check
+      if (movePiece && movePiece.type === 'p' && (sq.endsWith('8') || sq.endsWith('1'))) {
+        STATE.pendingPromotionMove = { from: fromSq, to: sq };
+        openPromotionModal(movePiece.color);
+        return;
+      }
+
+      executeMove({ from: fromSq, to: sq });
+      return;
+    }
+
+    // Select friendly piece
+    const turn = STATE.engine.getTurn();
+    if (piece && piece.color === turn) {
+      STATE.selectedSquare = sq;
+      STATE.validMoves = STATE.engine.getLegalMoves(sq);
+      renderBoard();
+      return;
+    }
+
+    // Clicked empty or enemy square without selecting friendly piece
+    if (STATE.selectedSquare && sq !== STATE.selectedSquare) {
+      flashErrorSquare(STATE.selectedSquare);
+      STATE.selectedSquare = null;
+      STATE.validMoves = [];
+      renderBoard();
+    }
+  }
+
+  function executeMove(moveObj) {
+    const res = STATE.engine.makeMove(moveObj);
+    if (!res) return;
+
+    STATE.selectedSquare = null;
+    STATE.validMoves = [];
 
     // Audio SFX
-    if (window.chessAudio) {
-      if (engine.isCheckmate()) window.chessAudio.playVictory();
-      else if (engine.isCheck()) window.chessAudio.playCheck();
-      else if (res.captured) window.chessAudio.playCapture();
-      else window.chessAudio.playMove();
+    if (audio) {
+      if (STATE.engine.isCheckmate()) audio.playVictory();
+      else if (STATE.engine.isCheck()) audio.playCheck();
+      else if (res.captured || (res.flags && res.flags.isCapture)) audio.playCapture();
+      else audio.playMove();
     }
 
     renderBoard();
     updateUIState();
 
-    // Tactical puzzle auto-advance logic
-    if (activeMode === 'puzzles') {
-      puzzleIndex++;
-      const pData = PUZZLES[activeLevel] || PUZZLES.easy;
-      if (puzzleIndex === 1) switchTabTo(2);      // Experience
-      else if (puzzleIndex === 2) switchTabTo(3); // Projects
-      else if (engine.isCheckmate()) switchTabTo(5); // Contact
+    // Puzzle mode step check
+    if (STATE.mode === 'puzzles') {
+      handlePuzzleStep(moveObj);
+      return;
     }
 
-    // AI Turn Trigger in VS AI Mode
-    if (activeMode === 'ai' && !engine.isGameOver() && engine.getTurn() === 'b') {
-      isAiThinking = true;
-      updateStatusText("AI is thinking...", "thinking");
+    // Trigger AI move if in Vs AI mode
+    if (STATE.mode === 'ai' && !STATE.engine.isGameOver() && STATE.engine.getTurn() === 'b') {
+      STATE.isAiThinking = true;
+      updateUIState();
+      setCommentary('AI is calculating move...');
 
-      setTimeout(() => {
-        const aiMove = getAiMove(activeLevel);
+      if (STATE.aiTimeoutId) clearTimeout(STATE.aiTimeoutId);
+      STATE.aiTimeoutId = setTimeout(() => {
+        STATE.aiTimeoutId = null;
+        const aiMove = computeAiMove(STATE.difficulty);
         if (aiMove) {
-          const aiRes = engine.makeMove(aiMove);
-          if (window.chessAudio) {
-            if (engine.isCheckmate()) window.chessAudio.playDefeat();
-            else if (engine.isCheck()) window.chessAudio.playCheck();
-            else if (aiRes.captured) window.chessAudio.playCapture();
-            else window.chessAudio.playMove();
+          const aiRes = STATE.engine.makeMove(aiMove);
+          if (audio) {
+            if (STATE.engine.isCheckmate()) audio.playDefeat();
+            else if (STATE.engine.isCheck()) audio.playCheck();
+            else if (aiRes.captured) audio.playCapture();
+            else audio.playMove();
           }
+          setCommentary(`AI played ${aiRes.san}. Your turn.`);
         }
-        isAiThinking = false;
+        STATE.isAiThinking = false;
         renderBoard();
         updateUIState();
-      }, 500);
+      }, 450);
+    }
+  }
+
+  function handlePuzzleStep(moveObj) {
+    const pData = PUZZLES[STATE.puzzleKey];
+    if (!pData) return;
+
+    const expectedMove = pData.solution[STATE.puzzleStepIndex];
+    if (expectedMove && moveObj.from === expectedMove.from && moveObj.to === expectedMove.to) {
+      STATE.puzzleStepIndex++;
+      setCommentary(`✓ ${expectedMove.text}`);
+
+      if (STATE.puzzleStepIndex >= pData.solution.length) {
+        setCommentary(`🎉 PUZZLE SOLVED! Excellent tactical play!`);
+        if (audio) audio.playVictory();
+      }
+    } else {
+      setCommentary('❌ Incorrect tactical move. Resetting position...');
+      flashErrorSquare(moveObj.to);
+      setTimeout(() => {
+        loadPuzzle(STATE.puzzleKey);
+      }, 1200);
     }
   }
 
   function flashErrorSquare(sq) {
     if (!sq) return;
-    if (window.chessAudio) window.chessAudio.playIllegal();
-    const el = document.querySelector(`[data-square="${sq}"]`);
-    if (el) {
-      el.classList.add('error-flash');
-      setTimeout(() => el.classList.remove('error-flash'), 400);
+    if (audio) audio.playIllegal();
+    const sqEl = DOM.chessBoard.querySelector(`[data-square="${sq}"]`);
+    if (sqEl) {
+      sqEl.classList.add('error-flash');
+      setTimeout(() => sqEl.classList.remove('error-flash'), 360);
     }
   }
 
-  function updateStatusText(text, statusType) {
-    if (statusText) statusText.textContent = text;
-    if (statusDot) {
-      statusDot.className = 'status-pulse-light';
-      if (statusType) statusDot.classList.add(statusType);
-    }
+  function openPromotionModal(color) {
+    if (!DOM.promotionModal) return;
+    const colorChar = color === 'w' ? 'l' : 'd';
+    ['q', 'r', 'b', 'n'].forEach(type => {
+      const img = DOM.promotionChoices.querySelector(`[data-promo-piece="${type}"]`);
+      if (img) img.src = `pieces/Chess_${type}${colorChar}t45.svg`;
+    });
+    DOM.promotionModal.classList.remove('hidden');
   }
 
-  // Sync state with UI panels (Move History, Material Trays, Status Text, Progress)
+  function closePromotionModal() {
+    if (DOM.promotionModal) DOM.promotionModal.classList.add('hidden');
+    STATE.pendingPromotionMove = null;
+  }
+
+  if (DOM.promotionChoices) {
+    DOM.promotionChoices.querySelectorAll('.promo-choice-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const promoType = btn.getAttribute('data-promotion');
+        const move = STATE.pendingPromotionMove;
+        closePromotionModal();
+        if (move) {
+          executeMove({ ...move, promotion: promoType });
+        }
+      });
+    });
+  }
+
+  function setCommentary(text) {
+    if (!DOM.commentaryText) return;
+    DOM.commentaryText.textContent = text;
+  }
+
   function updateUIState() {
-    if (!engine) return;
+    if (!STATE.engine) return;
 
-    // Turn / Status
-    if (engine.isCheckmate()) {
-      const winner = engine.getTurn() === 'w' ? 'Black' : 'White';
-      updateStatusText(`Checkmate! ${winner} Wins!`, 'ready');
-    } else if (engine.isStalemate() || engine.isDraw()) {
-      updateStatusText('Draw / Stalemate!', 'ready');
-    } else if (engine.isCheck()) {
-      updateStatusText('CHECK!', 'thinking');
-    } else if (!isAiThinking) {
-      const turnStr = engine.getTurn() === 'w' ? 'White to move' : 'Black to move';
-      updateStatusText(turnStr, 'ready');
+    const turn = STATE.engine.getTurn();
+    const isGameOver = STATE.engine.isGameOver();
+
+    // Status indicator
+    if (DOM.statusPulse) {
+      DOM.statusPulse.className = 'status-pulse-light';
+      if (STATE.isAiThinking) DOM.statusPulse.classList.add('thinking');
+      else if (STATE.engine.isCheck()) DOM.statusPulse.classList.add('check');
+      else if (isGameOver) DOM.statusPulse.classList.add('over');
     }
 
-    // Undo / Hint button state
-    const history = engine.getHistory();
-    if (undoBtn) undoBtn.disabled = history.length === 0 || isAiThinking;
-    if (hintBtn) hintBtn.disabled = engine.isGameOver() || isAiThinking;
-
-    // SAN History Strip
-    if (sanHistoryStrip) {
-      sanHistoryStrip.innerHTML = '';
-      if (history.length === 0) {
-        sanHistoryStrip.innerHTML = '<span class="history-placeholder">No moves recorded</span>';
+    if (DOM.statusText) {
+      if (STATE.engine.isCheckmate()) {
+        const winner = turn === 'w' ? 'Black' : 'White';
+        DOM.statusText.textContent = `Checkmate! ${winner} Wins!`;
+      } else if (STATE.engine.isStalemate() || STATE.engine.isDraw()) {
+        DOM.statusText.textContent = 'Draw / Stalemate!';
+      } else if (STATE.isAiThinking) {
+        DOM.statusText.textContent = 'AI is calculating...';
+      } else if (STATE.engine.isCheck()) {
+        DOM.statusText.textContent = `CHECK! ${turn === 'w' ? 'White' : 'Black'} to move`;
       } else {
-        history.forEach((m, idx) => {
-          const moveSpan = document.createElement('span');
-          moveSpan.className = 'history-move-pill';
-          const moveNum = Math.floor(idx / 2) + 1;
-          const isWhite = idx % 2 === 0;
-          moveSpan.textContent = isWhite ? `${moveNum}. ${m.san}` : m.san;
-          sanHistoryStrip.appendChild(moveSpan);
-        });
-        sanHistoryStrip.scrollLeft = sanHistoryStrip.scrollWidth;
+        DOM.statusText.textContent = `${turn === 'w' ? 'White' : 'Black'} to move`;
       }
     }
-    if (historyMoveCount) historyMoveCount.textContent = `${history.length} MOVES`;
 
-    // Match Progress Tracker
-    if (progressVal && progressFill) {
-      const moveCount = history.length;
-      progressVal.textContent = `${moveCount} MOVES`;
-      const pct = Math.min(100, Math.round((moveCount / 40) * 100));
-      progressFill.style.width = `${pct}%`;
+    // Game Over Overlay
+    if (DOM.boardOverlay) {
+      if (isGameOver) {
+        DOM.boardOverlay.classList.remove('hidden');
+        if (DOM.overlayTitle) {
+          DOM.overlayTitle.textContent = STATE.engine.isCheckmate() ? 'Checkmate' : 'Game Drawn';
+        }
+        if (DOM.overlayText) {
+          DOM.overlayText.textContent = STATE.engine.isCheckmate()
+            ? `${turn === 'w' ? 'Black' : 'White'} has achieved victory!`
+            : 'Match concluded with a draw.';
+        }
+      } else {
+        DOM.boardOverlay.classList.add('hidden');
+      }
     }
 
-    // Material Tally & Captured Trays
-    const capturedWhite = []; // Captured white pieces (captured by Black)
-    const capturedBlack = []; // Captured black pieces (captured by White)
+    // Undo & Hint Buttons State
+    const history = STATE.engine.getHistory ? STATE.engine.getHistory() : [];
+    if (DOM.undoBtn) {
+      DOM.undoBtn.disabled = history.length === 0;
+    }
+    if (DOM.hintBtn) {
+      DOM.hintBtn.disabled = isGameOver || STATE.isAiThinking;
+    }
+
+    // Move History SAN Strip
+    if (DOM.sanHistoryStrip) {
+      DOM.sanHistoryStrip.innerHTML = '';
+      if (history.length === 0) {
+        DOM.sanHistoryStrip.innerHTML = '<span class="history-empty">No moves recorded yet.</span>';
+      } else {
+        history.forEach((m, idx) => {
+          const pill = document.createElement('span');
+          pill.className = `history-pill ${idx === history.length - 1 ? 'latest' : ''}`;
+          const moveNum = Math.floor(idx / 2) + 1;
+          const isWhite = idx % 2 === 0;
+          pill.textContent = isWhite ? `${moveNum}. ${m.san}` : m.san;
+          DOM.sanHistoryStrip.appendChild(pill);
+        });
+        DOM.sanHistoryStrip.scrollLeft = DOM.sanHistoryStrip.scrollWidth;
+      }
+    }
+    if (DOM.historyMoveCount) {
+      DOM.historyMoveCount.textContent = `${history.length} MOVES`;
+    }
+
+    // Captured Pieces & Material Differential
+    updateCapturedTrays(history);
+  }
+
+  function updateCapturedTrays(history) {
+    const capturedWhite = [];
+    const capturedBlack = [];
 
     history.forEach(m => {
       if (m.captured) {
-        if (m.color === 'w') {
-          // White move captured a black piece
-          capturedBlack.push(m.captured);
-        } else {
-          // Black move captured a white piece
-          capturedWhite.push(m.captured);
-        }
+        if (m.color === 'w') capturedBlack.push(m.captured);
+        else capturedWhite.push(m.captured);
       }
     });
 
-    renderCapturedTray(capturedBlackEl, capturedBlack, 'b');
-    renderCapturedTray(capturedWhiteEl, capturedWhite, 'w');
+    renderPieceList(DOM.capturedBlack, capturedBlack, 'd');
+    renderPieceList(DOM.capturedWhite, capturedWhite, 'l');
 
-    // Material Balance
     let whiteScore = 0;
     let blackScore = 0;
-
     capturedBlack.forEach(p => { whiteScore += PIECE_VALUES[p] || 0; });
     capturedWhite.forEach(p => { blackScore += PIECE_VALUES[p] || 0; });
 
     const diff = (whiteScore - blackScore) / 100;
-    if (materialDiffBlack) {
-      materialDiffBlack.textContent = diff > 0 ? `+${diff}` : '';
-    }
-    if (materialDiffWhite) {
-      materialDiffWhite.textContent = diff < 0 ? `+${Math.abs(diff)}` : '';
-    }
+    if (DOM.materialDiffBlack) DOM.materialDiffBlack.textContent = diff < 0 ? `+${Math.abs(diff)}` : '';
+    if (DOM.materialDiffWhite) DOM.materialDiffWhite.textContent = diff > 0 ? `+${diff}` : '';
   }
 
-  function renderCapturedTray(containerEl, pieceList, color) {
-    if (!containerEl) return;
-    containerEl.innerHTML = '';
-    const colorChar = color === 'w' ? 'l' : 'd';
-    pieceList.forEach(type => {
+  function renderPieceList(container, pieces, colorChar) {
+    if (!container) return;
+    container.innerHTML = '';
+    pieces.sort((a, b) => (PIECE_VALUES[b] || 0) - (PIECE_VALUES[a] || 0));
+    pieces.forEach(type => {
       const img = document.createElement('img');
-      img.className = 'captured-piece-icon';
+      img.className = 'captured-icon';
       img.src = `pieces/Chess_${type}${colorChar}t45.svg`;
-      img.alt = `${color === 'w' ? 'White' : 'Black'} ${type}`;
-      containerEl.appendChild(img);
+      img.alt = `${colorChar === 'l' ? 'White' : 'Black'} ${type}`;
+      container.appendChild(img);
     });
   }
 
-  // Initial Game Load
-  initGame('ai', 'easy');
+  function startNewGame() {
+    STATE.selectedSquare = null;
+    STATE.validMoves = [];
+    closePromotionModal();
+
+    if (!window.ChessEngine) {
+      console.error('ChessEngine is not loaded');
+      return;
+    }
+
+    STATE.engine = new window.ChessEngine();
+
+    if (STATE.mode === 'ai') {
+      STATE.engine.reset();
+      setCommentary(`Vs AI (${STATE.difficulty.toUpperCase()}). Make your opening move!`);
+      if (DOM.playerNameTop) DOM.playerNameTop.textContent = 'AI Opponent';
+      if (DOM.playerNameBottom) DOM.playerNameBottom.textContent = 'You (White)';
+    } else {
+      loadPuzzle(STATE.puzzleKey);
+      return;
+    }
+
+    renderBoard();
+    updateUIState();
+  }
+
+  function loadPuzzle(key) {
+    const pData = PUZZLES[key] || PUZZLES.scholars;
+    STATE.puzzleKey = key;
+    STATE.puzzleStepIndex = 0;
+
+    STATE.engine = new window.ChessEngine();
+    STATE.engine.loadFEN(pData.fen);
+
+    setCommentary(`Tactic: ${pData.name}. Find the winning sequence!`);
+    if (DOM.playerNameTop) DOM.playerNameTop.textContent = 'Opponent';
+    if (DOM.playerNameBottom) DOM.playerNameBottom.textContent = 'You (White)';
+
+    renderBoard();
+    updateUIState();
+  }
+
+  // --------------------------------------------------------------------------
+  // 6. CHESS CONTROLS & KEYBOARD SHORTCUTS
+  // --------------------------------------------------------------------------
+  // Game Mode Switcher
+  if (DOM.modeBtnAi) {
+    DOM.modeBtnAi.addEventListener('click', () => {
+      if (STATE.mode === 'ai') return;
+      STATE.mode = 'ai';
+      DOM.modeBtnAi.classList.add('active');
+      DOM.modeBtnAi.setAttribute('aria-checked', 'true');
+      DOM.modeBtnPuzzles.classList.remove('active');
+      DOM.modeBtnPuzzles.setAttribute('aria-checked', 'false');
+
+      if (DOM.aiLevelsGroup) DOM.aiLevelsGroup.classList.remove('hidden');
+      if (DOM.puzzleSelectGroup) DOM.puzzleSelectGroup.classList.add('hidden');
+      startNewGame();
+    });
+  }
+
+  if (DOM.modeBtnPuzzles) {
+    DOM.modeBtnPuzzles.addEventListener('click', () => {
+      if (STATE.mode === 'puzzles') return;
+      STATE.mode = 'puzzles';
+      DOM.modeBtnPuzzles.classList.add('active');
+      DOM.modeBtnPuzzles.setAttribute('aria-checked', 'true');
+      DOM.modeBtnAi.classList.remove('active');
+      DOM.modeBtnAi.setAttribute('aria-checked', 'false');
+
+      if (DOM.aiLevelsGroup) DOM.aiLevelsGroup.classList.add('hidden');
+      if (DOM.puzzleSelectGroup) DOM.puzzleSelectGroup.classList.remove('hidden');
+      startNewGame();
+    });
+  }
+
+  // Difficulty Pills
+  DOM.diffPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      DOM.diffPills.forEach(p => {
+        const act = p === pill;
+        p.classList.toggle('active', act);
+        p.setAttribute('aria-checked', act ? 'true' : 'false');
+      });
+      STATE.difficulty = pill.getAttribute('data-level') || 'easy';
+      setCommentary(`AI difficulty set to ${STATE.difficulty.toUpperCase()}.`);
+    });
+  });
+
+  // Puzzle Dropdown
+  if (DOM.puzzleSelect) {
+    DOM.puzzleSelect.addEventListener('change', (e) => {
+      loadPuzzle(e.target.value);
+    });
+  }
+
+  // Flip Board
+  if (DOM.flipBoardBtn) {
+    DOM.flipBoardBtn.addEventListener('click', () => {
+      STATE.isFlipped = !STATE.isFlipped;
+      renderBoard();
+      updateUIState();
+    });
+  }
+
+  // Undo Move
+  if (DOM.undoBtn) {
+    DOM.undoBtn.addEventListener('click', () => {
+      if (!STATE.engine) return;
+      if (STATE.aiTimeoutId) {
+        clearTimeout(STATE.aiTimeoutId);
+        STATE.aiTimeoutId = null;
+      }
+      STATE.isAiThinking = false;
+      STATE.selectedSquare = null;
+      STATE.validMoves = [];
+      STATE.engine.undoMove();
+      if (STATE.mode === 'ai' && STATE.engine.getTurn() !== 'w') {
+        STATE.engine.undoMove(); // Undo AI move as well if AI had moved
+      }
+
+      renderBoard();
+      updateUIState();
+      if (audio) audio.playMove();
+      setCommentary('Move undone.');
+    });
+  }
+
+  // Reset Game
+  if (DOM.resetBtn) {
+    DOM.resetBtn.addEventListener('click', startNewGame);
+  }
+  if (DOM.overlayRestartBtn) {
+    DOM.overlayRestartBtn.addEventListener('click', startNewGame);
+  }
+
+  // Hint
+  if (DOM.hintBtn) {
+    DOM.hintBtn.addEventListener('click', () => {
+      if (!STATE.engine || STATE.isAiThinking) return;
+
+      if (STATE.mode === 'puzzles') {
+        const pData = PUZZLES[STATE.puzzleKey];
+        if (pData) {
+          const expected = pData.solution[STATE.puzzleStepIndex];
+          if (expected) {
+            setCommentary(`💡 Hint: ${pData.hint} (Look at square ${expected.from.toUpperCase()})`);
+            return;
+          }
+        }
+      }
+
+      // In AI mode, calculate best move via Minimax
+      const best = minimax(STATE.engine, 2, -Infinity, Infinity, STATE.engine.getTurn() === 'w').move;
+      if (best) {
+        setCommentary(`💡 Hint: Try moving piece from ${best.from.toUpperCase()} to ${best.to.toUpperCase()}`);
+      }
+    });
+  }
+
+  // Keyboard Shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    const key = e.key.toUpperCase();
+    if (key === 'F' && DOM.flipBoardBtn) DOM.flipBoardBtn.click();
+    else if (key === 'U' && DOM.undoBtn && !DOM.undoBtn.disabled) DOM.undoBtn.click();
+    else if (key === 'R' && DOM.resetBtn) DOM.resetBtn.click();
+    else if (key === 'M' && audioMuteBtn) audioMuteBtn.click();
+  });
+
+  // Start initial game
+  startNewGame();
 });

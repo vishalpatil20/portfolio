@@ -1,870 +1,911 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal B Patil — Site Reliability Engineer &amp; Distributed Systems Developer</title>
-  
-  <!-- Google Fonts: System & Display Fonts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Vishal B Patil — Site Reliability &amp; Distributed Systems Engineer</title>
+  <meta name="description" content="Portfolio of Vishal B Patil — Site Reliability Engineer specializing in Kubernetes (GKE), Terraform, Go infrastructure automation, and distributed systems. Features an interactive in-browser FIDE chess engine.">
+  <meta name="author" content="Vishal B Patil">
+  <meta name="theme-color" content="#0b0f19">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Vishal B Patil — Site Reliability &amp; Distributed Systems Engineer">
+  <meta property="og:description" content="Kubernetes, Terraform, GCP/AWS infrastructure automation, and distributed systems — featuring a live in-browser chess engine.">
+  <meta property="og:url" content="https://vishalpatil.dev/">
+
+  <!-- Favicon -->
+  <link rel="icon" href="pieces/Chess_nlt45.svg" type="image/svg+xml">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- CSS Design System -->
+
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="active-view-chess">
+<body>
 
-  <!-- Mobile Segmented View Switcher (< 768px) -->
-  <nav class="mobile-view-switcher" id="mobile-view-switcher" role="tablist" aria-label="Mobile View Switcher">
-    <button type="button" class="view-switch-btn active" id="btn-view-chess" data-view="chess" role="tab" aria-selected="true" aria-controls="chess-panel" onclick="document.body.classList.remove('active-view-portfolio'); document.body.classList.add('active-view-chess'); this.classList.add('active'); this.setAttribute('aria-selected', 'true'); const ob = document.getElementById('btn-view-portfolio'); if(ob) { ob.classList.remove('active'); ob.setAttribute('aria-selected', 'false'); }">
-      <span class="switch-label">Chess Console</span>
-    </button>
-    <button type="button" class="view-switch-btn" id="btn-view-portfolio" data-view="portfolio" role="tab" aria-selected="false" aria-controls="portfolio-panel" onclick="document.body.classList.remove('active-view-chess'); document.body.classList.add('active-view-portfolio'); this.classList.add('active'); this.setAttribute('aria-selected', 'true'); const cb = document.getElementById('btn-view-chess'); if(cb) { cb.classList.remove('active'); cb.setAttribute('aria-selected', 'false'); }">
-      <span class="switch-label">Portfolio Dossier</span>
-    </button>
-  </nav>
+  <!-- Top Navigation Header -->
+  <header class="site-header" id="header">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" aria-label="Vishal B Patil Home">
+        <span class="logo-badge">VP</span>
+        <span class="logo-name">Vishal Patil</span>
+      </a>
 
-  <!-- Entry Mode Choice Modal -->
-  <div class="entry-modal-overlay" id="entry-modal">
-    <div class="entry-modal-card">
-      <div class="modal-badge">SITE RELIABILITY &amp; CHESS ENGINE DOSSIER</div>
-      <h2>Welcome to the Engine Room</h2>
-      <p>Explore Kubernetes infrastructure automation and distributed systems engineering while testing your endgame tactics against an interactive FIDE chess engine.</p>
-      <div class="modal-actions">
-        <button class="btn-modal btn-play" id="btn-mode-play">
-          Play Chess Engine
-        </button>
-        <button class="btn-modal btn-direct" id="btn-mode-direct">
-          Explore Portfolio First
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Interactive Pawn Promotion Popover Modal -->
-  <div class="promotion-modal-overlay hidden" id="promotion-modal" role="dialog" aria-modal="true" aria-labelledby="promotion-modal-title">
-    <div class="promotion-modal-card">
-      <div class="modal-badge">PAWN PROMOTION</div>
-      <h3 class="promotion-title" id="promotion-modal-title">Promote Your Pawn</h3>
-      <p class="promotion-desc">Select piece transformation for advanced rank pawn:</p>
-      <div class="promotion-choices" id="promotion-choices">
-        <button type="button" class="promo-choice-btn" id="promo-btn-q" data-promotion="q" aria-label="Promote to Queen">
-          <div class="promo-piece-wrap">
-            <img src="pieces/Chess_qlt45.svg" alt="Queen" class="promo-piece-img" data-promo-piece="q">
-          </div>
-          <span class="promo-piece-label">Queen</span>
-        </button>
-        <button type="button" class="promo-choice-btn" id="promo-btn-r" data-promotion="r" aria-label="Promote to Rook">
-          <div class="promo-piece-wrap">
-            <img src="pieces/Chess_rlt45.svg" alt="Rook" class="promo-piece-img" data-promo-piece="r">
-          </div>
-          <span class="promo-piece-label">Rook</span>
-        </button>
-        <button type="button" class="promo-choice-btn" id="promo-btn-b" data-promotion="b" aria-label="Promote to Bishop">
-          <div class="promo-piece-wrap">
-            <img src="pieces/Chess_blt45.svg" alt="Bishop" class="promo-piece-img" data-promo-piece="b">
-          </div>
-          <span class="promo-piece-label">Bishop</span>
-        </button>
-        <button type="button" class="promo-choice-btn" id="promo-btn-n" data-promotion="n" aria-label="Promote to Knight">
-          <div class="promo-piece-wrap">
-            <img src="pieces/Chess_nlt45.svg" alt="Knight" class="promo-piece-img" data-promo-piece="n">
-          </div>
-          <span class="promo-piece-label">Knight</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE VIEW SWITCHER (Visible < 768px) -->
-  <nav class="mobile-view-switcher" id="mobile-view-switcher" aria-label="Mobile View Selector">
-    <button type="button" class="view-switch-btn active" id="btn-view-portfolio" data-view="portfolio" aria-label="Switch to Portfolio View">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-      <span>Portfolio</span>
-    </button>
-    <button type="button" class="view-switch-btn" id="btn-view-chess" data-view="chess" aria-label="Switch to Chess Console View">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-      <span>Play Chess</span>
-    </button>
-  </nav>
-
-  <!-- MAIN DASHBOARD WRAPPER -->
-  <div class="dashboard-wrapper">
-
-    <!-- LEFT CONTAINER: Portfolio Card -->
-    <aside class="portfolio-card" id="portfolio-panel">
-      <header class="panel-header">
-        <div class="logo">
-          <svg class="logo-mark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <div class="logo-text-group">
-            <span class="logo-text">VISHAL B PATIL</span>
-            <span class="logo-subtext">SITE RELIABILITY &amp; DISTRIBUTED SYSTEMS</span>
-          </div>
-        </div>
-        <div class="header-status-pill">
-          <span class="status-live-dot"></span>
-          <span class="status-live-label">AVAILABLE FOR SRE &amp; DEVOPS ROLES</span>
-        </div>
-      </header>
-
-      <!-- Tabs Navigation Bar (All open & accessible) -->
-      <nav class="portfolio-tabs" id="portfolio-tabs" role="tablist" aria-label="Portfolio Sections">
-        <button class="tab-btn active" id="tab-btn-1" data-step-tab="1" role="tab" aria-selected="true" aria-controls="step-about">
-          <span class="tab-index">01</span>
-          <span class="tab-name">Identity</span>
-        </button>
-        <button class="tab-btn" id="tab-btn-2" data-step-tab="2" role="tab" aria-selected="false" aria-controls="step-experience">
-          <span class="tab-index">02</span>
-          <span class="tab-name">Experience</span>
-        </button>
-        <button class="tab-btn" id="tab-btn-3" data-step-tab="3" role="tab" aria-selected="false" aria-controls="step-projects">
-          <span class="tab-index">03</span>
-          <span class="tab-name">Projects</span>
-        </button>
-        <button class="tab-btn" id="tab-btn-4" data-step-tab="4" role="tab" aria-selected="false" aria-controls="step-skills">
-          <span class="tab-index">04</span>
-          <span class="tab-name">Arsenal</span>
-        </button>
-        <button class="tab-btn" id="tab-btn-5" data-step-tab="5" role="tab" aria-selected="false" aria-controls="step-contact">
-          <span class="tab-index">05</span>
-          <span class="tab-name">Contact</span>
-        </button>
+      <!-- Desktop Nav Menu -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Primary Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Arsenal</a>
+        <a href="#chess" class="nav-link chess-nav-link">
+          <span class="chess-nav-icon" aria-hidden="true">♟</span>
+          <span>Chess Arena</span>
+        </a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Scrollable Steps Area -->
-      <div class="portfolio-content-scroller" id="content-scroller">
+      <!-- Nav Actions (Theme Toggle & CTA) -->
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
 
-        <!-- STEP 1: IDENTITY & ARCHITECTURAL PHILOSOPHY -->
-        <section class="content-step active" id="step-about" data-step="1" role="tabpanel" aria-labelledby="tab-btn-1">
-          <div class="step-badge">Phase 1 // Identity &amp; Profile Summary</div>
-          <h2 class="step-title">Site Reliability &amp; <span class="text-gradient">Distributed Systems Engineer</span></h2>
+        <a href="#contact" class="btn btn-sm btn-primary nav-cta">Let's Talk</a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <div class="hero-badge-wrap">
+          <span class="status-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Available for SRE &amp; DevOps Roles</span>
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Hi, I'm <span class="text-gradient">Vishal B Patil</span>
+        </h1>
+
+        <p class="hero-role">
+          Site Reliability &amp; Distributed Systems Engineer
+        </p>
+
+        <p class="hero-description">
+          I build resilient cloud platforms, automated Kubernetes infrastructure on GCP/AWS, and high-concurrency microservices. Passionate about automated incident recovery, GitOps with Terraform, and deep observability.
+        </p>
+
+        <!-- Metric Cards Strip -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-num">50+</span>
+            <span class="metric-label">Daily Workflows Stabilized</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-num">40%</span>
+            <span class="metric-label">Backend Latency Reduction</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-num">5K+</span>
+            <span class="metric-label">Req/sec Load Generated</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-num">&lt;30s</span>
+            <span class="metric-label">Alert &amp; Incident SLA</span>
+          </div>
+        </div>
+
+        <!-- Hero Actions -->
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <span>Explore Engineering Work</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#chess" class="btn btn-secondary">
+            <span aria-hidden="true">♟</span>
+            <span>Play Hand-Built Chess AI</span>
+          </a>
+          <a href="#contact" class="btn btn-ghost">Contact Me</a>
+        </div>
+
+        <!-- Social Icons Row -->
+        <div class="hero-social-row">
+          <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="mailto:vishal.b.patil.dev@gmail.com" class="social-icon-btn" aria-label="Send Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>vishal.b.patil.dev@gmail.com</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT & FOUNDATION SECTION -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">01 // Identity</span>
+          <h2 class="section-title">Architectural Foundation</h2>
+          <p class="section-subtitle">Bridging systems reliability, infrastructure code, and operational agility.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            </div>
+            <h3 class="pillar-title">Self-Healing Infrastructure</h3>
+            <p class="pillar-text">
+              Designing concurrent health-check agents in Go and containerized auto-recovery systems to self-heal failed nodes, cutting operational overhead by up to 70%.
+            </p>
+          </div>
+
+          <div class="card pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            </div>
+            <h3 class="pillar-title">Declarative GitOps &amp; IaC</h3>
+            <p class="pillar-text">
+              Provisioning reproducible, auto-scaling GKE and AWS clusters via Terraform, managed secrets, and zero-downtime canary rollouts powered by Istio Service Mesh.
+            </p>
+          </div>
+
+          <div class="card pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h3 class="pillar-title">Deep Observability</h3>
+            <p class="pillar-text">
+              Instrumenting end-to-end metrics pipelines with Prometheus and Grafana dashboards, cutting critical incident detection SLA to under 30 seconds.
+            </p>
+          </div>
+        </div>
+
+        <!-- Education Card -->
+        <div class="card education-card">
+          <div class="edu-badge">ACADEMIC FOUNDATION</div>
+          <div class="edu-content">
+            <h3 class="edu-school">The National Institute of Engineering — Mysuru, India</h3>
+            <p class="edu-degree"><strong>Bachelor of Engineering in Information Science and Engineering</strong> (2021 – 2025)</p>
+            <p class="edu-coursework">
+              <em>Core Coursework:</em> Data Structures &amp; Algorithms, Operating Systems, Computer Networks, Database Management Systems, Object-Oriented Software Design.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE SECTION -->
+    <section class="section section-alt" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">02 // Experience</span>
+          <h2 class="section-title">Production Experience</h2>
+          <p class="section-subtitle">Real-world impact across enterprise ERP backends, message queues, and cloud CI/CD.</p>
+        </div>
+
+        <div class="timeline">
+
+          <!-- Role 1 -->
+          <article class="timeline-item card">
+            <div class="timeline-header">
+              <div class="timeline-meta">
+                <span class="company-name">Epicor</span>
+                <span class="location-tag">Bangalore, India</span>
+              </div>
+              <span class="timeline-date">Aug 2025 — May 2026</span>
+            </div>
+
+            <h3 class="role-title">Associate Product Developer</h3>
+            <p class="role-scope">Eclipse ERP Platform &amp; Financial Ledger Infrastructure</p>
+
+            <ul class="role-bullets">
+              <li>
+                <strong>ERP Core Microservices:</strong> Architected backend modules and RESTful APIs in Java across Accounts Receivable (AR), Accounts Payable (AP), and General Ledger (GL).
+              </li>
+              <li>
+                <strong>Ledger Transaction Reliability:</strong> Re-engineered validation logic across high-volume accounting transactions, cutting errors by <strong>25%</strong> for <strong>50+ daily financial workflows</strong>.
+              </li>
+              <li>
+                <strong>Payment Admin Portal:</strong> Designed and implemented an administrative monitoring portal for QR-based payment gateways with real-time multi-merchant telemetry.
+              </li>
+            </ul>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">Java</span>
+              <span class="tag">RESTful APIs</span>
+              <span class="tag">Eclipse ERP</span>
+              <span class="tag">General Ledger</span>
+              <span class="tag">QR Payments</span>
+            </div>
+          </article>
+
+          <!-- Role 2 -->
+          <article class="timeline-item card">
+            <div class="timeline-header">
+              <div class="timeline-meta">
+                <span class="company-name">Epicor</span>
+                <span class="location-tag">Bangalore, India</span>
+              </div>
+              <span class="timeline-date">Feb 2025 — Aug 2025</span>
+            </div>
+
+            <h3 class="role-title">Product Developer Intern</h3>
+            <p class="role-scope">Invoice Automation &amp; Cloud CI/CD Pipelines</p>
+
+            <ul class="role-bullets">
+              <li>
+                <strong>Invoice Workflow Automation:</strong> Developed enterprise backend services with Java, .NET, and RabbitMQ to automate invoice processing workflows, reducing manual effort by <strong>60%</strong>.
+              </li>
+              <li>
+                <strong>Messaging Latency Optimization:</strong> Tuned asynchronous RabbitMQ queues and worker consumers, slashing message processing latency by <strong>40%</strong>.
+              </li>
+              <li>
+                <strong>CI/CD &amp; GCP Release Pipeline:</strong> Built and automated GitHub Actions workflows for the Ebill QR payment gateway, packaging deployments into Helm charts and deploying to Google Cloud Platform (GCP) with <strong>30% faster release cycles</strong>.
+              </li>
+            </ul>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">Java</span>
+              <span class="tag">.NET</span>
+              <span class="tag">RabbitMQ</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Helm</span>
+              <span class="tag">GCP</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">03 // Portfolio</span>
+          <h2 class="section-title">Featured Engineering Projects</h2>
+          <p class="section-subtitle">Infrastructure-as-Code platforms, auto-healing systems, and high-concurrency tooling.</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card card">
+            <div class="project-top">
+              <span class="project-category">Cloud Infrastructure &amp; Service Mesh</span>
+              <span class="project-status">Production</span>
+            </div>
+            <h3 class="project-title">CloudNative GKE Deployment Platform</h3>
+            <p class="project-desc">
+              Terraform-automated GCP infrastructure deploying an auto-scaling Google Kubernetes Engine (GKE) cluster with VPC subnets, Secret Manager integration, and Istio service mesh for zero-downtime canary releases.
+            </p>
+
+            <div class="project-stats-strip">
+              <div class="stat-item">
+                <span class="stat-val">IaC</span>
+                <span class="stat-name">Terraform GCP</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">GKE</span>
+                <span class="stat-name">Auto-Scaling</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">Istio</span>
+                <span class="stat-name">Canary Mesh</span>
+              </div>
+            </div>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">Terraform</span>
+              <span class="tag">GCP</span>
+              <span class="tag">GKE</span>
+              <span class="tag">Helm</span>
+              <span class="tag">Istio</span>
+              <span class="tag">GitHub Actions</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <span>View Repository</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card card">
+            <div class="project-top">
+              <span class="project-category">SRE &amp; Distributed Monitoring</span>
+              <span class="project-status">Production</span>
+            </div>
+            <h3 class="project-title">Auto-Healing Infrastructure with Go</h3>
+            <p class="project-desc">
+              Distributed monitoring platform written in Go with concurrent worker agents and automated container recovery mechanisms, reducing manual incident response by 70%. Features Prometheus and Grafana dashboards across 10+ nodes with Slack alert webhooks triggered in under 30 seconds.
+            </p>
+
+            <div class="project-stats-strip">
+              <div class="stat-item">
+                <span class="stat-val">70%</span>
+                <span class="stat-name">Manual Effort Cut</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">&lt;30s</span>
+                <span class="stat-name">Alert SLA</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">10+</span>
+                <span class="stat-name">Monitored Nodes</span>
+              </div>
+            </div>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">Go</span>
+              <span class="tag">Docker</span>
+              <span class="tag">AWS EC2</span>
+              <span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">Slack API</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <span>View Repository</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card card">
+            <div class="project-top">
+              <span class="project-category">Distributed Systems &amp; Load Generation</span>
+              <span class="project-status">Production</span>
+            </div>
+            <h3 class="project-title">Configurable Load Testing Platform</h3>
+            <p class="project-desc">
+              High-concurrency load-testing system simulating 10K+ virtual users via RabbitMQ message queues. Generates sustained 5K+ req/s HTTP workloads with live latency percentiles, error rates, and throughput streamed to Grafana dashboards.
+            </p>
+
+            <div class="project-stats-strip">
+              <div class="stat-item">
+                <span class="stat-val">10K+</span>
+                <span class="stat-name">Simulated Users</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">5K+</span>
+                <span class="stat-name">Req/sec Workload</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">RabbitMQ</span>
+                <span class="stat-name">Worker Mesh</span>
+              </div>
+            </div>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">Node.js</span>
+              <span class="tag">RabbitMQ</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">Nginx</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <span>View Repository</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 4 (Chess Showcase) -->
+          <article class="project-card card project-card-highlight">
+            <div class="project-top">
+              <span class="project-category">Browser Runtimes &amp; Game Theory</span>
+              <span class="project-status">Interactive</span>
+            </div>
+            <h3 class="project-title">FIDE Chess Rules Engine &amp; Minimax AI</h3>
+            <p class="project-desc">
+              100% zero-dependency JavaScript FIDE chess rules engine with legal move validation, castling, en passant, checkmate detection, Minimax AI with alpha-beta pruning, and procedural Web Audio API sound synthesis.
+            </p>
+
+            <div class="project-stats-strip">
+              <div class="stat-item">
+                <span class="stat-val">0</span>
+                <span class="stat-name">External Deps</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">FIDE</span>
+                <span class="stat-name">Strict Rules</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-val">Web Audio</span>
+                <span class="stat-name">Synthesizer</span>
+              </div>
+            </div>
+
+            <div class="tags-row">
+              <span class="tag tag-accent">JavaScript</span>
+              <span class="tag">Minimax AI</span>
+              <span class="tag">Web Audio API</span>
+              <span class="tag">Algorithms</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="#chess" class="btn btn-sm btn-primary">
+                <span>Play Live Arena Below</span>
+                <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CHESS ARENA SECTION -->
+    <section class="section section-alt chess-section" id="chess">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">04 // Interactive Showcase</span>
+          <h2 class="section-title">Interactive Chess Arena</h2>
+          <p class="section-subtitle">Test your strategy against my hand-built JavaScript FIDE rules engine &amp; Minimax AI, or solve tactical endgame puzzles.</p>
+        </div>
+
+        <div class="chess-arena-layout card">
           
-          <p class="step-description">
-            I am <strong>Vishal B Patil</strong>, a Site Reliability Engineer specializing in Kubernetes, infrastructure automation, GCP/AWS cloud environments, and high-concurrency backend services. Skilled in Terraform, GKE, CI/CD pipelines, and observability dashboards (Prometheus &amp; Grafana), I focus on operational excellence, automated incident recovery, and system reliability.
-          </p>
-
-          <!-- Key Architecture Signals Grid -->
-          <div class="quick-stats-grid">
-            <div class="stat-card">
-              <span class="num">50+</span>
-              <span class="label">Workflows Stabilized</span>
-            </div>
-            <div class="stat-card">
-              <span class="num">40%</span>
-              <span class="label">Latency Reduction</span>
-            </div>
-            <div class="stat-card">
-              <span class="num">5K+</span>
-              <span class="label">Req/sec Workloads</span>
-            </div>
-            <div class="stat-card">
-              <span class="num">&lt;30s</span>
-              <span class="label">Detection SLA</span>
-            </div>
-          </div>
-
-          <!-- Education & Academic Foundation -->
-          <div class="philosophy-pillars-container">
-            <h3 class="subsection-label">Education &amp; Academic Background</h3>
+          <!-- Chess Controls Header -->
+          <div class="chess-arena-toolbar">
             
-            <div class="pillar-card">
-              <div class="pillar-indicator">EDU</div>
-              <div class="pillar-body">
-                <h4>The National Institute of Engineering — Mysuru, IN</h4>
-                <p><strong>Bachelor of Engineering in Information Science and Engineering</strong> (2021 – 2025)</p>
-                <p><em>Relevant Coursework:</em> Data Structures &amp; Algorithms, Operating Systems, Computer Networks, Database Management Systems, Object-Oriented Programming.</p>
+            <!-- Game Mode Pill Group -->
+            <div class="toolbar-group">
+              <span class="toolbar-label">MODE:</span>
+              <div class="pill-group" role="radiogroup" aria-label="Game Mode">
+                <button type="button" class="pill-btn active" id="mode-btn-ai" data-mode="ai" role="radio" aria-checked="true">Vs AI</button>
+                <button type="button" class="pill-btn" id="mode-btn-puzzles" data-mode="puzzles" role="radio" aria-checked="false">Tactical Puzzles</button>
               </div>
             </div>
 
-            <div class="pillar-card">
-              <div class="pillar-indicator">01</div>
-              <div class="pillar-body">
-                <h4>Automated Self-Healing Infrastructure</h4>
-                <p>Building concurrent monitoring agents in Go and Docker to detect node failures, trigger automated container recovery, and cut manual intervention by 70%.</p>
+            <!-- AI Difficulty Level Group -->
+            <div class="toolbar-group" id="ai-levels-group">
+              <span class="toolbar-label">AI TIER:</span>
+              <div class="pill-group" role="radiogroup" aria-label="AI Difficulty">
+                <button type="button" class="pill-btn level-pill active" id="diff-easy" data-level="easy" role="radio" aria-checked="true">Easy</button>
+                <button type="button" class="pill-btn level-pill" id="diff-medium" data-level="medium" role="radio" aria-checked="false">Medium</button>
+                <button type="button" class="pill-btn level-pill" id="diff-master" data-level="master" role="radio" aria-checked="false">Master</button>
               </div>
             </div>
 
-            <div class="pillar-card">
-              <div class="pillar-indicator">02</div>
-              <div class="pillar-body">
-                <h4>GitOps &amp; Declarative Infrastructure</h4>
-                <p>Provisioning auto-scaling GKE clusters with Terraform, managing Secret Manager integration, and shipping zero-downtime canary deployments via Istio Service Mesh.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STEP 2: PRODUCTION EXPERIENCE & TIMELINE -->
-        <section class="content-step" id="step-experience" data-step="2" role="tabpanel" aria-labelledby="tab-btn-2">
-          <div class="step-badge">Phase 2 // Professional Experience</div>
-          <h2 class="step-title">Enterprise <span class="text-gradient">Work History</span></h2>
-          <p class="step-description">
-            Hands-on experience architecting backend microservices, streamlining CI/CD release pipelines, and reducing system latency at scale.
-          </p>
-
-          <div class="project-cards-container timeline-container">
-            
-            <!-- Timeline Item 1 -->
-            <article class="project-item timeline-item">
-              <div class="item-header">
-                <span class="category">Epicor // Bangalore, India</span>
-                <span class="year">Aug 2025 — May 2026</span>
-              </div>
-              <h3 class="role-title">Associate Product Developer</h3>
-              <div class="organization-tag">Eclipse ERP Platform &amp; Payment Gateway Infrastructure</div>
-              
-              <p class="role-summary">
-                Engineered core backend microservices and financial ledger validation pipelines for enterprise ERP applications.
-              </p>
-
-              <ul class="role-achievements">
-                <li>
-                  <strong>ERP Core Modules:</strong> Developed backend features and RESTful APIs for the Eclipse ERP platform using Java across Accounts Receivable (AR), Accounts Payable (AP), and General Ledger (GL).
-                </li>
-                <li>
-                  <strong>Ledger Reliability:</strong> Rebuilt validation logic and workflow enhancements across core ledger operations, cutting transaction-processing errors by <strong>25%</strong> and improving reliability for <strong>50+ daily financial workflows</strong>.
-                </li>
-                <li>
-                  <strong>Payment Administration Portal:</strong> Architected and developed an administration portal for QR-based payment systems, enabling configurable monitoring across multiple merchant accounts.
-                </li>
-              </ul>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Java</span>
-                <span class="tech-tag">RESTful APIs</span>
-                <span class="tech-tag">Eclipse ERP</span>
-                <span class="tech-tag">General Ledger</span>
-                <span class="tech-tag">QR Payment Systems</span>
-              </div>
-            </article>
-
-            <!-- Timeline Item 2 -->
-            <article class="project-item timeline-item">
-              <div class="item-header">
-                <span class="category">Epicor // Bangalore, India</span>
-                <span class="year">Feb 2025 — Aug 2025</span>
-              </div>
-              <h3 class="role-title">Product Developer Intern</h3>
-              <div class="organization-tag">Invoice Processing &amp; Cloud CI/CD Automation</div>
-
-              <p class="role-summary">
-                Designed asynchronous messaging pipelines and automated end-to-end cloud deployments to Google Cloud Platform.
-              </p>
-
-              <ul class="role-achievements">
-                <li>
-                  <strong>Invoice Workflow Automation:</strong> Developed enterprise backend services using Java, .NET, and RabbitMQ to automate invoice processing workflows, reducing manual effort by <strong>60%</strong>.
-                </li>
-                <li>
-                  <strong>Messaging Latency Optimization:</strong> Optimized asynchronous messaging pipelines using RabbitMQ message queues, reducing backend response latency by <strong>40%</strong> while improving system scalability.
-                </li>
-                <li>
-                  <strong>CI/CD &amp; GCP Release Ownership:</strong> Built and owned the CI/CD pipeline using GitHub Actions for the Ebill QR payment system, packaging deployments with Helm charts and shipping releases end-to-end to Google Cloud Platform (GCP), accelerating processing speed by <strong>30%</strong>.
-                </li>
-              </ul>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Java</span>
-                <span class="tech-tag">.NET</span>
-                <span class="tech-tag">RabbitMQ</span>
-                <span class="tech-tag">GitHub Actions</span>
-                <span class="tech-tag">Helm</span>
-                <span class="tech-tag">GCP</span>
-              </div>
-            </article>
-
-          </div>
-        </section>
-
-        <!-- STEP 3: FEATURED PROJECTS -->
-        <section class="content-step" id="step-projects" data-step="3" role="tabpanel" aria-labelledby="tab-btn-3">
-          <div class="step-badge">Phase 3 // Systems &amp; Infrastructure Projects</div>
-          <h2 class="step-title">Featured <span class="text-gradient">Engineering Projects</span></h2>
-          <p class="step-description">
-            Production-grade cloud platforms, auto-healing distributed monitoring systems, and concurrent load testing harnesses.
-          </p>
-
-          <div class="project-cards-container">
-
-            <!-- Project 1: CloudNative GKE Deployment Platform -->
-            <article class="project-item feature-project-card">
-              <div class="item-header">
-                <span class="category">Cloud Infrastructure &amp; Service Mesh</span>
-                <span class="year">2025 // Production</span>
-              </div>
-              <h3 class="project-headline">CloudNative GKE Deployment Platform</h3>
-              <p class="project-pitch">
-                Automated Infrastructure-as-Code (IaC) and canary deployment pipeline for Kubernetes on Google Cloud Platform.
-              </p>
-
-              <div class="project-deepdive">
-                <div class="deepdive-block">
-                  <span class="deepdive-title">Technical Highlights</span>
-                  <p>
-                    Provisioned GCP infrastructure with Terraform—custom VPC, subnet, firewall rules, and an auto-scaling GKE cluster with automated node management. Built a GitHub Actions CI/CD pipeline to containerize applications, publish images to Artifact Registry, and automate deployments using reusable Helm charts. Integrated GCP Secret Manager for secrets management and Istio service mesh for gateway/virtual-service traffic routing, enabling zero-downtime canary deployments.
-                  </p>
-                </div>
-
-                <div class="project-metrics-strip">
-                  <div class="metric-pill">
-                    <span class="m-val">IaC</span>
-                    <span class="m-lbl">Terraform GCP</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">GKE</span>
-                    <span class="m-lbl">Auto-Scaling</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">Istio</span>
-                    <span class="m-lbl">Canary Mesh</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Terraform</span>
-                <span class="tech-tag">GCP / GKE</span>
-                <span class="tech-tag">Kubernetes</span>
-                <span class="tech-tag">Helm</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">GitHub Actions</span>
-                <span class="tech-tag">Istio</span>
-              </div>
-
-              <div class="project-actions">
-                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
-                  <span>View Repository</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </div>
-            </article>
-
-            <!-- Project 2: Auto-Healing Infrastructure -->
-            <article class="project-item feature-project-card">
-              <div class="item-header">
-                <span class="category">SRE &amp; Distributed Monitoring</span>
-                <span class="year">2025 // Production</span>
-              </div>
-              <h3 class="project-headline">Auto-Healing Infrastructure with Monitoring and Alerting</h3>
-              <p class="project-pitch">
-                Distributed monitoring platform built in Go featuring automated container recovery and Slack alert integration.
-              </p>
-
-              <div class="project-deepdive">
-                <div class="deepdive-block">
-                  <span class="deepdive-title">Technical Highlights</span>
-                  <p>
-                    Built a distributed monitoring platform in Go using concurrent workers, Docker containers, and automated recovery mechanisms, cutting manual intervention for common failure cases by <strong>70%</strong>. Shipped Prometheus and Grafana dashboards tracking CPU, memory, and disk health across 10+ simulated nodes, supporting proactive monitoring, faster incident response, and root-cause analysis. Integrated Slack webhook alerts for critical failures, cutting incident detection time to <strong>under 30 seconds</strong>.
-                  </p>
-                </div>
-
-                <div class="project-metrics-strip">
-                  <div class="metric-pill">
-                    <span class="m-val">70%</span>
-                    <span class="m-lbl">Manual Effort Cut</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">&lt;30s</span>
-                    <span class="m-lbl">Alert Detection</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">10+</span>
-                    <span class="m-lbl">Monitored Nodes</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">Go</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">AWS EC2</span>
-                <span class="tech-tag">Prometheus</span>
-                <span class="tech-tag">Grafana</span>
-                <span class="tech-tag">Shell Script</span>
-                <span class="tech-tag">Slack API</span>
-              </div>
-
-              <div class="project-actions">
-                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
-                  <span>View Repository</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </div>
-            </article>
-
-            <!-- Project 3: Configurable Load Testing Platform -->
-            <article class="project-item feature-project-card">
-              <div class="item-header">
-                <span class="category">Distributed Systems &amp; Workload Generation</span>
-                <span class="year">2025 // Production</span>
-              </div>
-              <h3 class="project-headline">Configurable Load Testing Platform with RabbitMQ</h3>
-              <p class="project-pitch">
-                High-concurrency load-testing system capable of generating sustained HTTP workloads at 5K+ requests/second.
-              </p>
-
-              <div class="project-deepdive">
-                <div class="deepdive-block">
-                  <span class="deepdive-title">Technical Highlights</span>
-                  <p>
-                    Designed a concurrent load-testing platform simulating over <strong>10K virtual users</strong> using RabbitMQ message queues. Built distributed worker services generating sustained HTTP workloads at <strong>5K+ requests/second</strong>, with live latency, throughput, and error-rate tracking monitored via Grafana and Nginx.
-                  </p>
-                </div>
-
-                <div class="project-metrics-strip">
-                  <div class="metric-pill">
-                    <span class="m-val">10K+</span>
-                    <span class="m-lbl">Simulated Users</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">5K+</span>
-                    <span class="m-lbl">Req/Sec Workload</span>
-                  </div>
-                  <div class="metric-pill">
-                    <span class="m-val">RabbitMQ</span>
-                    <span class="m-lbl">Worker Mesh</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">NodeJS</span>
-                <span class="tech-tag">RabbitMQ</span>
-                <span class="tech-tag">MySQL</span>
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Grafana</span>
-                <span class="tech-tag">Nginx</span>
-              </div>
-
-              <div class="project-actions">
-                <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="btn-project-link primary">
-                  <span>View Repository</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </div>
-            </article>
-
-            <!-- Project 4: Interactive WebWorker Chess Engine -->
-            <article class="project-item feature-project-card">
-              <div class="item-header">
-                <span class="category">Client Runtimes &amp; Game Theory</span>
-                <span class="year">2026 // Production</span>
-              </div>
-              <h3 class="project-headline">FIDE Chess Rules Engine &amp; Minimax AI</h3>
-              <p class="project-pitch">
-                100% zero-dependency browser chess engine with full move generation, Minimax AI, and Web Audio API synthesizer.
-              </p>
-
-              <div class="tech-tag-row">
-                <span class="tech-tag highlight">JavaScript ES6+</span>
-                <span class="tech-tag">FIDE Rules Engine</span>
-                <span class="tech-tag">Minimax AI</span>
-                <span class="tech-tag">Web Audio API</span>
-              </div>
-
-              <div class="project-actions">
-                <a href="#chess-panel" class="btn-project-link primary" onclick="document.body.classList.remove('active-view-portfolio'); document.body.classList.add('active-view-chess'); const cb = document.getElementById('btn-view-chess'); if(cb) cb.classList.add('active'); const pb = document.getElementById('btn-view-portfolio'); if(pb) pb.classList.remove('active');">
-                  <span>Play Engine Live on Right Panel</span>
-                </a>
-              </div>
-            </article>
-
-          </div>
-        </section>
-
-        <!-- STEP 4: ARSENAL / SKILLS & TOOLS -->
-        <section class="content-step" id="step-skills" data-step="4" role="tabpanel" aria-labelledby="tab-btn-4">
-          <div class="step-badge">Phase 4 // Skills &amp; Tools</div>
-          <h2 class="step-title">Technical <span class="text-gradient">Arsenal</span></h2>
-          <p class="step-description">
-            A comprehensive taxonomy of production languages, cloud infrastructure platforms, observability suites, and distributed backend frameworks.
-          </p>
-
-          <div class="arsenal-grid">
-            
-            <!-- Category 1: Languages -->
-            <div class="arsenal-category-card">
-              <div class="category-header">
-                <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                </div>
-                <div>
-                  <h3 class="category-title">Languages &amp; Core Runtimes</h3>
-                  <span class="category-subtitle">Strongly Typed &amp; Concurrent Systems</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">Go</span>
-                  <span class="tech-tag highlight">Java</span>
-                  <span class="tech-tag highlight">TypeScript</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">Bash / Shell Script</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Category 2: Cloud & DevOps -->
-            <div class="arsenal-category-card">
-              <div class="category-header">
-                <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
-                </div>
-                <div>
-                  <h3 class="category-title">Cloud &amp; DevOps Infrastructure</h3>
-                  <span class="category-subtitle">Kubernetes, IaC &amp; Container Orchestration</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">GCP (GKE, VPC, Secret Manager)</span>
-                  <span class="tech-tag highlight">Terraform</span>
-                  <span class="tech-tag highlight">Kubernetes (Helm, ArgoCD, GitOps)</span>
-                  <span class="tech-tag">Istio (Service Mesh)</span>
-                  <span class="tech-tag">GitHub Actions</span>
-                  <span class="tech-tag">AWS (EC2, S3, RDS, IAM)</span>
-                  <span class="tech-tag">Docker</span>
-                  <span class="tech-tag">Jenkins</span>
-                  <span class="tech-tag">CI/CD &amp; Configuration Management</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Category 3: SRE & Operations -->
-            <div class="arsenal-category-card">
-              <div class="category-header">
-                <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                </div>
-                <div>
-                  <h3 class="category-title">SRE &amp; Operations</h3>
-                  <span class="category-subtitle">Incident Response, Auto-Scaling &amp; Operational Excellence</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">Production Support</span>
-                  <span class="tech-tag highlight">Incident Response</span>
-                  <span class="tech-tag">Root Cause &amp; Post-Mortem Analysis</span>
-                  <span class="tech-tag">Monitoring &amp; Alerting</span>
-                  <span class="tech-tag">Auto-Scaling</span>
-                  <span class="tech-tag">Secrets Management</span>
-                  <span class="tech-tag">Performance Optimization</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Category 4: Backend & Distributed Systems -->
-            <div class="arsenal-category-card">
-              <div class="category-header">
-                <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                </div>
-                <div>
-                  <h3 class="category-title">Backend &amp; Distributed Systems</h3>
-                  <span class="category-subtitle">Message Queues, Microservices &amp; Concurrency</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">RabbitMQ</span>
-                  <span class="tech-tag highlight">Microservices</span>
-                  <span class="tech-tag">RESTful APIs</span>
-                  <span class="tech-tag">WebSockets</span>
-                  <span class="tech-tag">Redis</span>
-                  <span class="tech-tag">Concurrency</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Category 5: Observability, Tools & Databases -->
-            <div class="arsenal-category-card">
-              <div class="category-header">
-                <div class="category-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
-                </div>
-                <div>
-                  <h3 class="category-title">Observability, Databases &amp; Frameworks</h3>
-                  <span class="category-subtitle">Telemetry, Data Stores &amp; Web Frameworks</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <span class="group-label">Observability &amp; Tools</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag highlight">Prometheus</span>
-                  <span class="tech-tag highlight">Grafana</span>
-                  <span class="tech-tag">GCP Cloud Monitoring &amp; Logging</span>
-                  <span class="tech-tag">Git / GitHub</span>
-                  <span class="tech-tag">Postman</span>
-                  <span class="tech-tag">Linux</span>
-                </div>
-              </div>
-
-              <div class="competency-group">
-                <span class="group-label">Databases &amp; Frameworks</span>
-                <div class="tech-tag-row">
-                  <span class="tech-tag">MySQL</span>
-                  <span class="tech-tag">MongoDB</span>
-                  <span class="tech-tag">NodeJS / ExpressJS</span>
-                  <span class="tech-tag">.NET</span>
-                  <span class="tech-tag">ReactJS</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- STEP 5: CONTACT & TRANSMISSION -->
-        <section class="content-step" id="step-contact" data-step="5" role="tabpanel" aria-labelledby="tab-btn-5">
-          <div class="step-badge victory">Phase 5 // Contact Information</div>
-          <h2 class="step-title">Direct <span class="text-gradient">Contact Transmission</span></h2>
-          
-          <p class="step-description">
-            Available for Site Reliability Engineering (SRE), DevOps, and Distributed Systems roles. Get in touch directly via email or the form below.
-          </p>
-
-          <!-- Quick Transmission Metadata Bar -->
-          <div class="transmission-meta-bar">
-            <div class="meta-item">
-              <span class="meta-label">PRIMARY LOCATION</span>
-              <span class="meta-val">Bangalore, India • Mysuru, IN</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">DIRECT EMAIL</span>
-              <span class="meta-val">vishal.b.patil.dev@gmail.com</span>
-            </div>
-          </div>
-
-          <!-- Contact Form -->
-          <form id="contact-form" class="compact-contact-form" novalidate>
-            <div class="input-row">
-              <div class="input-field-group">
-                <label for="form-name" class="input-label">YOUR NAME</label>
-                <input type="text" id="form-name" placeholder="Engineering Hiring Team" required autocomplete="name">
-              </div>
-              <div class="input-field-group">
-                <label for="form-email" class="input-label">WORK EMAIL</label>
-                <input type="email" id="form-email" placeholder="hiring@company.com" required autocomplete="email">
-              </div>
-            </div>
-
-            <div class="input-field-group full-width">
-              <label for="inquiry-type" class="input-label">INQUIRY FOCUS</label>
-              <select id="inquiry-type" class="select-field">
-                <option value="sre">Site Reliability Engineer (SRE) Role</option>
-                <option value="devops">Cloud Infrastructure &amp; DevOps</option>
-                <option value="systems">Backend &amp; Distributed Systems</option>
-                <option value="general">General Professional Inquiry</option>
+            <!-- Puzzle Selector Dropdown (Hidden in AI mode) -->
+            <div class="toolbar-group hidden" id="puzzle-select-group">
+              <span class="toolbar-label">PUZZLE:</span>
+              <select id="puzzle-select" class="select-field" aria-label="Select Chess Puzzle">
+                <option value="scholars">Scholar's Mate Combination (Easy)</option>
+                <option value="opera">Morphy's Opera Attack (Difficult)</option>
+                <option value="backrank">Back-Rank Decapitation</option>
               </select>
             </div>
 
-            <div class="input-field-group full-width">
-              <label for="form-message" class="input-label">MESSAGE DETAILS</label>
-              <textarea id="form-message" rows="3" placeholder="Provide job details, platform requirements, or interview schedule..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-submit" id="btn-send-message">
-              <span class="btn-text">Transmit Message</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </button>
-            
-            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
-          </form>
-
-          <!-- Direct Email & Copy Action Bar -->
-          <div class="direct-mail-container">
-            <div class="mail-address-badge">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              <span class="email-text" id="target-email">vishal.b.patil.dev@gmail.com</span>
-            </div>
-
-            <div class="mail-actions-group">
-              <a href="mailto:vishal.b.patil.dev@gmail.com" class="mail-action-btn mail-link" title="Open in default mail client">
-                <span>Open Mailer</span>
-              </a>
-              <button type="button" class="mail-action-btn mail-copy" id="btn-copy-email" title="Copy email address to clipboard" onclick="navigator.clipboard.writeText('vishal.b.patil.dev@gmail.com'); const l = document.getElementById('copy-btn-label'); if(l){ const o = l.textContent; l.textContent = 'Copied!'; setTimeout(() => l.textContent = o, 2000); }">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                <span id="copy-btn-label">Copy Address</span>
+            <!-- Action Tools Group (Flip, Sound, Undo, Reset, Hint) -->
+            <div class="toolbar-actions">
+              <button type="button" class="tool-btn" id="flip-board-btn" title="Flip Board (F)" aria-label="Flip Board">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4L3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"></path></svg>
+                <span>Flip</span>
               </button>
-            </div>
-          </div>
 
-          <!-- External Profiles Strip -->
-          <div class="social-channels-strip">
-            <span class="strip-label">PROFESSIONAL PROFILES &amp; CHANNELS</span>
-            <div class="social-links-grid">
-              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-link-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-                <span>GitHub</span>
-              </a>
-              <a href="https://linkedin.com/in/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-link-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                <span>LinkedIn</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <footer class="panel-footer">
-        <div class="footer-inner">
-          <span class="copyright">© 2026 Vishal B Patil • All Systems Operational</span>
-          <span class="engine-indicator">SRE Portfolio v2.5</span>
-        </div>
-      </footer>
-    </aside>
-
-    <!-- RIGHT CONTAINER: Chess Console -->
-    <main class="chess-card" id="chess-panel">
-      
-      <div class="chess-console-vertical">
-        
-        <!-- 1. Horizontal Control Panel (Top) -->
-        <div class="chess-control-panel">
-
-          <!-- Row 0: Mode Selection & Audio Synthesizer Toggle -->
-          <div class="panel-row-modes">
-            <div class="control-modes" id="game-mode-controls" role="radiogroup" aria-label="Game Mode Selection">
-              <button type="button" class="mode-pill active" id="mode-btn-ai" data-mode="ai" role="radio" aria-checked="true">
-                <span class="mode-label">VS AI</span>
+              <button type="button" class="tool-btn audio-toggle" id="audio-mute-btn" title="Toggle Sound (M)" aria-label="Toggle Sound" aria-pressed="false">
+                <svg class="icon-audio-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <svg class="icon-audio-off hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <span class="audio-label">Sound</span>
               </button>
-              <button type="button" class="mode-pill" id="mode-btn-puzzles" data-mode="puzzles" role="radio" aria-checked="false">
-                <span class="mode-label">Puzzles</span>
+
+              <button type="button" class="tool-btn" id="hint-game-btn" title="Get Move Hint" aria-label="Get Hint">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg>
+                <span>Hint</span>
+              </button>
+
+              <button type="button" class="tool-btn" id="undo-game-btn" disabled title="Undo Move (U)" aria-label="Undo Move">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                <span>Undo</span>
+              </button>
+
+              <button type="button" class="tool-btn tool-btn-danger" id="reset-game-btn" title="Reset Board (R)" aria-label="Reset Board">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Reset</span>
               </button>
             </div>
 
-            <!-- Procedural Web Audio API Mute Button (Feature 20) -->
-            <button type="button" class="action-icon-btn audio-mute-btn audio-toggle" id="audio-mute-btn" data-toggle="audio" aria-label="Mute Audio" title="Toggle Sound (Mute/Unmute)" aria-pressed="false">
-              <svg class="icon-audio-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <svg class="icon-audio-off hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <line x1="23" y1="9" x2="17" y2="15"></line>
-                <line x1="17" y1="9" x2="23" y2="15"></line>
-              </svg>
-            </button>
-          </div>
-          
-          <!-- Row 1: AI Difficulty Tiers (Easy, Medium, Master) -->
-          <div class="panel-row-1 panel-row-levels">
-            <div class="control-levels" id="ai-difficulty-controls" role="radiogroup" aria-label="AI Difficulty Level">
-              <button type="button" class="level-pill-horizontal active" id="diff-easy" data-level="easy" role="radio" aria-checked="true">Easy</button>
-              <button type="button" class="level-pill-horizontal" id="diff-medium" data-level="medium" role="radio" aria-checked="false">Medium</button>
-              <button type="button" class="level-pill-horizontal" id="diff-master" data-level="master" role="radio" aria-checked="false">Master</button>
-            </div>
           </div>
 
-          <!-- Row 2: Status & Actions -->
-          <div class="panel-row-2 panel-row-status-actions">
-            <!-- Game State / Thinking Indicator -->
-            <div class="control-status" id="game-status-badge">
+          <!-- Live Status Bar -->
+          <div class="chess-status-bar">
+            <div class="status-indicator-wrap" id="game-status-badge">
               <span class="status-pulse-light" aria-hidden="true"></span>
-              <span id="status-text">White to move</span>
+              <span id="status-text" class="status-text-live">White to move</span>
             </div>
-
-            <!-- Simple Actions: Undo & Reset -->
-            <div class="control-actions">
-              <button type="button" class="action-btn undo-action-btn" id="undo-game-btn" title="Undo Move" disabled aria-label="Undo move">
-                Undo
-              </button>
-              <button type="button" class="reset-action-btn" id="reset-game-btn" disabled aria-label="Reset board">
-                Reset
-              </button>
+            
+            <div class="tactical-intel-banner" id="commentary-box">
+              <span class="intel-tag">TACTICAL INTEL</span>
+              <span id="commentary-text">Make your opening move against the engine.</span>
             </div>
           </div>
 
-        </div>
-
-        <!-- Top Captured Tray (Black Pieces Captured by White) -->
-        <div class="captured-tray-container" id="captured-tray-top">
-          <div class="player-label-row">
-            <div class="player-tag">
-              <span class="player-color-dot black" aria-hidden="true"></span>
-              <span class="player-name">AI Opponent</span>
-            </div>
-            <span class="material-diff-badge" id="material-diff-black" aria-label="Material advantage"></span>
-          </div>
-          <div class="captured-pieces" id="captured-black" aria-label="Captured black pieces">
-            <!-- Dynamically populated pieces -->
-          </div>
-        </div>
-
-        <!-- 2. Tactical Intel Commentary Banner (Above Board) -->
-        <div class="tactical-commentary-box" id="commentary-box">
-          <span class="commentary-tag">TACTICAL INTEL</span>
-          <p id="commentary-text">Make your opening move against the AI.</p>
-        </div>
-
-        <!-- 3. Board Section (Center) -->
-        <div class="chessboard-container-centered">
-          <div class="chessboard-border">
-            <div class="chess-board" id="chess-board"></div>
-            <div class="board-overlay hidden" id="board-overlay">
-              <div class="overlay-card">
-                <h3>Select a Level</h3>
-                <p>Choose difficulty above to unlock the board</p>
+          <!-- Board Stage with Captured Trays -->
+          <div class="chess-stage">
+            
+            <!-- Top Player / Captured Black Pieces -->
+            <div class="player-bar" id="captured-tray-top">
+              <div class="player-info">
+                <span class="player-avatar-dot black" aria-hidden="true"></span>
+                <span class="player-title" id="player-name-top">AI Opponent</span>
+              </div>
+              <div class="captured-tray">
+                <div class="captured-pieces-list" id="captured-black" aria-label="Captured black pieces"></div>
+                <span class="material-diff" id="material-diff-black"></span>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Bottom Captured Tray (White Pieces Captured by Black) -->
-        <div class="captured-tray-container" id="captured-tray-bottom">
-          <div class="player-label-row">
-            <div class="player-tag">
-              <span class="player-color-dot white" aria-hidden="true"></span>
-              <span class="player-name">Vishal B Patil</span>
+            <!-- The Centered 8x8 Chessboard -->
+            <div class="board-wrapper">
+              <div class="chess-board" id="chess-board" role="grid" aria-label="FIDE Chess Board"></div>
+              
+              <!-- Board Game Over Overlay -->
+              <div class="board-overlay hidden" id="board-overlay">
+                <div class="overlay-modal">
+                  <h3 id="overlay-title">Game Over</h3>
+                  <p id="overlay-text">The match has concluded.</p>
+                  <button type="button" class="btn btn-primary btn-sm" id="overlay-restart-btn">Play Again</button>
+                </div>
+              </div>
             </div>
-            <span class="material-diff-badge" id="material-diff-white" aria-label="Material advantage"></span>
-          </div>
-          <div class="captured-pieces" id="captured-white" aria-label="Captured white pieces">
-            <!-- Dynamically populated pieces -->
-          </div>
-        </div>
 
-        <!-- Move History Strip (SAN Notation) -->
-        <div class="move-history-panel" id="move-history" data-panel="move-history-panel">
-          <div class="history-header">
-            <span class="history-title">MOVE HISTORY</span>
-            <span class="move-count-badge" id="history-move-count">0 MOVES</span>
-          </div>
-          <div class="san-history-strip" id="san-history-strip" role="log" aria-live="polite" aria-label="Move history list">
-            <span class="history-placeholder">No moves recorded</span>
-          </div>
-        </div>
+            <!-- Bottom Player / Captured White Pieces -->
+            <div class="player-bar" id="captured-tray-bottom">
+              <div class="player-info">
+                <span class="player-avatar-dot white" aria-hidden="true"></span>
+                <span class="player-title" id="player-name-bottom">You (White)</span>
+              </div>
+              <div class="captured-tray">
+                <div class="captured-pieces-list" id="captured-white" aria-label="Captured white pieces"></div>
+                <span class="material-diff" id="material-diff-white"></span>
+              </div>
+            </div>
 
-        <!-- 4. Match Progress Tracker (Below Board) -->
-        <div class="match-progress-container" id="progress-bar">
-          <div class="progress-info">
-            <span class="progress-label">MATCH PROGRESS</span>
-            <span class="progress-val" id="progress-val">0 MOVES</span>
           </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="progress-fill"></div>
+
+          <!-- SAN Move History Strip -->
+          <div class="move-history-card">
+            <div class="history-card-header">
+              <span class="history-label">MOVE LOG (SAN)</span>
+              <span class="history-count" id="history-move-count">0 MOVES</span>
+            </div>
+            <div class="san-history-strip" id="san-history-strip" role="log" aria-live="polite">
+              <span class="history-empty">No moves played yet.</span>
+            </div>
           </div>
+
         </div>
 
       </div>
+    </section>
 
-    </main>
+    <!-- TECHNICAL ARSENAL / SKILLS SECTION -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">05 // Skills &amp; Tools</span>
+          <h2 class="section-title">Technical Arsenal</h2>
+          <p class="section-subtitle">Production technologies, cloud providers, and observability platforms I work with.</p>
+        </div>
 
+        <div class="skills-grid">
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+              </div>
+              <h3 class="cat-title">Cloud &amp; DevOps</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">GCP (GKE, VPC, Secret Manager)</span>
+              <span class="skill-pill highlight">Terraform (IaC)</span>
+              <span class="skill-pill highlight">Kubernetes (Helm, GitOps)</span>
+              <span class="skill-pill">Istio (Service Mesh)</span>
+              <span class="skill-pill">AWS (EC2, S3, RDS, IAM)</span>
+              <span class="skill-pill">Docker</span>
+              <span class="skill-pill">GitHub Actions CI/CD</span>
+              <span class="skill-pill">Jenkins</span>
+            </div>
+          </div>
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h3 class="cat-title">Languages &amp; Runtimes</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">Go (Golang)</span>
+              <span class="skill-pill highlight">Java</span>
+              <span class="skill-pill highlight">TypeScript</span>
+              <span class="skill-pill">JavaScript (ES6+)</span>
+              <span class="skill-pill">Bash / Linux Shell</span>
+            </div>
+          </div>
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <h3 class="cat-title">SRE &amp; Operations</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">Production Support</span>
+              <span class="skill-pill highlight">Incident Response</span>
+              <span class="skill-pill">Root Cause Analysis (RCA)</span>
+              <span class="skill-pill">Automated Incident Alerting</span>
+              <span class="skill-pill">Auto-Scaling Policies</span>
+              <span class="skill-pill">Secrets Management</span>
+              <span class="skill-pill">Performance Tuning</span>
+            </div>
+          </div>
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+              </div>
+              <h3 class="cat-title">Observability &amp; Telemetry</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">Prometheus</span>
+              <span class="skill-pill highlight">Grafana</span>
+              <span class="skill-pill">GCP Cloud Monitoring &amp; Logging</span>
+              <span class="skill-pill">Linux Systems</span>
+              <span class="skill-pill">Git / GitHub</span>
+              <span class="skill-pill">Postman</span>
+            </div>
+          </div>
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              </div>
+              <h3 class="cat-title">Backend &amp; Distributed</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">RabbitMQ (Message Queues)</span>
+              <span class="skill-pill highlight">Microservices Architecture</span>
+              <span class="skill-pill">RESTful APIs</span>
+              <span class="skill-pill">WebSockets</span>
+              <span class="skill-pill">Redis</span>
+              <span class="skill-pill">Concurrency</span>
+            </div>
+          </div>
+
+          <div class="skill-category card">
+            <div class="category-header">
+              <div class="cat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              </div>
+              <h3 class="cat-title">Databases &amp; Web</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-pill highlight">MySQL</span>
+              <span class="skill-pill">MongoDB</span>
+              <span class="skill-pill">Node.js / Express</span>
+              <span class="skill-pill">.NET</span>
+              <span class="skill-pill">React.js</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & CONNECT SECTION -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">06 // Connect</span>
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">Interested in collaborating or discussing SRE, DevOps, and backend roles? Reach out directly.</p>
+        </div>
+
+        <div class="contact-layout">
+
+          <!-- Left: Direct Info Card -->
+          <div class="contact-info-card card">
+            <h3 class="contact-card-title">Let's Build Something Resilient</h3>
+            <p class="contact-card-text">
+              I am actively open to Site Reliability Engineer (SRE), Cloud Platform, DevOps, and Distributed Systems positions in Bangalore, India or remote.
+            </p>
+
+            <div class="contact-detail-items">
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div>
+                  <span class="detail-label">LOCATION</span>
+                  <span class="detail-val">Bangalore, India • Mysuru, IN</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div>
+                  <span class="detail-label">DIRECT EMAIL</span>
+                  <span class="detail-val" id="target-email">vishal.b.patil.dev@gmail.com</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="email-copy-bar">
+              <button type="button" class="btn btn-secondary btn-full" id="btn-copy-email">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span id="copy-btn-label">Copy Email Address</span>
+              </button>
+            </div>
+
+            <div class="social-links-grid">
+              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <span>GitHub Profile</span>
+              </a>
+              <a href="https://linkedin.com/in/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <span>LinkedIn Profile</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Direct Message Form -->
+          <div class="contact-form-card card">
+            <h3 class="contact-card-title">Send a Direct Message</h3>
+            
+            <form id="contact-form" class="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="form-name">YOUR NAME</label>
+                  <input type="text" id="form-name" placeholder="Engineering Hiring Manager" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="form-email">WORK EMAIL</label>
+                  <input type="email" id="form-email" placeholder="name@company.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inquiry-type">TOPIC</label>
+                <select id="inquiry-type" class="select-field">
+                  <option value="sre">Site Reliability Engineer (SRE) Role</option>
+                  <option value="devops">Cloud Infrastructure &amp; DevOps</option>
+                  <option value="systems">Backend &amp; Distributed Systems</option>
+                  <option value="general">General Opportunity / Discussion</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="form-message">MESSAGE</label>
+                <textarea id="form-message" rows="4" placeholder="Role details, technical stack, team scope, or meeting request..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" id="btn-send-message">
+                <span>Send Message via Email</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+
+              <div id="form-status" class="form-status-msg" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Pawn Promotion Popover Modal -->
+  <div class="promotion-modal-overlay hidden" id="promotion-modal" role="dialog" aria-modal="true" aria-labelledby="promotion-modal-title">
+    <div class="promotion-modal-card card">
+      <h3 class="promotion-title" id="promotion-modal-title">Promote Your Pawn</h3>
+      <p class="promotion-desc">Select transformation for advanced rank pawn:</p>
+      <div class="promotion-choices" id="promotion-choices">
+        <button type="button" class="promo-choice-btn" id="promo-btn-q" data-promotion="q" aria-label="Promote to Queen">
+          <img src="pieces/Chess_qlt45.svg" alt="Queen" class="promo-piece-img" data-promo-piece="q">
+          <span>Queen</span>
+        </button>
+        <button type="button" class="promo-choice-btn" id="promo-btn-r" data-promotion="r" aria-label="Promote to Rook">
+          <img src="pieces/Chess_rlt45.svg" alt="Rook" class="promo-piece-img" data-promo-piece="r">
+          <span>Rook</span>
+        </button>
+        <button type="button" class="promo-choice-btn" id="promo-btn-b" data-promotion="b" aria-label="Promote to Bishop">
+          <img src="pieces/Chess_blt45.svg" alt="Bishop" class="promo-piece-img" data-promo-piece="b">
+          <span>Bishop</span>
+        </button>
+        <button type="button" class="promo-choice-btn" id="promo-btn-n" data-promotion="n" aria-label="Promote to Knight">
+          <img src="pieces/Chess_nlt45.svg" alt="Knight" class="promo-piece-img" data-promo-piece="n">
+          <span>Knight</span>
+        </button>
+      </div>
+    </div>
   </div>
 
+  <!-- Toast Notification Area -->
+  <div class="toast-region" id="toast-region" role="status" aria-live="polite"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-logo">VP.</span>
+        <span class="footer-copy">© 2026 Vishal B Patil. Built with zero dependencies.</span>
+      </div>
+      <div class="footer-right">
+        <span class="status-live-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>All Systems Operational</span>
+        </span>
+        <a href="#hero" class="back-to-top" aria-label="Back to Top">
+          <span>Top</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
   <script src="chess-engine.js"></script>
   <script src="chess-audio.js"></script>
   <script src="script.js"></script>
