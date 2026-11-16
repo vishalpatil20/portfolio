@@ -6,7 +6,7 @@
   <title>Vishal B Patil — Site Reliability &amp; Distributed Systems Engineer</title>
   <meta name="description" content="Portfolio of Vishal B Patil — Site Reliability Engineer specializing in Kubernetes (GKE), Terraform, Go infrastructure automation, and distributed systems. Features an interactive in-browser FIDE chess engine.">
   <meta name="author" content="Vishal B Patil">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#08090a">
 
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="website">
@@ -17,10 +17,10 @@
   <!-- Favicon -->
   <link rel="icon" href="pieces/Chess_nlt45.svg" type="image/svg+xml">
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -30,27 +30,33 @@
   <header class="site-header" id="header">
     <div class="nav-container">
       <a href="#hero" class="nav-logo" aria-label="Vishal B Patil Home">
-        <span class="logo-badge">VP</span>
+        <span class="logo-badge" aria-hidden="true">VP</span>
         <span class="logo-name">Vishal Patil</span>
       </a>
 
       <!-- Desktop Nav Menu -->
       <nav class="nav-menu" id="nav-menu" aria-label="Primary Navigation">
-        <a href="#about" class="nav-link">About</a>
+        <a href="#about" class="nav-link">Focus</a>
         <a href="#experience" class="nav-link">Experience</a>
         <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Arsenal</a>
         <a href="#chess" class="nav-link chess-nav-link">
           <span class="chess-nav-icon" aria-hidden="true">♟</span>
           <span>Chess Arena</span>
         </a>
+        <a href="#skills" class="nav-link">Stack</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Nav Actions (Theme Toggle & CTA) -->
+      <!-- Nav Actions (Cmd+K, Theme Toggle & CTA) -->
       <div class="nav-actions">
+        <button type="button" class="cmdk-trigger" id="cmdk-trigger" aria-label="Open Command Palette" title="Command Palette (⌘K)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="cmdk-label">Search</span>
+          <kbd class="cmdk-kbd">⌘K</kbd>
+        </button>
+
         <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
-          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -61,12 +67,12 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
-          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
 
-        <a href="#contact" class="btn btn-sm btn-primary nav-cta">Let's Talk</a>
+        <a href="#contact" class="btn btn-sm btn-primary nav-cta">Contact</a>
 
         <!-- Mobile Menu Hamburger -->
         <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
@@ -83,25 +89,80 @@
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
       <div class="container hero-container">
-        
-        <div class="hero-badge-wrap">
-          <span class="status-pill">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span>Available for SRE &amp; DevOps Roles</span>
-          </span>
+
+        <div class="hero-split">
+          <!-- Left Column: Intro & CTAs -->
+          <div class="hero-copy">
+            <div class="hero-badge-wrap">
+              <span class="status-pill">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Open to SRE &amp; Distributed Systems Roles</span>
+              </span>
+            </div>
+
+            <h1 class="hero-title">Vishal B Patil</h1>
+
+            <p class="hero-role">Site Reliability &amp; Distributed Systems Engineer</p>
+
+            <p class="hero-description">
+              Building resilient Kubernetes platforms on GCP/AWS, declarative Terraform infrastructure, and Go auto-healing systems—with a zero-dependency FIDE chess engine running live below.
+            </p>
+
+            <!-- Hero Actions -->
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">
+                <span>Explore Engineering Work</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="#chess" class="btn btn-secondary">
+                <span aria-hidden="true">♟</span>
+                <span>Play Chess Engine</span>
+              </a>
+            </div>
+
+            <!-- Social Icons Row -->
+            <div class="hero-social-row">
+              <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub Profile">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <span>GitHub</span>
+              </a>
+              <a href="https://linkedin.com/in/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn Profile">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <span>LinkedIn</span>
+              </a>
+              <a href="mailto:vishal.b.patil.dev@gmail.com" class="social-icon-btn" aria-label="Send Email">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>vishal.b.patil.dev@gmail.com</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Resend/Cursor-style Live SRE Spec Terminal -->
+          <div class="hero-terminal card" aria-label="Infrastructure Specification Preview">
+            <div class="terminal-header">
+              <div class="terminal-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="terminal-title">gke-prod-mesh.tf · main</span>
+              <span class="terminal-status">● healthy</span>
+            </div>
+            <pre class="terminal-code"><code><span class="t-muted">// Declarative GKE + Go Auto-Healer</span>
+<span class="t-key">module</span> <span class="t-str">"cluster"</span> {
+  source      = <span class="t-str">"./modules/gke-istio"</span>
+  region      = <span class="t-str">"asia-south1"</span>
+  autoscaling = { min = <span class="t-num">3</span>, max = <span class="t-num">24</span> }
+  canary_mesh = <span class="t-bool">true</span>
+}
+
+<span class="t-cmd">$</span> go run ./cmd/healer --watch=10s
+<span class="t-ok">✓</span> 10/10 nodes healthy · alert_sla=&lt;30s
+<span class="t-ok">✓</span> rabbitmq_latency_delta=-40%</code></pre>
+            <div class="terminal-footer">
+              <span>Terraform · GKE · Go · Prometheus</span>
+              <span>Bangalore, IN</span>
+            </div>
+          </div>
         </div>
-
-        <h1 class="hero-title">
-          Hi, I'm <span class="text-gradient">Vishal B Patil</span>
-        </h1>
-
-        <p class="hero-role">
-          Site Reliability &amp; Distributed Systems Engineer
-        </p>
-
-        <p class="hero-description">
-          I build resilient cloud platforms, automated Kubernetes infrastructure on GCP/AWS, and high-concurrency microservices. Passionate about automated incident recovery, GitOps with Terraform, and deep observability.
-        </p>
 
         <!-- Metric Cards Strip -->
         <div class="metrics-grid">
@@ -123,35 +184,6 @@
           </div>
         </div>
 
-        <!-- Hero Actions -->
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">
-            <span>Explore Engineering Work</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#chess" class="btn btn-secondary">
-            <span aria-hidden="true">♟</span>
-            <span>Play Hand-Built Chess AI</span>
-          </a>
-          <a href="#contact" class="btn btn-ghost">Contact Me</a>
-        </div>
-
-        <!-- Social Icons Row -->
-        <div class="hero-social-row">
-          <a href="https://github.com/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub Profile">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://linkedin.com/in/vishalpatil20" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn Profile">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="mailto:vishal.b.patil.dev@gmail.com" class="social-icon-btn" aria-label="Send Email">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>vishal.b.patil.dev@gmail.com</span>
-          </a>
-        </div>
-
       </div>
     </section>
 
@@ -159,15 +191,15 @@
     <section class="section" id="about">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">01 // Identity</span>
-          <h2 class="section-title">Architectural Foundation</h2>
-          <p class="section-subtitle">Bridging systems reliability, infrastructure code, and operational agility.</p>
+          <span class="section-tag">01</span>
+          <h2 class="section-title">Engineering Focus</h2>
+          <p class="section-subtitle">Bridging systems reliability, declarative infrastructure, and operational velocity.</p>
         </div>
 
         <div class="about-grid">
           <div class="card pillar-card">
             <div class="pillar-icon-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
             </div>
             <h3 class="pillar-title">Self-Healing Infrastructure</h3>
             <p class="pillar-text">
@@ -177,7 +209,7 @@
 
           <div class="card pillar-card">
             <div class="pillar-icon-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
             </div>
             <h3 class="pillar-title">Declarative GitOps &amp; IaC</h3>
             <p class="pillar-text">
@@ -187,7 +219,7 @@
 
           <div class="card pillar-card">
             <div class="pillar-icon-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
             <h3 class="pillar-title">Deep Observability</h3>
             <p class="pillar-text">
@@ -198,12 +230,12 @@
 
         <!-- Education Card -->
         <div class="card education-card">
-          <div class="edu-badge">ACADEMIC FOUNDATION</div>
+          <div class="edu-badge">B.E. · 2021 – 2025</div>
           <div class="edu-content">
             <h3 class="edu-school">The National Institute of Engineering — Mysuru, India</h3>
-            <p class="edu-degree"><strong>Bachelor of Engineering in Information Science and Engineering</strong> (2021 – 2025)</p>
+            <p class="edu-degree"><strong>Information Science and Engineering</strong></p>
             <p class="edu-coursework">
-              <em>Core Coursework:</em> Data Structures &amp; Algorithms, Operating Systems, Computer Networks, Database Management Systems, Object-Oriented Software Design.
+              <em>Coursework:</em> Data Structures &amp; Algorithms, Operating Systems, Computer Networks, Database Management Systems, Object-Oriented Software Design.
             </p>
           </div>
         </div>
@@ -212,12 +244,12 @@
     </section>
 
     <!-- PROFESSIONAL EXPERIENCE SECTION -->
-    <section class="section section-alt" id="experience">
+    <section class="section" id="experience">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">02 // Experience</span>
+          <span class="section-tag">02</span>
           <h2 class="section-title">Production Experience</h2>
-          <p class="section-subtitle">Real-world impact across enterprise ERP backends, message queues, and cloud CI/CD.</p>
+          <p class="section-subtitle">Impact across enterprise ERP backends, message queues, and cloud CI/CD.</p>
         </div>
 
         <div class="timeline">
@@ -299,15 +331,15 @@
     <section class="section" id="projects">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">03 // Portfolio</span>
-          <h2 class="section-title">Featured Engineering Projects</h2>
+          <span class="section-tag">03</span>
+          <h2 class="section-title">Featured Engineering</h2>
           <p class="section-subtitle">Infrastructure-as-Code platforms, auto-healing systems, and high-concurrency tooling.</p>
         </div>
 
         <div class="projects-grid">
 
           <!-- Project 1 -->
-          <article class="project-card card">
+          <article class="project-card card bento-wide">
             <div class="project-top">
               <span class="project-category">Cloud Infrastructure &amp; Service Mesh</span>
               <span class="project-status">Production</span>
@@ -350,7 +382,7 @@
           </article>
 
           <!-- Project 2 -->
-          <article class="project-card card">
+          <article class="project-card card bento-narrow">
             <div class="project-top">
               <span class="project-category">SRE &amp; Distributed Monitoring</span>
               <span class="project-status">Production</span>
@@ -393,7 +425,7 @@
           </article>
 
           <!-- Project 3 -->
-          <article class="project-card card">
+          <article class="project-card card bento-narrow">
             <div class="project-top">
               <span class="project-category">Distributed Systems &amp; Load Generation</span>
               <span class="project-status">Production</span>
@@ -436,7 +468,7 @@
           </article>
 
           <!-- Project 4 (Chess Showcase) -->
-          <article class="project-card card project-card-highlight">
+          <article class="project-card card project-card-highlight bento-wide">
             <div class="project-top">
               <span class="project-category">Browser Runtimes &amp; Game Theory</span>
               <span class="project-status">Interactive</span>
@@ -481,165 +513,173 @@
     </section>
 
     <!-- INTERACTIVE CHESS ARENA SECTION -->
-    <section class="section section-alt chess-section" id="chess">
+    <section class="section chess-section" id="chess">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">04 // Interactive Showcase</span>
+          <span class="section-tag">04</span>
           <h2 class="section-title">Interactive Chess Arena</h2>
-          <p class="section-subtitle">Test your strategy against my hand-built JavaScript FIDE rules engine &amp; Minimax AI, or solve tactical endgame puzzles.</p>
+          <p class="section-subtitle">Zero-dependency JavaScript FIDE rules engine &amp; Minimax AI with procedural Web Audio.</p>
         </div>
 
         <div class="chess-arena-layout card">
-          
-          <!-- Chess Controls Header -->
-          <div class="chess-arena-toolbar">
-            
-            <!-- Game Mode Pill Group -->
-            <div class="toolbar-group">
-              <span class="toolbar-label">MODE:</span>
-              <div class="pill-group" role="radiogroup" aria-label="Game Mode">
-                <button type="button" class="pill-btn active" id="mode-btn-ai" data-mode="ai" role="radio" aria-checked="true">Vs AI</button>
-                <button type="button" class="pill-btn" id="mode-btn-puzzles" data-mode="puzzles" role="radio" aria-checked="false">Tactical Puzzles</button>
-              </div>
-            </div>
+          <div class="chess-workbench">
 
-            <!-- AI Difficulty Level Group -->
-            <div class="toolbar-group" id="ai-levels-group">
-              <span class="toolbar-label">AI TIER:</span>
-              <div class="pill-group" role="radiogroup" aria-label="AI Difficulty">
-                <button type="button" class="pill-btn level-pill active" id="diff-easy" data-level="easy" role="radio" aria-checked="true">Easy</button>
-                <button type="button" class="pill-btn level-pill" id="diff-medium" data-level="medium" role="radio" aria-checked="false">Medium</button>
-                <button type="button" class="pill-btn level-pill" id="diff-master" data-level="master" role="radio" aria-checked="false">Master</button>
-              </div>
-            </div>
+            <!-- Left Column: Board Stage with Captured Trays -->
+            <div class="chess-stage">
 
-            <!-- Puzzle Selector Dropdown (Hidden in AI mode) -->
-            <div class="toolbar-group hidden" id="puzzle-select-group">
-              <span class="toolbar-label">PUZZLE:</span>
-              <select id="puzzle-select" class="select-field" aria-label="Select Chess Puzzle">
-                <option value="scholars">Scholar's Mate Combination (Easy)</option>
-                <option value="opera">Morphy's Opera Attack (Difficult)</option>
-                <option value="backrank">Back-Rank Decapitation</option>
-              </select>
-            </div>
-
-            <!-- Action Tools Group (Flip, Sound, Undo, Reset, Hint) -->
-            <div class="toolbar-actions">
-              <button type="button" class="tool-btn" id="flip-board-btn" title="Flip Board (F)" aria-label="Flip Board">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4L3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"></path></svg>
-                <span>Flip</span>
-              </button>
-
-              <button type="button" class="tool-btn audio-toggle" id="audio-mute-btn" title="Toggle Sound (M)" aria-label="Toggle Sound" aria-pressed="false">
-                <svg class="icon-audio-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <svg class="icon-audio-off hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                  <line x1="23" y1="9" x2="17" y2="15"></line>
-                  <line x1="17" y1="9" x2="23" y2="15"></line>
-                </svg>
-                <span class="audio-label">Sound</span>
-              </button>
-
-              <button type="button" class="tool-btn" id="hint-game-btn" title="Get Move Hint" aria-label="Get Hint">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg>
-                <span>Hint</span>
-              </button>
-
-              <button type="button" class="tool-btn" id="undo-game-btn" disabled title="Undo Move (U)" aria-label="Undo Move">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-                <span>Undo</span>
-              </button>
-
-              <button type="button" class="tool-btn tool-btn-danger" id="reset-game-btn" title="Reset Board (R)" aria-label="Reset Board">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                <span>Reset</span>
-              </button>
-            </div>
-
-          </div>
-
-          <!-- Live Status Bar -->
-          <div class="chess-status-bar">
-            <div class="status-indicator-wrap" id="game-status-badge">
-              <span class="status-pulse-light" aria-hidden="true"></span>
-              <span id="status-text" class="status-text-live">White to move</span>
-            </div>
-            
-            <div class="tactical-intel-banner" id="commentary-box">
-              <span class="intel-tag">TACTICAL INTEL</span>
-              <span id="commentary-text">Make your opening move against the engine.</span>
-            </div>
-          </div>
-
-          <!-- Board Stage with Captured Trays -->
-          <div class="chess-stage">
-            
-            <!-- Top Player / Captured Black Pieces -->
-            <div class="player-bar" id="captured-tray-top">
-              <div class="player-info">
-                <span class="player-avatar-dot black" aria-hidden="true"></span>
-                <span class="player-title" id="player-name-top">AI Opponent</span>
-              </div>
-              <div class="captured-tray">
-                <div class="captured-pieces-list" id="captured-black" aria-label="Captured black pieces"></div>
-                <span class="material-diff" id="material-diff-black"></span>
-              </div>
-            </div>
-
-            <!-- The Centered 8x8 Chessboard -->
-            <div class="board-wrapper">
-              <div class="chess-board" id="chess-board" role="grid" aria-label="FIDE Chess Board"></div>
-              
-              <!-- Board Game Over Overlay -->
-              <div class="board-overlay hidden" id="board-overlay">
-                <div class="overlay-modal">
-                  <h3 id="overlay-title">Game Over</h3>
-                  <p id="overlay-text">The match has concluded.</p>
-                  <button type="button" class="btn btn-primary btn-sm" id="overlay-restart-btn">Play Again</button>
+              <!-- Top Player / Captured Black Pieces -->
+              <div class="player-bar" id="captured-tray-top">
+                <div class="player-info">
+                  <span class="player-avatar-dot black" aria-hidden="true"></span>
+                  <span class="player-title" id="player-name-top">AI Opponent</span>
+                </div>
+                <div class="captured-tray">
+                  <div class="captured-pieces-list" id="captured-black" aria-label="Captured black pieces"></div>
+                  <span class="material-diff" id="material-diff-black"></span>
                 </div>
               </div>
+
+              <!-- The Centered 8x8 Chessboard -->
+              <div class="board-wrapper">
+                <div class="chess-board" id="chess-board" role="grid" aria-label="FIDE Chess Board"></div>
+
+                <!-- Board Game Over Overlay -->
+                <div class="board-overlay hidden" id="board-overlay">
+                  <div class="overlay-modal">
+                    <h3 id="overlay-title">Game Over</h3>
+                    <p id="overlay-text">The match has concluded.</p>
+                    <button type="button" class="btn btn-primary btn-sm" id="overlay-restart-btn">Play Again</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Player / Captured White Pieces -->
+              <div class="player-bar" id="captured-tray-bottom">
+                <div class="player-info">
+                  <span class="player-avatar-dot white" aria-hidden="true"></span>
+                  <span class="player-title" id="player-name-bottom">You (White)</span>
+                </div>
+                <div class="captured-tray">
+                  <div class="captured-pieces-list" id="captured-white" aria-label="Captured white pieces"></div>
+                  <span class="material-diff" id="material-diff-white"></span>
+                </div>
+              </div>
+
             </div>
 
-            <!-- Bottom Player / Captured White Pieces -->
-            <div class="player-bar" id="captured-tray-bottom">
-              <div class="player-info">
-                <span class="player-avatar-dot white" aria-hidden="true"></span>
-                <span class="player-title" id="player-name-bottom">You (White)</span>
+            <!-- Right Column: Engine Sidebar (Status, Controls, SAN Log) -->
+            <div class="chess-workbench-sidebar">
+
+              <!-- Live Status & Tactical Intel -->
+              <div class="chess-status-bar">
+                <div class="status-indicator-wrap" id="game-status-badge">
+                  <span class="status-pulse-light" aria-hidden="true"></span>
+                  <span id="status-text" class="status-text-live">White to move</span>
+                </div>
+
+                <div class="tactical-intel-banner" id="commentary-box">
+                  <span class="intel-tag">ENGINE</span>
+                  <span id="commentary-text">Make your opening move against the engine.</span>
+                </div>
               </div>
-              <div class="captured-tray">
-                <div class="captured-pieces-list" id="captured-white" aria-label="Captured white pieces"></div>
-                <span class="material-diff" id="material-diff-white"></span>
+
+              <!-- Mode & AI Controls -->
+              <div class="chess-arena-toolbar">
+                <div class="toolbar-row">
+                  <div class="toolbar-group">
+                    <span class="toolbar-label">MODE</span>
+                    <div class="pill-group" role="radiogroup" aria-label="Game Mode">
+                      <button type="button" class="pill-btn active" id="mode-btn-ai" data-mode="ai" role="radio" aria-checked="true">Vs AI</button>
+                      <button type="button" class="pill-btn" id="mode-btn-puzzles" data-mode="puzzles" role="radio" aria-checked="false">Tactical Puzzles</button>
+                    </div>
+                  </div>
+
+                  <div class="toolbar-group" id="ai-levels-group">
+                    <span class="toolbar-label">TIER</span>
+                    <div class="pill-group" role="radiogroup" aria-label="AI Difficulty">
+                      <button type="button" class="pill-btn level-pill active" id="diff-easy" data-level="easy" role="radio" aria-checked="true">Easy</button>
+                      <button type="button" class="pill-btn level-pill" id="diff-medium" data-level="medium" role="radio" aria-checked="false">Medium</button>
+                      <button type="button" class="pill-btn level-pill" id="diff-master" data-level="master" role="radio" aria-checked="false">Master</button>
+                    </div>
+                  </div>
+
+                  <div class="toolbar-group hidden" id="puzzle-select-group">
+                    <span class="toolbar-label">PUZZLE</span>
+                    <select id="puzzle-select" class="select-field" aria-label="Select Chess Puzzle">
+                      <option value="scholars">Scholar's Mate Combination (Easy)</option>
+                      <option value="opera">Morphy's Opera Attack (Difficult)</option>
+                      <option value="backrank">Back-Rank Decapitation</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Action Tools Group -->
+                <div class="toolbar-actions">
+                  <button type="button" class="tool-btn" id="flip-board-btn" title="Flip Board (F)" aria-label="Flip Board">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4L3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"></path></svg>
+                    <span>Flip</span>
+                    <kbd class="tool-kbd">F</kbd>
+                  </button>
+
+                  <button type="button" class="tool-btn audio-toggle" id="audio-mute-btn" title="Toggle Sound (M)" aria-label="Toggle Sound" aria-pressed="false">
+                    <svg class="icon-audio-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <svg class="icon-audio-off hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <span class="audio-label">Sound</span>
+                    <kbd class="tool-kbd">M</kbd>
+                  </button>
+
+                  <button type="button" class="tool-btn" id="hint-game-btn" title="Get Move Hint" aria-label="Get Hint">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg>
+                    <span>Hint</span>
+                  </button>
+
+                  <button type="button" class="tool-btn" id="undo-game-btn" disabled title="Undo Move (U)" aria-label="Undo Move">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>Undo</span>
+                    <kbd class="tool-kbd">U</kbd>
+                  </button>
+
+                  <button type="button" class="tool-btn tool-btn-danger" id="reset-game-btn" title="Reset Board (R)" aria-label="Reset Board">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                    <span>Reset</span>
+                    <kbd class="tool-kbd">R</kbd>
+                  </button>
+                </div>
               </div>
+
+              <!-- Vertical SAN Move History Log -->
+              <div class="move-history-card">
+                <div class="history-card-header">
+                  <span class="history-label">MOVE LOG (SAN)</span>
+                  <span class="history-count" id="history-move-count">0 MOVES</span>
+                </div>
+                <div class="san-history-strip" id="san-history-strip" role="log" aria-live="polite">
+                  <span class="history-empty">No moves played yet.</span>
+                </div>
+              </div>
+
             </div>
 
           </div>
-
-          <!-- SAN Move History Strip -->
-          <div class="move-history-card">
-            <div class="history-card-header">
-              <span class="history-label">MOVE LOG (SAN)</span>
-              <span class="history-count" id="history-move-count">0 MOVES</span>
-            </div>
-            <div class="san-history-strip" id="san-history-strip" role="log" aria-live="polite">
-              <span class="history-empty">No moves played yet.</span>
-            </div>
-          </div>
-
         </div>
 
       </div>
     </section>
 
-    <!-- TECHNICAL ARSENAL / SKILLS SECTION -->
+    <!-- STACK & TOOLING SECTION -->
     <section class="section" id="skills">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">05 // Skills &amp; Tools</span>
-          <h2 class="section-title">Technical Arsenal</h2>
-          <p class="section-subtitle">Production technologies, cloud providers, and observability platforms I work with.</p>
+          <span class="section-tag">05</span>
+          <h2 class="section-title">Stack &amp; Tooling</h2>
+          <p class="section-subtitle">Production technologies, cloud providers, and observability platforms.</p>
         </div>
 
         <div class="skills-grid">
@@ -752,21 +792,21 @@
     </section>
 
     <!-- CONTACT & CONNECT SECTION -->
-    <section class="section section-alt" id="contact">
+    <section class="section" id="contact">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">06 // Connect</span>
+          <span class="section-tag">06</span>
           <h2 class="section-title">Get In Touch</h2>
-          <p class="section-subtitle">Interested in collaborating or discussing SRE, DevOps, and backend roles? Reach out directly.</p>
+          <p class="section-subtitle">Open to Site Reliability, Cloud Platform, and Distributed Systems engineering roles.</p>
         </div>
 
         <div class="contact-layout">
 
           <!-- Left: Direct Info Card -->
           <div class="contact-info-card card">
-            <h3 class="contact-card-title">Let's Build Something Resilient</h3>
+            <h3 class="contact-card-title">Direct Channels</h3>
             <p class="contact-card-text">
-              I am actively open to Site Reliability Engineer (SRE), Cloud Platform, DevOps, and Distributed Systems positions in Bangalore, India or remote.
+              Available for SRE, Cloud Infrastructure, and Backend Systems roles in Bangalore, India or remote.
             </p>
 
             <div class="contact-detail-items">
@@ -882,6 +922,49 @@
     </div>
   </div>
 
+  <!-- Raycast-Style Command Palette Modal (Cmd+K / Ctrl+K) -->
+  <div class="cmdk-overlay hidden" id="cmdk-modal" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="cmdk-dialog">
+      <div class="cmdk-input-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Type a command or jump to section..." autocomplete="off" spellcheck="false" aria-label="Search commands">
+        <kbd class="cmdk-esc">ESC</kbd>
+      </div>
+      <div class="cmdk-list" id="cmdk-list" role="listbox">
+        <button type="button" class="cmdk-item active" data-cmd="jump:#hero" role="option">
+          <span>Go to Overview</span><kbd>Hero</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#about" role="option">
+          <span>Go to Engineering Focus</span><kbd>01</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#experience" role="option">
+          <span>Go to Production Experience</span><kbd>02</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#projects" role="option">
+          <span>Go to Featured Engineering</span><kbd>03</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#chess" role="option">
+          <span>Play Interactive Chess Arena</span><kbd>04</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="chess:puzzles" role="option">
+          <span>Launch Chess Tactical Puzzles</span><kbd>♟</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#skills" role="option">
+          <span>Go to Stack &amp; Tooling</span><kbd>05</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="jump:#contact" role="option">
+          <span>Go to Contact</span><kbd>06</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="action:theme" role="option">
+          <span>Toggle Dark / Light Theme</span><kbd>Theme</kbd>
+        </button>
+        <button type="button" class="cmdk-item" data-cmd="action:copy-email" role="option">
+          <span>Copy Email Address</span><kbd>Copy</kbd>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Area -->
   <div class="toast-region" id="toast-region" role="status" aria-live="polite"></div>
 
@@ -889,14 +972,10 @@
   <footer class="site-footer">
     <div class="container footer-container">
       <div class="footer-left">
-        <span class="footer-logo">VP.</span>
-        <span class="footer-copy">© 2026 Vishal B Patil. Built with zero dependencies.</span>
+        <span class="footer-logo">vp.dev</span>
+        <span class="footer-copy">© 2026 Vishal B Patil · Zero-dependency architecture.</span>
       </div>
       <div class="footer-right">
-        <span class="status-live-pill">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>All Systems Operational</span>
-        </span>
         <a href="#hero" class="back-to-top" aria-label="Back to Top">
           <span>Top</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>

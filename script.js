@@ -933,9 +933,142 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Keyboard Shortcuts
+  // =========================================================================
+  // 7. CURSOR SPOTLIGHT (LINEAR / SUPABASE) & CMD+K PALETTE (RAYCAST)
+  // =========================================================================
+  const cmdkModal = document.getElementById('cmdk-modal');
+  const cmdkTrigger = document.getElementById('cmdk-trigger');
+  const cmdkInput = document.getElementById('cmdk-input');
+  const cmdkList = document.getElementById('cmdk-list');
+
+  function openCmdk() {
+    if (!cmdkModal || !cmdkInput) return;
+    cmdkModal.classList.remove('hidden');
+    cmdkInput.value = '';
+    filterCmdkItems('');
+    cmdkInput.focus();
+  }
+
+  function closeCmdk() {
+    if (!cmdkModal) return;
+    cmdkModal.classList.add('hidden');
+  }
+
+  function filterCmdkItems(query) {
+    if (!cmdkList) return;
+    const q = query.trim().toLowerCase();
+    const items = Array.from(cmdkList.querySelectorAll('.cmdk-item'));
+    let firstVisible = null;
+    items.forEach((item) => {
+      const match = item.textContent.toLowerCase().includes(q);
+      item.classList.toggle('hidden', !match);
+      item.classList.remove('active');
+      if (match && !firstVisible) firstVisible = item;
+    });
+    if (firstVisible) firstVisible.classList.add('active');
+  }
+
+  function executeCmdkAction(cmd) {
+    closeCmdk();
+    if (!cmd) return;
+    if (cmd.startsWith('jump:')) {
+      const target = document.querySelector(cmd.slice(5));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    } else if (cmd === 'chess:puzzles') {
+      const chessSec = document.getElementById('chess');
+      if (chessSec) chessSec.scrollIntoView({ behavior: 'smooth' });
+      if (DOM.modeBtnPuzzles) DOM.modeBtnPuzzles.click();
+    } else if (cmd === 'action:theme') {
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) themeBtn.click();
+    } else if (cmd === 'action:copy-email') {
+      const copyBtn = document.getElementById('btn-copy-email');
+      if (copyBtn) copyBtn.click();
+    }
+  }
+
+  if (cmdkTrigger) cmdkTrigger.addEventListener('click', openCmdk);
+
+  if (cmdkModal) {
+    cmdkModal.addEventListener('click', (e) => {
+      if (e.target === cmdkModal) closeCmdk();
+    });
+  }
+
+  if (cmdkInput && cmdkList) {
+    cmdkInput.addEventListener('input', (e) => filterCmdkItems(e.target.value));
+    cmdkInput.addEventListener('keydown', (e) => {
+      const visible = Array.from(cmdkList.querySelectorAll('.cmdk-item:not(.hidden)'));
+      if (!visible.length) return;
+      const idx = visible.findIndex((el) => el.classList.contains('active'));
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (idx >= 0) visible[idx].classList.remove('active');
+        visible[(idx + 1) % visible.length].classList.add('active');
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (idx >= 0) visible[idx].classList.remove('active');
+        visible[(idx - 1 + visible.length) % visible.length].classList.add('active');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const active = visible[idx >= 0 ? idx : 0];
+        if (active) executeCmdkAction(active.getAttribute('data-cmd'));
+      }
+    });
+
+    cmdkList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cmdk-item');
+      if (btn) executeCmdkAction(btn.getAttribute('data-cmd'));
+    });
+  }
+
+  // Cursor Spotlight Tracker (disabled on touch / reduced-motion)
+  const canHoverSpotlight =
+    typeof window.matchMedia === 'function'
+      ? !window.matchMedia('(pointer: coarse)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+
+  if (canHoverSpotlight) {
+    let rafPending = false;
+    let lastX = 0;
+    let lastY = 0;
+    document.addEventListener('pointermove', (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        rafPending = false;
+        const cards = document.querySelectorAll('.card, .metric-card');
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          if (lastX >= rect.left - 80 && lastX <= rect.right + 80 && lastY >= rect.top - 80 && lastY <= rect.bottom + 80) {
+            card.style.setProperty('--mx', `${lastX - rect.left}px`);
+            card.style.setProperty('--my', `${lastY - rect.top}px`);
+          }
+        });
+      });
+    }, { passive: true });
+  }
+
+  // Keyboard Shortcuts (Cmd+K / Ctrl+K + Chess Arena F/U/R/M)
   document.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (cmdkModal && !cmdkModal.classList.contains('hidden')) closeCmdk();
+      else openCmdk();
+      return;
+    }
+
+    if (e.key === 'Escape' && cmdkModal && !cmdkModal.classList.contains('hidden')) {
+      closeCmdk();
+      return;
+    }
+
+    if (cmdkModal && !cmdkModal.classList.contains('hidden')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) return;
+
     const key = e.key.toUpperCase();
     if (key === 'F' && DOM.flipBoardBtn) DOM.flipBoardBtn.click();
     else if (key === 'U' && DOM.undoBtn && !DOM.undoBtn.disabled) DOM.undoBtn.click();
